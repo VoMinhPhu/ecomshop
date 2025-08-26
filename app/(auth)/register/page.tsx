@@ -20,7 +20,7 @@ const page = () => {
           <p className="text-center uppercase text-2xl">Đăng ký tài khoản</p>
           <p className="text-center">
             Bạn đã có tài khoản?
-            <Link href={'/account/login'} className="text-primary ml-2 underline font-medium">
+            <Link href={'/login'} className="text-primary ml-2 underline font-medium">
               Đăng nhập tại đây.
             </Link>
           </p>

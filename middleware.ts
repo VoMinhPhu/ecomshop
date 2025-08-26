@@ -4,11 +4,11 @@ import type { NextRequest } from 'next/server';
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  if (pathname === '/account') {
+  if (pathname.startsWith('/account')) {
     const token = req.cookies.get('access_token')?.value;
 
     if (!token) {
-      const loginUrl = new URL('/account/login', req.url);
+      const loginUrl = new URL('/login', req.url);
       return NextResponse.redirect(loginUrl);
     }
   }
@@ -17,5 +17,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/account'],
+  matcher: ['/account/:path*'],
 };

@@ -46,7 +46,7 @@ const page = () => {
           <p className="text-center uppercase text-2xl">Đăng nhập tài khoản</p>
           <p className="text-center">
             Bạn chưa có tài khoản?
-            <Link href={'/account/register'} className="text-primary ml-2 underline font-medium">
+            <Link href={'/register'} className="text-primary ml-2 underline font-medium">
               Đăng kí tại đây.
             </Link>
           </p>

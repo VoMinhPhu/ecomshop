@@ -27,7 +27,7 @@ const Header = () => {
               <p className="text-xs md:text-sm">Võ Minh Phú</p>
             </Link>
           </div>
-          <Link href={'/cart'}>
+          <Link href={'/account/cart'}>
             <Button
               variant={'outline'}
               className="bg-transparent cursor-pointer border-none shadow-none hover:bg-white/80 h-12 py-0 text-white"
