@@ -2,8 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { Button } from '../button';
-import SubHeader from '@/components/header/SubHeader';
-import SectionSearch from '@/components/header/SectionSearch';
+import SubHeader from '@/components/common/header/SubHeader';
+import SectionSearch from '@/components/common/header/SectionSearch';
 
 import { ShoppingCart, User2Icon } from 'lucide-react';
 
