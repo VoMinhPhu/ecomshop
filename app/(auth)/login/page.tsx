@@ -7,8 +7,10 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { cn } from '@/lib/utils';
 import { useLogin } from '@/lib/api/auth';
 
+import { LoaderIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import PasswordInput from '@/components/auth/PasswordInput';
@@ -20,7 +22,7 @@ const formLoginSchema = z.object({
 });
 
 const page = () => {
-  const { mutate: loginMutate } = useLogin();
+  const { mutate: loginMutate, isPending } = useLogin();
 
   const form = useForm<z.infer<typeof formLoginSchema>>({
     resolver: zodResolver(formLoginSchema),
@@ -83,6 +85,9 @@ const page = () => {
                 </Link>
               </p>
               <Button type="submit" className="w-full h-11 text-base">
+                <span className={cn('items-center animate-spin', isPending ? 'flex' : 'hidden')}>
+                  <LoaderIcon strokeWidth={3} />
+                </span>
                 Đăng nhập
               </Button>
             </form>
