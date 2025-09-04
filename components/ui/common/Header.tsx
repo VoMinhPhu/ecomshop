@@ -1,13 +1,28 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useEffect } from 'react';
+
+import { useGetMe } from '@/hooks/users';
+import useUserStore from '@/stores/userStore';
+import { ShoppingCart, User2Icon } from 'lucide-react';
 
 import { Button } from '../button';
 import SubHeader from '@/components/common/header/SubHeader';
 import SectionSearch from '@/components/common/header/SectionSearch';
 
-import { ShoppingCart, User2Icon } from 'lucide-react';
-
 const Header = () => {
+  const { data, dataUpdatedAt, isError } = useGetMe();
+  const { setUser, user, clearUser } = useUserStore();
+
+  useEffect(() => {
+    if (data) {
+      setUser(data);
+    }
+    if (isError) clearUser();
+  }, [dataUpdatedAt, isError]);
+
   return (
     <div className="fixed top-0 w-full bg-emerald-600 border-b flex flex-col items-center justify-center">
       <div className="max-w-300 px-2 w-full min-h-19 flex items-center">
@@ -23,8 +38,8 @@ const Header = () => {
               <User2Icon color="white" size={32} />
             </div>
             <Link href={'/account'} className="flex-1 text-white hover:text-amber-300">
-              <p className="text-base font-medium">Tài khoản</p>
-              <p className="text-xs md:text-sm">Võ Minh Phú</p>
+              <p className="text-base font-medium">{user?.name ? 'Tài Khoản' : 'Đăng nhập'}</p>
+              <p className="text-xs md:text-sm">{user?.name ?? ''}</p>
             </Link>
           </div>
           <Link href={'/account/cart'}>

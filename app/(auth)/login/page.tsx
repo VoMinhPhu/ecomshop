@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
-import { useLogin } from '@/lib/api/auth';
+import { useLogin } from '@/hooks/auth';
 
 import { LoaderIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
