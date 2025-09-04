@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
-import { useRegister } from '@/lib/api/auth';
+import { useRegister } from '@/hooks/auth';
 
 import { LoaderIcon } from 'lucide-react';
 import PasswordInput from './PasswordInput';
