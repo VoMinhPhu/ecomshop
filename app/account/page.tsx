@@ -1,12 +1,16 @@
 'use client';
 
 import Image from 'next/image';
+import { useState } from 'react';
 
+import { cn } from '@/lib/utils';
 import { convertDate } from '@/utils/date';
 import useUserStore from '@/stores/userStore';
-import { Button } from '@/components/ui/button';
+import CropAvatar from '@/components/account/CropAvatar';
 
 const page = () => {
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+
   const user = useUserStore((state) => state.user);
   const convertGender = (gender: string | null | undefined): string => {
     if (!gender) return 'Chưa cập nhật';
@@ -17,7 +21,7 @@ const page = () => {
   return (
     <div className="my-2 px-4">
       <p className="text-xl font-semibold">THÔNG TIN TÀI KHOẢN</p>
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 md:gap-4">
         <div className="pl-8 col-span-2 lg:col-span-1 order-2 md:order-1">
           <div className="mt-4 flex gap-4">
             <p className="font-semibold">Họ tên:</p>
@@ -44,15 +48,16 @@ const page = () => {
             <p>Đã kích hoạt</p>
           </div>
         </div>
-        <div className="flex flex-col items-center md:col-span-2 order-1 pt-6">
+        <div className="flex flex-col items-center md:col-span-2 order-1 pt-6 md:pt-0">
           <Image
+            priority
             src={user?.avatar ?? '/avatar.svg'}
-            width={130}
-            height={130}
+            width={160}
+            height={160}
             alt="avt"
-            className="rounded-full border"
+            className={cn('rounded-full border', imageSrc && 'hidden')}
           />
-          <Button className="h-12 mt-6 cursor-pointer">Chọn ảnh đại diện</Button>
+          <CropAvatar setImageSrc={setImageSrc} imageSrc={imageSrc} />
         </div>
       </div>
     </div>
