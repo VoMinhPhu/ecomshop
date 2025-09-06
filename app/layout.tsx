@@ -34,7 +34,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReactQueryProvider>
           <Header />
-          {children}
+          <main className="mt-38.25 md:mt-48 lg:mt-31">{children}</main>
           <Footer />
           <ToastProvider />
         </ReactQueryProvider>
