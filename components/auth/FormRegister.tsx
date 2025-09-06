@@ -97,7 +97,7 @@ const FormRegister = () => {
           render={({ field }) => <PasswordInput field={field} label="Nhập lại mật khẩu" />}
         />
 
-        <Button type="submit" className="w-full h-11 text-base mt-6">
+        <Button disabled={isPending} type="submit" className="w-full h-11 text-base mt-6">
           <span className={cn('items-center animate-spin', isPending ? 'flex' : 'hidden')}>
             <LoaderIcon strokeWidth={3} />
           </span>
