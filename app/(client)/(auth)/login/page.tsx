@@ -84,7 +84,7 @@ const page = () => {
                   Lấy lại mật khẩu.
                 </Link>
               </p>
-              <Button type="submit" className="w-full h-11 text-base">
+              <Button disabled={isPending} type="submit" className="w-full mt-2 cursor-pointer h-11 text-base">
                 <span className={cn('items-center animate-spin', isPending ? 'flex' : 'hidden')}>
                   <LoaderIcon strokeWidth={3} />
                 </span>
