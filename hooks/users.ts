@@ -1,5 +1,6 @@
-import { getMeFn } from '@/lib/api/users';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getMeFn, updateAvatarFn } from '@/lib/api/users';
+import { toast } from 'sonner';
 
 const useGetMe = () => {
   return useQuery({
@@ -9,4 +10,25 @@ const useGetMe = () => {
   });
 };
 
-export { useGetMe };
+const useUpdateAvatar = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateAvatarFn,
+    onSuccess: () => {
+      toast.success('Cập nhật ảnh đại diện', {
+        description: 'Cập nhật ảnh đại diện thành công.',
+        duration: 2500,
+      });
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+    },
+    onError: (err) => {
+      toast.error('Cập nhật ảnh đại diện', {
+        description: err.message,
+        duration: 2500,
+      });
+    },
+  });
+};
+
+export { useGetMe, useUpdateAvatar };

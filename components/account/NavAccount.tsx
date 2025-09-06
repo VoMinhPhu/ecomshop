@@ -19,7 +19,7 @@ const NavAccount = () => {
   useEffect(() => {
     const currpage = pathname.split('/').pop();
     setActive(currpage);
-  }, []);
+  }, [pathname]);
 
   return (
     <div className="border-r-2 my-2 hidden md:block">
@@ -33,7 +33,6 @@ const NavAccount = () => {
         </p>
         <div className="my-4 ml-4">
           <Link
-            onClick={() => setActive('account')}
             href={'/account'}
             className={cn(
               'flex items-center w-full cursor-pointer py-2.5 hover:text-primary mt-0.5',
@@ -43,7 +42,6 @@ const NavAccount = () => {
             Thông tin tài khoản
           </Link>
           <Link
-            onClick={() => setActive('cart')}
             href={'/account/cart'}
             className={cn(
               'flex items-center w-full cursor-pointer py-2.5 hover:text-primary mt-0.5',
@@ -53,7 +51,6 @@ const NavAccount = () => {
             Đơn hàng của bạn
           </Link>
           <Link
-            onClick={() => setActive('changePassword')}
             href={'/account'}
             className={cn(
               'flex items-center w-full cursor-pointer py-2.5 hover:text-primary mt-0.5',
@@ -63,7 +60,6 @@ const NavAccount = () => {
             Đổi mật khẩu
           </Link>
           <Link
-            onClick={() => setActive('address')}
             href={'/account'}
             className={cn(
               'flex items-center w-full cursor-pointer py-2.5 hover:text-primary mt-0.5',

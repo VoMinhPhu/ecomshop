@@ -6,4 +6,11 @@ const getMeFn = async () => {
   return data;
 };
 
-export { getMeFn };
+const updateAvatarFn = async (avatar: Blob) => {
+  const formData = new FormData();
+  formData.append('file', avatar, 'avatar.png');
+  const { data } = await axiosInstance.post('/users/update-avatar', formData);
+  return data;
+};
+
+export { getMeFn, updateAvatarFn };
