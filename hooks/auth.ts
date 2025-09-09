@@ -26,7 +26,7 @@ const useLogin = () => {
       if (error.response?.status === 401) {
         toast.error('Đăng nhập', {
           description: 'Tài khoản hoặc mật khẩu không chính xác.',
-          duration: 3500,
+          duration: 100000,
         });
         return;
       }

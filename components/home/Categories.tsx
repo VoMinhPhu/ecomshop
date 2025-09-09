@@ -15,7 +15,7 @@ const Categories = () => {
       <div className="sticky top-40 lg:top-23 bg-white rounded-md shadow">
         <p className="text-lg font-semibold px-4 py-2">Danh mục</p>
         <div className="px-4 pb-8">
-          {data.map((item: any) => {
+          {data?.map((item: any) => {
             return (
               <Link
                 key={item.id}
