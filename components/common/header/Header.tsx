@@ -8,7 +8,7 @@ import { useGetMe } from '@/hooks/users';
 import useUserStore from '@/stores/userStore';
 import { ShoppingCart, User2Icon } from 'lucide-react';
 
-import { Button } from '../button';
+import { Button } from '@/components/ui/button';
 import SubHeader from '@/components/common/header/SubHeader';
 import SectionSearch from '@/components/common/header/SectionSearch';
 

@@ -10,18 +10,12 @@ import {
   SidebarHeader,
   SidebarFooter,
   SidebarContent,
-  SidebarMenuSub,
   SidebarMenuItem,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarGroupLabel,
-  SidebarMenuSubItem,
-  SidebarMenuSubButton,
 } from '@/components/ui/sidebar';
-import SubNavAdmin from '@/components/admin/nav/SubNavAdmin';
 import UserMenuAdmin from '@/components/admin/nav/UserMenuAdmin';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Blocks, Box, ChevronRight, Layers, Receipt, Ticket, Users } from 'lucide-react';
+import { Blocks, Box, Layers, Receipt, Ticket, Users } from 'lucide-react';
 
 export default function NavAdmin() {
   return (
@@ -43,95 +37,69 @@ export default function NavAdmin() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Tổng quan</SidebarGroupLabel>
           <SidebarMenu>
-            <Collapsible asChild defaultOpen={true}>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link className="pl-4" href={'#'}>
-                    <Blocks />
-                    <span>Thống kê</span>
-                  </Link>
-                </SidebarMenuButton>
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuAction className="data-[state=open]:rotate-90">
-                    <ChevronRight />
-                  </SidebarMenuAction>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarMenuSub>
-                    <SidebarMenuSubItem>
-                      <SidebarMenuSubButton asChild>
-                        <Link href={'#'}>
-                          <span>Theo tháng</span>
-                        </Link>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                    <SidebarMenuSubItem>
-                      <SidebarMenuSubButton asChild>
-                        <Link href={'#'}>
-                          <span>Theo năm</span>
-                        </Link>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                  </SidebarMenuSub>
-                </CollapsibleContent>
-              </SidebarMenuItem>
-            </Collapsible>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link className="pl-4" href="/admin">
+                  <Blocks />
+                  <span>Thống kê</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
+
         <SidebarGroup>
           <SidebarGroupLabel>Quản lý sản phẩm</SidebarGroupLabel>
           <SidebarMenu>
-            <Collapsible asChild defaultOpen={true}>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link className="pl-4" href={'#'}>
-                    <Box />
-                    <span>Sản phẩm</span>
-                  </Link>
-                </SidebarMenuButton>
-                <SidebarMenuButton asChild>
-                  <Link className="pl-4" href={'#'}>
-                    <Layers />
-                    <span>Danh mục</span>
-                  </Link>
-                </SidebarMenuButton>
-                <SidebarMenuButton asChild>
-                  <Link className="pl-4" href={'#'}>
-                    <Ticket />
-                    <span>Khuyến mãi</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </Collapsible>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link className="pl-4" href="#">
+                  <Box />
+                  <span>Sản phẩm</span>
+                </Link>
+              </SidebarMenuButton>
+              <SidebarMenuButton asChild>
+                <Link className="pl-4" href="#">
+                  <Layers />
+                  <span>Danh mục</span>
+                </Link>
+              </SidebarMenuButton>
+              <SidebarMenuButton asChild>
+                <Link className="pl-4" href="#">
+                  <Ticket />
+                  <span>Khuyến mãi</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
+
         <SidebarGroup>
           <SidebarGroupLabel>Bán hàng</SidebarGroupLabel>
           <SidebarMenu>
-            <Collapsible asChild defaultOpen={true}>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link className="pl-4" href={'#'}>
-                    <Receipt />
-                    <span>Đơn hàng</span>
-                  </Link>
-                </SidebarMenuButton>
-                <SidebarMenuButton asChild>
-                  <Link className="pl-4" href={'#'}>
-                    <Users />
-                    <span>Khách hàng</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </Collapsible>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link className="pl-4" href="#">
+                  <Receipt />
+                  <span>Đơn hàng</span>
+                </Link>
+              </SidebarMenuButton>
+              <SidebarMenuButton asChild>
+                <Link className="pl-4" href="#">
+                  <Users />
+                  <span>Khách hàng</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
-        <SubNavAdmin className="mt-auto" />
       </SidebarContent>
+
       <SidebarFooter>
         <UserMenuAdmin />
       </SidebarFooter>
