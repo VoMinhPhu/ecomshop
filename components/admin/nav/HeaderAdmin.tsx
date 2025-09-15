@@ -1,5 +1,7 @@
 'use client';
 
+import React from 'react';
+import { usePathname } from 'next/navigation';
 import { Search, SidebarIcon } from 'lucide-react';
 
 import {
@@ -15,8 +17,20 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { SidebarInput, useSidebar } from '@/components/ui/sidebar';
 
+const pages: Record<string, string> = {
+  admin: 'Tổng quan',
+  products: 'Sản phẩm',
+  create: 'Tạo mới sản phẩm',
+  details: 'Chi tiết sản phẩm',
+  users: 'Người dùng',
+  orders: 'Đơn hàng',
+};
+
 const HeaderAdmin = () => {
   const { toggleSidebar } = useSidebar();
+  const pathname = usePathname();
+
+  const segments = pathname.split('/').filter(Boolean);
 
   return (
     <header className="bg-background sticky top-0 z-50 flex w-full items-center border-b">
@@ -28,12 +42,25 @@ const HeaderAdmin = () => {
         <Breadcrumb className="hidden sm:block">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="#">Trang quản trị</BreadcrumbLink>
+              <BreadcrumbLink href="/admin">Trang quản trị</BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Tổng quan</BreadcrumbPage>
-            </BreadcrumbItem>
+            {segments.slice(1).map((seg, idx) => {
+              const href = '/admin/' + segments.slice(1, idx + 2).join('/');
+              const label = pages[seg] ?? seg;
+
+              return (
+                <React.Fragment key={href}>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    {idx === segments.slice(1).length - 1 ? (
+                      <BreadcrumbPage>{label}</BreadcrumbPage>
+                    ) : (
+                      <BreadcrumbLink href={href}>{label}</BreadcrumbLink>
+                    )}
+                  </BreadcrumbItem>
+                </React.Fragment>
+              );
+            })}
           </BreadcrumbList>
         </Breadcrumb>
         <div className="w-full sm:ml-auto sm:w-auto">
