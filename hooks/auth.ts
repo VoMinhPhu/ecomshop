@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { loginFn, logoutFn, registerFn } from '@/lib/api/auth';
 import useUserStore from '@/stores/userStore';
+import { loginFn, logoutFn, registerFn } from '@/lib/api/auth';
 
 const useLogin = () => {
   const router = useRouter();
@@ -26,7 +26,7 @@ const useLogin = () => {
       if (error.response?.status === 401) {
         toast.error('Đăng nhập', {
           description: 'Tài khoản hoặc mật khẩu không chính xác.',
-          duration: 100000,
+          duration: 2500,
         });
         return;
       }

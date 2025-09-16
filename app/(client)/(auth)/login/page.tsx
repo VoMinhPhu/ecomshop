@@ -36,6 +36,7 @@ const page = () => {
     loginMutate(values);
     form.reset();
   }
+
   return (
     <div className="mt-38 md:mt-48 lg:mt-31 px-2">
       <div className="max-w-300 w-full mx-auto">
@@ -93,10 +94,12 @@ const page = () => {
             </form>
           </Form>
           <p className="text-center text-zinc-400 my-4">Hoặc đăng nhập bằng</p>
-          <Button variant="outline" className="w-full h-11 text-base">
-            <Image src={'/google.svg'} width={20} height={20} alt="google icon" />
-            Đăng nhập với Google
-          </Button>
+          <Link href={'http://localhost:8080/api/v1/auth/google'}>
+            <Button variant="outline" className="w-full h-11 text-base">
+              <Image src={'/google.svg'} width={20} height={20} alt="google icon" />
+              Đăng nhập với Google
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
