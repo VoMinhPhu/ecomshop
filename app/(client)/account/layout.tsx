@@ -6,7 +6,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="mt-37 md:mt-48 lg:mt-31">
       <div className="max-w-300 px-2 md:px-4 w-full mx-auto grid grid-cols-4">
         <NavLinkHome />
-        <NavAccount />
+        <div className="col-span-4 lg:col-span-1">
+          <NavAccount />
+        </div>
         <div className="col-span-4 lg:col-span-3">{children}</div>
       </div>
     </div>
