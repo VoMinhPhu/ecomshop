@@ -10,7 +10,7 @@ const NavLinkHome = () => {
   const links = pathname.split('/');
 
   return (
-    <div className="col-span-5 flex items-center gap-3 mt-2">
+    <div className="col-span-4 flex items-center gap-3 mt-2">
       <Link href={'/'} className="text-zinc-400">
         Trang chủ
       </Link>

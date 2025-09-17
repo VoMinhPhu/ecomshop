@@ -68,7 +68,7 @@ const CropAvatar = ({
         <Label
           htmlFor="changeAvt"
           className={cn(
-            'h-12 cursor-pointer bg-primary text-white rounded-sm text-sm px-4 flex items-center justify-center mt-6',
+            'h-11 cursor-pointer bg-primary text-white rounded-sm text-sm px-4 flex items-center justify-center mt-6',
             isPending && 'opacity-70',
           )}
         >
