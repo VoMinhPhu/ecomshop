@@ -1,3 +1,4 @@
+import { UpdateUserInfoType } from '@/types/users';
 import axiosInstance from '../axiosInstance';
 
 const getMeFn = async () => {
@@ -13,4 +14,9 @@ const updateAvatarFn = async (avatar: Blob) => {
   return data;
 };
 
-export { getMeFn, updateAvatarFn };
+const updateUserInfo = async (data: UpdateUserInfoType) => {
+  const res = await axiosInstance.post('/users/update', data);
+  return res.data;
+};
+
+export { getMeFn, updateAvatarFn, updateUserInfo };

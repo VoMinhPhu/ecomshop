@@ -1,67 +1,24 @@
 'use client';
-
-import Image from 'next/image';
-import { useState } from 'react';
-
-import { cn } from '@/lib/utils';
-import { convertDate } from '@/utils/date';
 import useUserStore from '@/stores/userStore';
-import CropAvatar from '@/components/account/CropAvatar';
 
-const page = () => {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+import { Card } from '@/components/ui/card';
+import UserInfoForm from '@/components/account/UserInfoForm';
+import AvatarSection from '@/components/account/AvatarSection';
 
+const Page = () => {
   const user = useUserStore((state) => state.user);
-  const convertGender = (gender: string | null | undefined): string => {
-    if (!gender) return 'Chưa cập nhật';
-    if (gender == 'male') return 'Nam';
-    return 'Nữ';
-  };
 
   return (
-    <div className="my-2 px-4">
+    <Card className="mt-4 lg:ml-4 px-4 gap-0">
       <p className="text-xl font-semibold">THÔNG TIN TÀI KHOẢN</p>
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 md:gap-4">
-        <div className="pl-8 col-span-2 lg:col-span-1 order-2 md:order-1">
-          <div className="mt-4 flex gap-4">
-            <p className="font-semibold">Họ tên:</p>
-            <p>{user?.name ?? ''}</p>
-          </div>
-          <div className="mt-4 flex gap-4">
-            <p className="font-semibold">Email:</p>
-            <p>{user?.email ?? ''}</p>
-          </div>
-          <div className="mt-4 flex gap-4">
-            <p className="font-semibold">Số điện thoại:</p>
-            <p>{user?.phone ?? 'Chưa cập nhật'}</p>
-          </div>
-          <div className="mt-4 flex gap-4">
-            <p className="font-semibold">Giới tính:</p>
-            <p>{convertGender(user?.gender)}</p>
-          </div>
-          <div className="mt-4 flex gap-4">
-            <p className="font-semibold">Ngày sinh:</p>
-            <p>{user?.dateOfBirth ? convertDate(user?.dateOfBirth) : 'Chưa cập nhật'}</p>
-          </div>
-          <div className="mt-4 flex gap-4">
-            <p className="font-semibold">Trạng thái:</p>
-            <p>Đã kích hoạt</p>
-          </div>
+      <div className="grid grid-cols-1 mt-4 md:grid-cols-5 md:gap-4 gap-y-8 md:gap-y-0">
+        <div className="lg:pl-8 col-span-3 order-2 md:order-1">
+          <UserInfoForm user={user} />
         </div>
-        <div className="flex flex-col items-center md:col-span-2 order-1 pt-6 md:pt-0">
-          <Image
-            priority
-            src={user?.avatar ?? '/avatar.svg'}
-            width={160}
-            height={160}
-            alt="avt"
-            className={cn('rounded-full border', imageSrc && 'hidden')}
-          />
-          <CropAvatar setImageSrc={setImageSrc} imageSrc={imageSrc} />
-        </div>
+        <AvatarSection userAvatar={user?.avatar} />
       </div>
-    </div>
+    </Card>
   );
 };
 
-export default page;
+export default Page;
