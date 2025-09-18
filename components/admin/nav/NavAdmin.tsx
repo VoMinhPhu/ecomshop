@@ -96,7 +96,7 @@ export default function NavAdmin() {
 
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link className="pl-4" href="#">
+                <Link className="pl-4" href="/admin/categories">
                   <Layers />
                   <span>Danh mục</span>
                 </Link>

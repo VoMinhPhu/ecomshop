@@ -14,7 +14,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/compon
 import { KeyRound, LogIn, LogOut, MapPin, Package, User } from 'lucide-react';
 
 const UserMenuHeader = () => {
-  const { data, isError } = useGetMe();
+  const { data, dataUpdatedAt, isError } = useGetMe();
   const { mutate: logoutMutate } = useLogout();
   const { setUser, user, clearUser } = useUserStore();
 
@@ -23,7 +23,7 @@ const UserMenuHeader = () => {
       setUser(data);
     }
     if (isError) clearUser();
-  }, [data, isError]);
+  }, [dataUpdatedAt, isError]);
   const handleLogout = () => logoutMutate();
 
   return (

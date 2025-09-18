@@ -1,12 +1,13 @@
-import { Download, FileDown, Plus, Search } from 'lucide-react';
+import Link from 'next/link';
 
-import { Button } from '@/components/ui/button';
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+import { Download, Plus, Search } from 'lucide-react';
+
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-
-const page = () => {
+const Page = () => {
   return (
     <div className="p-4">
       <Card>
@@ -14,12 +15,14 @@ const page = () => {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle>Danh sách sản phẩm có trong hệ thống</CardTitle>
-              <CardDescription className="mt-1">Cập nhật sản phẩm trong hệ thống</CardDescription>
+              <CardDescription className="mt-1">Những sản phẩm hiện có trong hệ thống</CardDescription>
             </div>
-            <Button className="cursor-pointer ml-4">
-              <Plus />
-              <span className="md:block hidden">Thêm sản phẩm mới</span>
-            </Button>
+            <Link href={'/admin/products/create'}>
+              <Button className="cursor-pointer ml-4">
+                <Plus />
+                <span className="md:block hidden">Thêm sản phẩm mới</span>
+              </Button>
+            </Link>
           </div>
           <Separator className="mt-4 mb-2" />
           <div className="flex items-center gap-1 md:gap-3">
@@ -81,4 +84,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

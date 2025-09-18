@@ -1,4 +1,9 @@
-const getCroppedImg = async (imageSrc: string, croppedAreaPixels: any): Promise<string> => {
+const getCroppedImg = async (
+  imageSrc: string,
+  croppedAreaPixels: any,
+  width?: number,
+  height?: number,
+): Promise<string> => {
   const image: HTMLImageElement = await new Promise((resolve, reject) => {
     const img = new Image();
     img.src = imageSrc;
@@ -12,8 +17,8 @@ const getCroppedImg = async (imageSrc: string, croppedAreaPixels: any): Promise<
   if (!ctx) throw new Error('No canvas context');
 
   const size = 200;
-  canvas.width = size;
-  canvas.height = size;
+  canvas.width = width ?? size;
+  canvas.height = height ?? size;
 
   ctx.drawImage(
     image,
@@ -23,8 +28,8 @@ const getCroppedImg = async (imageSrc: string, croppedAreaPixels: any): Promise<
     croppedAreaPixels.height,
     0,
     0,
-    size,
-    size,
+    canvas.width,
+    canvas.height,
   );
 
   return canvas.toDataURL('image/png');

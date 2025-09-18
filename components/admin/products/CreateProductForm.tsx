@@ -1,0 +1,130 @@
+'use client';
+
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useCreateProduct, useGetCategoriesAndBrands } from '@/hooks/products';
+
+import { cn } from '@/lib/utils';
+import { Loader } from 'lucide-react';
+
+import MarkdownField from './MarkdownField';
+import CropImageField from './CropImageField';
+import InputField from '@/components/common/fieldOfForm/InputField';
+import SelectField from '@/components/common/fieldOfForm/SelectField';
+import SelectHaveSearchField from '@/components/common/fieldOfForm/SelectHaveSearchField';
+
+import { Button } from '@/components/ui/button';
+import { Form, FormField } from '@/components/ui/form';
+
+import { createProductSchema, type CreateProductSchema } from '@/types/products';
+
+const CreateProductForm = () => {
+  const { data } = useGetCategoriesAndBrands();
+  const { mutate: createProductMutate, isPending } = useCreateProduct();
+
+  const form = useForm<CreateProductSchema>({
+    resolver: zodResolver(createProductSchema),
+    defaultValues: {
+      name: '',
+      price: '',
+      salePrice: undefined,
+      description: undefined,
+      categoryId: '',
+      brandId: '',
+      status: 'active',
+      thumbnail: undefined,
+    },
+  });
+
+  const onSubmit = (values: CreateProductSchema) => {
+    createProductMutate(values);
+    form.reset();
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          name="name"
+          control={form.control}
+          render={({ field }) => (
+            <InputField requireIcon label="Tên sản phẩm" field={field} placeholder="Nhập tên sản phẩm" />
+          )}
+        />
+
+        <FormField name="thumbnail" control={form.control} render={({ field }) => <CropImageField field={field} />} />
+
+        <div className="grid md:grid-cols-2 gap-y-4 md:gap-2">
+          <FormField
+            name="categoryId"
+            control={form.control}
+            render={({ field }) => (
+              <SelectHaveSearchField
+                nameField="Danh mục"
+                requireIcon
+                value={field.value}
+                options={(data?.categories ?? []).map((c) => ({ value: c.id, label: c.name }))}
+                onSelect={field.onChange}
+              />
+            )}
+          />
+          <FormField
+            name="brandId"
+            control={form.control}
+            render={({ field }) => (
+              <SelectHaveSearchField
+                nameField="Thương hiệu"
+                requireIcon
+                value={field.value}
+                options={(data?.brands ?? []).map((b) => ({ value: b.id, label: b.name }))}
+                onSelect={field.onChange}
+              />
+            )}
+          />
+        </div>
+        <div className="grid md:grid-cols-2 gap-y-4 md:gap-2 items-start">
+          <FormField
+            name="price"
+            control={form.control}
+            render={({ field }) => <InputField requireIcon label="Giá" field={field} placeholder="Nhập giá sản phẩm" />}
+          />
+          <FormField
+            name="salePrice"
+            control={form.control}
+            render={({ field }) => (
+              <InputField label="Giá khuyến mãi" field={field} placeholder="Nhập giá khuyến mãi (nếu có)" />
+            )}
+          />
+        </div>
+
+        <FormField
+          name="description"
+          control={form.control}
+          render={({ field }) => <MarkdownField requireIcon field={field} label="Mô tả sản phẩm" />}
+        />
+
+        <FormField
+          name="status"
+          control={form.control}
+          render={({ field }) => (
+            <SelectField
+              label="Trạng thái"
+              field={field}
+              options={[
+                { value: 'active', label: 'Đang bán' },
+                { value: 'inactive', label: 'Ngừng bán' },
+              ]}
+            />
+          )}
+        />
+
+        <Button disabled={isPending} type="submit">
+          <Loader className={cn('animate-spin size-3.5', !isPending && 'hidden')} strokeWidth={3} />
+          Tạo sản phẩm
+        </Button>
+      </form>
+    </Form>
+  );
+};
+
+export default CreateProductForm;

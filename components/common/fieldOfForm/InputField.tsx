@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 import { FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
@@ -9,6 +10,7 @@ type InputFieldProps<TFieldValues extends FieldValues, TName extends Path<TField
   field: ControllerRenderProps<TFieldValues, TName>;
   placeholder?: string;
   disabled?: boolean;
+  requireIcon?: boolean;
 };
 
 const InputField = <TFieldValues extends FieldValues, TName extends Path<TFieldValues>>({
@@ -16,9 +18,13 @@ const InputField = <TFieldValues extends FieldValues, TName extends Path<TFieldV
   field,
   placeholder,
   disabled,
+  requireIcon = false,
 }: InputFieldProps<TFieldValues, TName>) => (
   <FormItem>
-    <FormLabel>{label}</FormLabel>
+    <FormLabel className="gap-1">
+      {label}
+      <span className={cn('text-red-500 font-bold', !requireIcon && 'hidden')}>*</span>
+    </FormLabel>
     <FormControl>
       <Input placeholder={placeholder} disabled={disabled} {...field} value={field.value ?? ''} />
     </FormControl>
