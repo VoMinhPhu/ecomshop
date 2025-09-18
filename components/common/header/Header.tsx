@@ -18,7 +18,6 @@ const Header = () => {
           <SectionSearch />
         </div>
         <div className="ml-auto flex items-center gap-1 md:gap-3">
-          <UserMenuHeader />
           <Link href={'/account/cart'}>
             <Button
               variant={'outline'}
@@ -33,12 +32,14 @@ const Header = () => {
               <span className="ml-1 text-base hidden md:block">Giỏ hàng</span>
             </Button>
           </Link>
+          <div>
+            <UserMenuHeader />
+          </div>
         </div>
       </div>
       <div className="w-full px-2 md:pb-2 lg:hidden">
         <SectionSearch />
       </div>
-
       <SubHeader />
     </div>
   );
