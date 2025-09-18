@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 const Page = () => {
   return (
-    <Card className="m-4">
+    <Card className="m-2 md:m-4">
       <CardHeader>
         <CardTitle>Thêm sản phẩm mới</CardTitle>
         <CardDescription>Thêm sản phẩm mới cho hệ thống</CardDescription>

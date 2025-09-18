@@ -88,7 +88,7 @@ const CropImageField = <TFieldValues extends FieldValues, TName extends Path<TFi
         >
           <Label
             htmlFor="productImage"
-            className="font-normal border-2 border-blue-500 h-10 p-30 border-dashed rounded-md bg-zinc-50 cursor-pointer"
+            className="font-normal border-2 border-blue-500 h-10 py-30 md:p-30 border-dashed rounded-md bg-zinc-50 cursor-pointer"
           >
             <p className="w-full text-center">Kéo thả ảnh hoặc bấm để tải ảnh lên</p>
             <Input id="productImage" type="file" className="hidden" accept="image/*" onChange={handleFileChange} />

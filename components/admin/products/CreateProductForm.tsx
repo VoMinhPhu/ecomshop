@@ -118,7 +118,7 @@ const CreateProductForm = () => {
           )}
         />
 
-        <Button disabled={isPending} type="submit">
+        <Button disabled={isPending} type="submit" className="w-full mt-2 md:w-auto">
           <Loader className={cn('animate-spin size-3.5', !isPending && 'hidden')} strokeWidth={3} />
           Tạo sản phẩm
         </Button>
