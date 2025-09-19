@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createProductFn, getCategoriesAndBrandsFn } from '@/lib/api/admin/product';
+import { createProductFn, getAllProductFn, getCategoriesAndBrandsFn } from '@/lib/api/admin/product';
 import { toast } from 'sonner';
 import { AxiosError } from 'axios';
+import useProductPagination from '@/stores/productStore';
 
 const useGetCategoriesAndBrands = () => {
   return useQuery({
@@ -21,7 +22,7 @@ const useCreateProduct = () => {
         description: 'Tạo mới sản phẩm thành công.',
         duration: 2500,
       });
-      queryClient.invalidateQueries({ queryKey: ['product'] });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
     },
     onError(error: AxiosError) {
       if (error.status === 409) {
@@ -39,4 +40,14 @@ const useCreateProduct = () => {
   });
 };
 
-export { useGetCategoriesAndBrands, useCreateProduct };
+const useGetAllProduct = () => {
+  const { currentPage, limit } = useProductPagination();
+
+  return useQuery({
+    queryKey: ['products', currentPage, limit],
+    queryFn: () => getAllProductFn({ page: currentPage, limit }),
+    staleTime: 1000 * 60 * 30,
+  });
+};
+
+export { useGetCategoriesAndBrands, useCreateProduct, useGetAllProduct };

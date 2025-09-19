@@ -11,10 +11,6 @@ export type GetCategoriesAndBrandsResponseType = {
   }[];
 };
 
-export type CreateProductType = {
-  //
-};
-
 export const createProductSchema = z.object({
   name: z.string().trim().min(1, 'Thêm tên sản phẩm'),
   price: z.string().trim().min(1, 'Cập nhật giá cho sản phẩm'),
@@ -29,3 +25,45 @@ export const createProductSchema = z.object({
 });
 
 export type CreateProductSchema = z.infer<typeof createProductSchema>;
+
+export enum ProductStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  OUT_OF_STOCK = 'OUT_OF_STOCK',
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  thumbnail: string;
+  price: number;
+  salePrice?: number | null;
+  status: ProductStatus;
+  categoryId: string;
+  brandId: string;
+  brandName: string;
+  categoryName: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type GetAllProductResponseType = {
+  data: Product[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+};
+
+export interface FilterProducts {
+  sort?: 'priceAsc' | 'priceDesc' | 'newest';
+  brand?: string;
+  category?: string;
+  search?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  page?: number;
+  limit?: number;
+}

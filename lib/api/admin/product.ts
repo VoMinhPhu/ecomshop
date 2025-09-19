@@ -1,5 +1,10 @@
 import axiosInstance from '@/lib/axiosInstance';
-import { CreateProductSchema, GetCategoriesAndBrandsResponseType } from '@/types/products';
+import {
+  FilterProducts,
+  CreateProductSchema,
+  GetAllProductResponseType,
+  GetCategoriesAndBrandsResponseType,
+} from '@/types/products';
 
 const getCategoriesAndBrandsFn = async (): Promise<GetCategoriesAndBrandsResponseType> => {
   const { data } = await axiosInstance.get('/category/categories-brands');
@@ -15,4 +20,17 @@ const createProductFn = async (data: CreateProductSchema) => {
   return res.data;
 };
 
-export { getCategoriesAndBrandsFn, createProductFn };
+const getAllProductFn = async (filters: FilterProducts = {}): Promise<GetAllProductResponseType> => {
+  const finalFilters = {
+    page: 1,
+    limit: 20,
+    ...filters,
+  };
+  const params = Object.fromEntries(Object.entries(finalFilters).filter(([_, v]) => v !== undefined && v !== null));
+
+  const res = await axiosInstance.get(`/product/all`, { params });
+
+  return res.data;
+};
+
+export { getCategoriesAndBrandsFn, createProductFn, getAllProductFn };
