@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react';
 import { Product } from '@/types/products';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { DataTable } from '@/components/admin/products/ListProductData';
 
-import ListProductHeader from '@/components/admin/products/ListProductHeader';
-import { columnsOfListProduct } from '@/components/admin/products/columnsOfListProduct';
-import LoadingListProducts from '@/components/admin/products/LoadingListProducts';
+import { columnsOfListProduct } from '@/components/admin/products/list-product/columnsOfListProduct';
+import LoadingListProducts from '@/components/admin/products/list-product/LoadingListProducts';
+import ListProductHeader from '@/components/admin/products/list-product/ListProductHeader';
+import { DataTable } from '@/components/admin/products/list-product/ListProductData';
 
 import { useGetAllProduct, useGetCategoriesAndBrands } from '@/hooks/products';
 
