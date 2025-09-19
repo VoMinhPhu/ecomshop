@@ -16,10 +16,10 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
+import { columnsOfListProduct } from './columnsOfListProduct';
 
 import { Columns3, Download, Plus, Search } from 'lucide-react';
-
-import { columnsOfListProduct } from './columnsOfListProduct';
+import { GetCategoriesAndBrandsResponseType } from '@/types/products';
 
 interface Props {
   nameFilter: string;
@@ -30,7 +30,7 @@ interface Props {
   setSelectedCategory: (value: string) => void;
   columnVisibility: VisibilityState;
   setColumnVisibility: (updater: React.SetStateAction<VisibilityState>) => void;
-  categoryAndBrands: any;
+  categoryAndBrands: GetCategoriesAndBrandsResponseType;
 }
 
 export default function ListProductHeader({
