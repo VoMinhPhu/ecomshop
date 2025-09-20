@@ -46,7 +46,7 @@ export default function ListProductHeader({
 }: Props) {
   const hideableColumns = columnsOfListProduct.filter((c) => c.enableHiding !== false);
   return (
-    <CardHeader>
+    <CardHeader className="px-3 lg:px-4">
       <div className="flex items-center justify-between">
         <div>
           <CardTitle>Danh sách sản phẩm có trong hệ thống</CardTitle>
@@ -116,7 +116,7 @@ export default function ListProductHeader({
             </Select>
           </div>
 
-          <div className="flex gap-4 flex-wrap justify-end">
+          <div className="flex gap-4 flex-wrap mt-4 md:mt-0 justify-end">
             <div className="w-full md:w-auto">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

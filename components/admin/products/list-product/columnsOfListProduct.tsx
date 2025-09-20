@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Product } from '@/types/products';
 import { ColumnDef, FilterFn } from '@tanstack/react-table';
 import {
@@ -7,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { Ellipsis } from 'lucide-react';
+import { Ellipsis, FilePen, Trash2 } from 'lucide-react';
 
 const nameFilterFn: FilterFn<Product> = (row, columnId, filterValue: string) => {
   if (!filterValue) return true;
@@ -98,9 +99,18 @@ export const columnsOfListProduct: ColumnDef<Product>[] = [
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => console.log(row.original)}>Sửa</DropdownMenuItem>
-          <DropdownMenuItem>Xem chi tiết</DropdownMenuItem>
-          <DropdownMenuItem>Xóa</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href={`/admin/products/${row.original.id}`} className="flex items-center text-amber-500 w-full gap-2">
+              <FilePen className="text-amber-500" />
+              Sửa
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <div className="gap-2 flex text-red-500">
+              <Trash2 className="text-red-500" />
+              Xóa
+            </div>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     ),

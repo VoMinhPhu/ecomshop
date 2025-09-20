@@ -43,7 +43,7 @@ const Page = () => {
   );
 
   return (
-    <div className="p-4">
+    <div className="p-2 lg:p-4">
       <Card>
         <ListProductHeader
           nameFilter={nameFilter}
@@ -56,7 +56,7 @@ const Page = () => {
           setColumnVisibility={setColumnVisibility}
           categoryAndBrands={CategoryAndBrands}
         />
-        <CardContent>
+        <CardContent className="px-2 lg:px-4">
           <div className="grid grid-cols-1">
             <DataTable
               columns={columnsOfListProduct}

@@ -1,7 +1,9 @@
 import axiosInstance from '@/lib/axiosInstance';
 import {
+  Product,
   FilterProducts,
   CreateProductSchema,
+  UpdateProductSchema,
   GetAllProductResponseType,
   GetCategoriesAndBrandsResponseType,
 } from '@/types/products';
@@ -20,6 +22,16 @@ const createProductFn = async (data: CreateProductSchema) => {
   return res.data;
 };
 
+const updateProductFn = async (data: UpdateProductSchema) => {
+  const res = await axiosInstance.patch('/product/update', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return res.data;
+};
+
 const getAllProductFn = async (filters: FilterProducts = {}): Promise<GetAllProductResponseType> => {
   const finalFilters = {
     page: 1,
@@ -33,4 +45,10 @@ const getAllProductFn = async (filters: FilterProducts = {}): Promise<GetAllProd
   return res.data;
 };
 
-export { getCategoriesAndBrandsFn, createProductFn, getAllProductFn };
+const getProductByIdFn = async (id: string): Promise<Product> => {
+  const res = await axiosInstance.get(`/product/admin/${id}`);
+
+  return res.data;
+};
+
+export { getCategoriesAndBrandsFn, createProductFn, updateProductFn, getAllProductFn, getProductByIdFn };
