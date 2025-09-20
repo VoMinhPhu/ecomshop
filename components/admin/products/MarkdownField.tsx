@@ -11,12 +11,14 @@ type MarkdownFieldProps<TFieldValues extends FieldValues, TName extends Path<TFi
   field: ControllerRenderProps<TFieldValues, TName>;
   label?: string;
   requireIcon?: boolean;
+  disabled?: boolean;
 };
 
 const MarkdownField = <TFieldValues extends FieldValues, TName extends Path<TFieldValues>>({
   field,
   label,
   requireIcon = false,
+  disabled = false,
 }: MarkdownFieldProps<TFieldValues, TName>) => {
   return (
     <FormItem>
@@ -27,7 +29,12 @@ const MarkdownField = <TFieldValues extends FieldValues, TName extends Path<TFie
         </FormLabel>
       )}
       <div data-color-mode="light">
-        <MDEditor value={field.value || ''} onChange={(v) => field.onChange(v || '')} height={300} />
+        <MDEditor
+          value={field.value || ''}
+          onChange={(v) => field.onChange(v || '')}
+          height={300}
+          textareaProps={{ readOnly: disabled }}
+        />
       </div>
       <FormMessage />
     </FormItem>

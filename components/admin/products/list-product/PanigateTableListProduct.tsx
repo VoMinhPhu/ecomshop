@@ -19,34 +19,30 @@ export function DataTablePagination<TData>({ table }: DataTablePaginationProps<T
   };
 
   return (
-    <div className="flex items-center justify-between px-2 mt-8">
-      <div className="text-muted-foreground flex-1 text-sm">
-        {table.getFilteredSelectedRowModel().rows.length} / {table.getFilteredRowModel().rows.length} hàng đã được chọn.
+    <div className="flex flex-wrap items-center justify-between px-2 mt-8 gap-4 lg:space-x-8">
+      <div className="flex items-center space-x-2">
+        <p className="text-sm font-medium">Hàng trên mỗi trang</p>
+        <Select
+          value={`${limit}`}
+          onValueChange={(value) => {
+            const newLimit = Number(value);
+            setLimit(newLimit);
+            table.setPageSize(newLimit);
+          }}
+        >
+          <SelectTrigger className="h-8 w-[70px]">
+            <SelectValue placeholder={table.getState().pagination.pageSize} />
+          </SelectTrigger>
+          <SelectContent side="top">
+            {[10, 20, 25, 30, 40, 50].map((pageSize) => (
+              <SelectItem key={pageSize} value={`${pageSize}`}>
+                {pageSize}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
-      <div className="flex items-center space-x-6 lg:space-x-8">
-        <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Hàng trên mỗi trang</p>
-          <Select
-            value={`${limit}`}
-            onValueChange={(value) => {
-              const newLimit = Number(value);
-              setLimit(newLimit);
-              table.setPageSize(newLimit);
-            }}
-          >
-            <SelectTrigger className="h-8 w-[70px]">
-              <SelectValue placeholder={table.getState().pagination.pageSize} />
-            </SelectTrigger>
-            <SelectContent side="top">
-              {[10, 20, 25, 30, 40, 50].map((pageSize) => (
-                <SelectItem key={pageSize} value={`${pageSize}`}>
-                  {pageSize}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
+      <div className="flex justify-between md:justify-end flex-1 gap-4">
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
           Trang {currentPage} / {totalPages}
         </div>

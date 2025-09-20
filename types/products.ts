@@ -26,10 +26,17 @@ export const createProductSchema = z.object({
 
 export type CreateProductSchema = z.infer<typeof createProductSchema>;
 
+export const updateProductSchema = createProductSchema.extend({
+  id: z.string().min(1, 'ID là bắt buộc'),
+  thumbnail: z.union([z.instanceof(Blob), z.string().url(), z.literal('').optional()]),
+});
+
+export type UpdateProductSchema = z.infer<typeof updateProductSchema>;
+
 export enum ProductStatus {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
-  OUT_OF_STOCK = 'OUT_OF_STOCK',
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  OUT_OF_STOCK = 'out_of_stock',
 }
 
 export interface Product {

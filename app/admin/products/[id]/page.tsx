@@ -1,13 +1,34 @@
 'use client';
 
 import { useParams } from 'next/navigation';
+import { useGetCategoriesAndBrands, useGetProductById } from '@/hooks/products';
+
+import { Separator } from '@/components/ui/separator';
+import ProductNotFound from '@/components/admin/products/ProductNotFound';
+import LoadingUpdate from '@/components/admin/products/update/LoadingUpdate';
+import UpdateProductForm from '@/components/admin/products/update/UpdateProductForm';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function ProductDetailPage() {
-  const { id } = useParams();
+  const params = useParams<{ id: string }>();
+  const id = params.id;
+
+  const { data: categoriesAndBrands } = useGetCategoriesAndBrands();
+  const { data, isLoading } = useGetProductById(id);
+
+  if (isLoading || !categoriesAndBrands) return <LoadingUpdate />;
+  if (!data) return <ProductNotFound />;
 
   return (
-    <div className="p-4">
-      <h1>Chi tiết sản phẩm: {id}</h1>
-    </div>
+    <Card className="m-2 lg:m-4">
+      <CardHeader className="px-4 lg:px-6">
+        <CardTitle>Cập nhât sản phẩm</CardTitle>
+        <CardDescription>Cập nhật thông tin cho sản phẩm.</CardDescription>
+      </CardHeader>
+      <Separator />
+      <CardContent className="px-4 lg:px-6">
+        <UpdateProductForm categoriesAndBrands={categoriesAndBrands} data={data} />
+      </CardContent>
+    </Card>
   );
 }

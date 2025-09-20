@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useState, useCallback, useEffect } from 'react';
 
+import { cn } from '@/lib/utils';
 import Cropper, { type Area } from 'react-easy-crop';
 import { dataURLtoBlob, getCroppedImg } from '@/utils/images';
 
@@ -13,10 +14,12 @@ import { ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 
 type CropImageFieldProps<TFieldValues extends FieldValues, TName extends Path<TFieldValues>> = {
   field: ControllerRenderProps<TFieldValues, TName>;
+  disabled?: boolean;
 };
 
 const CropImageField = <TFieldValues extends FieldValues, TName extends Path<TFieldValues>>({
   field,
+  disabled = false,
 }: CropImageFieldProps<TFieldValues, TName>) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -25,6 +28,10 @@ const CropImageField = <TFieldValues extends FieldValues, TName extends Path<TFi
   const [zoom, setZoom] = useState(1);
 
   useEffect(() => {
+    if (typeof field.value === 'string') {
+      setCroppedImageUrl(field.value);
+      return;
+    }
     if (!field.value) {
       setImageSrc(null);
       setCroppedImageUrl(null);
@@ -80,6 +87,7 @@ const CropImageField = <TFieldValues extends FieldValues, TName extends Path<TFi
       {!imageSrc && !croppedImageUrl && (
         <div
           onDrop={(e) => {
+            if (disabled) return;
             e.preventDefault();
             const file = e.dataTransfer.files[0];
             if (file) handleFile(file);
@@ -91,17 +99,27 @@ const CropImageField = <TFieldValues extends FieldValues, TName extends Path<TFi
             className="font-normal border-2 border-blue-500 h-10 py-30 md:p-30 border-dashed rounded-md bg-zinc-50 cursor-pointer"
           >
             <p className="w-full text-center">Kéo thả ảnh hoặc bấm để tải ảnh lên</p>
-            <Input id="productImage" type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
+            <Input
+              id="productImage"
+              type="file"
+              className="hidden"
+              accept="image/*"
+              onChange={handleFileChange}
+              disabled={disabled}
+            />
           </Label>
         </div>
       )}
 
       {croppedImageUrl && (
-        <div className="mt-2 flex">
+        <div className="mt-2 flex justify-center md:justify-start">
           <div className="relative group">
             <span
               onClick={cancelUpdateLoadImage}
-              className="absolute group-hover:block hidden cursor-pointer top-1 right-1"
+              className={cn(
+                'absolute group-hover:block hidden cursor-pointer top-1 right-1',
+                disabled && 'group-hover:hidden',
+              )}
             >
               <X className="text-white size-5" />
             </span>
@@ -110,6 +128,7 @@ const CropImageField = <TFieldValues extends FieldValues, TName extends Path<TFi
               alt="Cropped"
               width={160}
               height={200}
+              priority
               className="w-40 h-50 object-cover rounded-md"
             />
           </div>

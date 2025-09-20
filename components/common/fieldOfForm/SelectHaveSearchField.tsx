@@ -17,6 +17,7 @@ type SelectHaveSearchFieldProps = {
   onSelect: (value: string) => void;
   nameField: string;
   requireIcon?: boolean;
+  disabled?: boolean;
 };
 
 const SelectHaveSearchField = ({
@@ -25,6 +26,7 @@ const SelectHaveSearchField = ({
   onSelect,
   nameField,
   requireIcon = false,
+  disabled = false,
 }: SelectHaveSearchFieldProps) => {
   const [open, setOpen] = useState(false);
 
@@ -40,6 +42,7 @@ const SelectHaveSearchField = ({
         <PopoverTrigger asChild>
           <Button
             variant="outline"
+            disabled={disabled}
             className={`w-full font-normal justify-between rounded-md ${value ? '' : 'text-muted-foreground'}`}
           >
             {selected?.label || 'Chọn danh mục'}
