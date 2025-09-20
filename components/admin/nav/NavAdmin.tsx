@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 
 import {
   Sidebar,
@@ -15,7 +14,6 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarGroupLabel,
-  SidebarMenuAction,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
 } from '@/components/ui/sidebar';
@@ -24,8 +22,6 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { Blocks, Box, Layers, Receipt, Ticket, Users, ChevronRight } from 'lucide-react';
 
 export default function NavAdmin() {
-  const pathname = usePathname();
-  const isProductPage = pathname.startsWith('/admin/products');
   return (
     <Sidebar className="top-(--header-height) h-[calc(100svh-var(--header-height))]!">
       <SidebarHeader>
@@ -64,19 +60,16 @@ export default function NavAdmin() {
         <SidebarGroup>
           <SidebarGroupLabel>Quản lý sản phẩm</SidebarGroupLabel>
           <SidebarMenu>
-            <Collapsible asChild open={isProductPage}>
+            <Collapsible asChild>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link className="pl-4" href="/admin/products">
-                    <Box />
-                    <span>Sản phẩm</span>
-                  </Link>
-                </SidebarMenuButton>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuAction className="data-[state=open]:rotate-90">
-                    <ChevronRight />
-                  </SidebarMenuAction>
+                  <SidebarMenuButton className="pl-4">
+                    <Box />
+                    <span className="flex-1 text-left">Sản phẩm</span>
+                    <ChevronRight className="ml-auto transition-transform data-[state=open]:rotate-90" />
+                  </SidebarMenuButton>
                 </CollapsibleTrigger>
+
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     <SidebarMenuSubItem>
@@ -94,14 +87,27 @@ export default function NavAdmin() {
               </SidebarMenuItem>
             </Collapsible>
 
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link className="pl-4" href="/admin/categories">
-                  <Layers />
-                  <span>Danh mục</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+            <Collapsible asChild>
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton className="pl-4">
+                    <Layers />
+                    <span className="flex-1 text-left">Danh mục</span>
+                    <ChevronRight />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+
+                <CollapsibleContent>
+                  <SidebarMenuSub>
+                    <SidebarMenuSubItem>
+                      <SidebarMenuSubButton asChild>
+                        <Link href="/admin/categories">Danh sách danh mục</Link>
+                      </SidebarMenuSubButton>
+                    </SidebarMenuSubItem>
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
 
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
