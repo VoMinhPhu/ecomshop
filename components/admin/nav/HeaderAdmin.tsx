@@ -23,6 +23,7 @@ const pages: Record<string, string> = {
   create: 'Tạo mới sản phẩm',
   details: 'Chi tiết sản phẩm',
   users: 'Người dùng',
+  categories: 'Danh mục',
   orders: 'Đơn hàng',
 };
 
