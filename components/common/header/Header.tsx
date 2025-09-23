@@ -17,7 +17,7 @@ const Header = () => {
         <div className="hidden lg:block lg:mx-auto">
           <SectionSearch />
         </div>
-        <div className="ml-auto flex items-center gap-1 md:gap-3">
+        <div className="ml-auto flex items-center gap-2 md:gap-3">
           <Link href={'/account/cart'}>
             <Button
               variant={'outline'}
