@@ -17,8 +17,8 @@ const useLogin = () => {
         description: 'Đăng nhập thành công',
         duration: 2000,
       });
-
       queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ['token'] });
 
       setTimeout(() => router.push('/account'), 1500);
     },
