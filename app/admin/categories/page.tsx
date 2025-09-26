@@ -1,15 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { Plus } from 'lucide-react';
 
-import { useGetAllCategories } from '@/hooks/categories';
-
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { DataTable } from '@/components/common/tables/data-table';
-import { columnsTableCategory } from '@/components/admin/categories/columnTableCategory';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   SortingState,
   useReactTable,
@@ -20,16 +14,28 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
 } from '@tanstack/react-table';
-import { useState } from 'react';
-import PaginationTableCategory from '@/components/admin/categories/PaginationTableCategory';
+
+import { useGetAllCategories } from '@/hooks/categories';
+
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { DataTable } from '@/components/common/tables/data-table';
+import { columnsTableCategory } from '@/components/admin/categories/columnTableCategory';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+
 import ToolbarTableCategory from '@/components/admin/categories/ToolbarTableCategory';
+import PaginationTableCategory from '@/components/admin/categories/PaginationTableCategory';
 
 const Page = () => {
-  const { data: categories } = useGetAllCategories();
+  const { data: categories, isLoading } = useGetAllCategories();
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  });
   const table = useReactTable<Category>({
     data: categories ?? [],
     columns: columnsTableCategory,
@@ -40,10 +46,12 @@ const Page = () => {
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
+      pagination,
     },
   });
 
@@ -54,7 +62,7 @@ const Page = () => {
           <CardTitle>Danh mục</CardTitle>
           <CardDescription>Quản lý danh mục sản phẩm</CardDescription>
         </div>
-        <Link href={'/categories/create'}>
+        <Link href={'/admin/categories/create'}>
           <Button>
             <Plus />
             <span className="hidden md:block">Thêm mới danh mục</span>
@@ -65,7 +73,7 @@ const Page = () => {
       <CardContent className="px-2 md:px-4">
         <ToolbarTableCategory table={table} />
         <div className="grid grid-cols-1">
-          <DataTable table={table} />
+          <DataTable isLoading={isLoading} table={table} />
         </div>
         <PaginationTableCategory table={table} />
       </CardContent>

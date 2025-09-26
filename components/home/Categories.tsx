@@ -12,7 +12,7 @@ const Categories = () => {
 
   return (
     <div className="w-50 hidden md:block">
-      <div className="sticky top-40 lg:top-23 bg-white rounded-md shadow">
+      <div className="sticky top-40 max-h-155 overflow-y-scroll scrollbar-hide lg:top-23 bg-white rounded-md shadow">
         <p className="text-lg font-semibold px-4 py-2">Danh mục</p>
         <div className="px-4 pb-8">
           {data?.map((item: any) => {
@@ -20,10 +20,10 @@ const Categories = () => {
               <Link
                 key={item.id}
                 href={'/account'}
-                className="h-10 flex items-center px-1 hover:bg-primary-foreground w-full rounded-sm mb-1 font-light"
+                className="h-10 flex items-center gap-2 px-1 hover:bg-primary-foreground w-full rounded-sm mb-1 font-light"
               >
-                {item.icon && <Image src={item.icon} width={24} height={24} alt="icon" />}
-                {item.name}
+                {item.icon && <Image src={item.icon} width={28} height={28} alt="icon" />}
+                <span>{item.name}</span>
               </Link>
             );
           })}

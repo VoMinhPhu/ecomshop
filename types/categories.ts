@@ -2,8 +2,7 @@ type Category = {
   id: string;
   name: string;
   slug: string;
-  parentId: string | null;
+  icon: string;
   createdAt: string;
   updatedAt: string;
-  icon: string | null;
 };

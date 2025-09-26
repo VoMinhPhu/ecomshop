@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect } from 'react';
 
+import { cn } from '@/lib/utils';
 import { useGetMe } from '@/hooks/users';
 import { useLogout } from '@/hooks/auth';
 import useUserStore from '@/stores/userStore';
@@ -11,7 +12,7 @@ import useUserStore from '@/stores/userStore';
 import { Button } from '@/components/ui/button';
 import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { KeyRound, Loader, LogIn, LogOut, MapPin, Package, User } from 'lucide-react';
+import { KeyRound, LayoutDashboard, Loader, LogIn, LogOut, MapPin, Package, User } from 'lucide-react';
 
 const UserMenuHeader = () => {
   const { mutate: logoutMutate } = useLogout();
@@ -47,7 +48,13 @@ const UserMenuHeader = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="cursor-pointer">
-          <Image src={user.avatar ?? '/avatar.svg'} width={48} height={48} alt="avatar" className="rounded-full" />
+          <Image
+            src={user.avatar ?? '/avatar.svg'}
+            width={48}
+            height={48}
+            alt="avatar"
+            className="rounded-full bg-white"
+          />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -69,6 +76,16 @@ const UserMenuHeader = () => {
           </CardHeader>
 
           <CardContent className="py-1 md:pl-5">
+            <Link
+              href="/admin"
+              className={cn(
+                'flex items-center w-full py-1.5 hover:text-primary mt-0.5',
+                user.role !== 'admin' && 'hidden',
+              )}
+            >
+              <LayoutDashboard size={20} className="mr-2" strokeWidth={2} />
+              Tới trang quản trị
+            </Link>
             <Link href="/account" className="flex items-center w-full py-1.5 hover:text-primary mt-0.5">
               <User size={20} className="mr-2" strokeWidth={2} />
               Thông tin tài khoản
