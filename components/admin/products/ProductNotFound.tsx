@@ -14,23 +14,23 @@ export default function ProductNotFound() {
           </Button>
         </Link>
       </div>
-      <div className="relative pt-4">
+      <div className="relative pt-4 md:pt-20 lg:pt-4">
         <Image
           src="/not-found.svg"
-          width={450}
-          height={450}
-          className="h-auto w-75 md:w-80 lg:w-110"
+          width={400}
+          height={400}
+          className="h-auto w-75 md:w-80 lg:w-100"
           alt="Not Found Icon"
         />
         <Image
           src="/not-found-icon.svg"
-          width={250}
-          height={250}
-          className="h-auto absolute top-1/2 left-1/2 -translate-x-1/2 md:w-50 lg:w-62.5"
+          width={230}
+          height={230}
+          className="h-auto absolute top-1/2 left-1/2 -translate-x-1/2 md:w-50 lg:w-57.5"
           alt="Not Found"
         />
       </div>
-      <p className="font-bold md:text-xl mt-25 md:pt-4 lg:mt-0 lg:text-4xl text-center mb-10 lg:mb-5">
+      <p className="font-bold md:text-xl mt-25 md:mt-15 md:pt-4 lg:mt-0 lg:text-4xl text-center mb-10 lg:mb-5">
         Không tìm thấy thông tin sản phẩm
       </p>
       <Link href={'/admin'}>

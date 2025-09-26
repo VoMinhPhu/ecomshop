@@ -86,9 +86,9 @@ export default function ListProductHeader({
         </div>
 
         <div className="flex flex-col w-full md:flex-row lg:justify-between md:gap-4">
-          <div className="grid grid-cols-2 md:flex gap-4 flex-wrap">
+          <div className="grid grid-cols-2 md:flex gap-4 flex-1 flex-wrap">
             <Select value={selectedCategory} onValueChange={(v) => setSelectedCategory(v === 'all' ? '' : v)}>
-              <SelectTrigger className="w-auto min-w-32 md:max-w-40 rounded-sm sm:flex">
+              <SelectTrigger className="w-auto min-w-32 rounded-sm sm:flex">
                 <SelectValue placeholder="Danh mục" />
               </SelectTrigger>
               <SelectContent>
@@ -102,7 +102,7 @@ export default function ListProductHeader({
             </Select>
 
             <Select value={selectedBrand} onValueChange={(v) => setSelectedBrand(v === 'all' ? '' : v)}>
-              <SelectTrigger className="w-auto min-w-32 md:max-w-40 rounded-sm sm:flex">
+              <SelectTrigger className="w-auto min-w-32 rounded-sm sm:flex">
                 <SelectValue placeholder="Thương hiệu" />
               </SelectTrigger>
               <SelectContent>

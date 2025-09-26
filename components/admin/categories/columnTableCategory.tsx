@@ -16,6 +16,11 @@ export const columnsTableCategory: ColumnDef<Category, any>[] = [
     accessorKey: 'icon',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Icon" />,
     meta: { title: 'Icon' },
+    cell: ({ row }) => (
+      <div className="flex justify-center">
+        <img src={row.original.icon} alt={row.original.name} className="w-8 h-8 rounded-md" />
+      </div>
+    ),
     enableHiding: false,
     enableSorting: false,
   },

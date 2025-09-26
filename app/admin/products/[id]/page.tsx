@@ -22,7 +22,7 @@ export default function ProductDetailPage() {
   return (
     <Card className="m-2 lg:m-4">
       <CardHeader className="px-4 lg:px-6">
-        <CardTitle>Cập nhât sản phẩm</CardTitle>
+        <CardTitle>Cập nhật sản phẩm</CardTitle>
         <CardDescription>Cập nhật thông tin cho sản phẩm.</CardDescription>
       </CardHeader>
       <Separator />
