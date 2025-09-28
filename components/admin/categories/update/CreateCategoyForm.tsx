@@ -2,16 +2,16 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createCategorySchema, CreateCategorySchema } from '../schema/categories';
 
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
 import { useCreateCategory } from '@/hooks/categories';
 
-import IconImageField from './FieldIconOfForm';
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
+import IconImageField from '@/components/common/fieldOfForm/FieldIconOfForm';
+import { createCategorySchema, CreateCategorySchema } from '@/components/admin/categories/schema/categories';
 
 const CreateCategoyForm = () => {
   const { mutate: createCategoryMutate, isPending } = useCreateCategory();
