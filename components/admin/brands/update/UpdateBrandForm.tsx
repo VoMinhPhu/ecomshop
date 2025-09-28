@@ -2,27 +2,27 @@
 
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useUpdateBrand } from '@/hooks/brands';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
-import { useUpdateCategory } from '@/hooks/categories';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
 import IconImageField from '@/components/common/fieldOfForm/FieldIconOfForm';
-import { updateCategorySchema, UpdateCategorySchema } from '@/components/admin/categories/schema/categories';
+import { updateBrandSchema, UpdateBrandSchema } from '@/components/admin/brands/schemas/brands';
 
 type Props = {
-  data: Category;
+  data: Brand;
 };
 
-const UpdateCategoryForm = ({ data }: Props) => {
-  const { mutate: updateCategoryMutate, isPending } = useUpdateCategory();
+const UpdateBrandForm = ({ data }: Props) => {
+  const { mutate: updateBrandMutate, isPending } = useUpdateBrand();
 
-  const form = useForm<UpdateCategorySchema>({
-    resolver: zodResolver(updateCategorySchema),
+  const form = useForm<UpdateBrandSchema>({
+    resolver: zodResolver(updateBrandSchema),
   });
 
   useEffect(() => {
@@ -33,8 +33,8 @@ const UpdateCategoryForm = ({ data }: Props) => {
     });
   }, [data]);
 
-  const onSubmit = (values: UpdateCategorySchema) => {
-    updateCategoryMutate(values);
+  const onSubmit = (values: UpdateBrandSchema) => {
+    updateBrandMutate(values);
     form.reset();
   };
 
@@ -48,10 +48,10 @@ const UpdateCategoryForm = ({ data }: Props) => {
             render={({ field }) => (
               <InputField
                 requireIcon
-                label="Tên danh mục"
+                label="Tên thương hiệu"
                 field={field}
                 disabled={isPending}
-                placeholder="Nhập tên danh mục"
+                placeholder="Nhập tên thương hiệu"
               />
             )}
           />
@@ -65,11 +65,11 @@ const UpdateCategoryForm = ({ data }: Props) => {
 
         <Button disabled={isPending} type="submit" className="w-full mt-2 md:w-auto">
           <Loader className={cn('animate-spin size-3.5', !isPending && 'hidden')} strokeWidth={3} />
-          Cập nhật sản phẩm
+          Cập nhật thương hiệu
         </Button>
       </form>
     </Form>
   );
 };
 
-export default UpdateCategoryForm;
+export default UpdateBrandForm;

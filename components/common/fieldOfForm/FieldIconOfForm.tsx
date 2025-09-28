@@ -148,7 +148,7 @@ const IconImageField = <TFieldValues extends FieldValues, TName extends Path<TFi
           />
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2">
             <div
-              className="flex items-center px-4 rounded-md text-white h-10 bg-primary cursor-pointer"
+              className="flex items-center justify-center px-4 rounded-md text-white h-10 min-w-25 bg-primary cursor-pointer"
               onClick={handleCrop}
             >
               Xác nhận
