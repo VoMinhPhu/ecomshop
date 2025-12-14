@@ -1,53 +1,28 @@
-import { Table } from '@tanstack/react-table';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import type { Table } from '@tanstack/react-table';
 
 import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
-import useProductPagination from '@/stores/productStore';
-
-interface DataTablePaginationProps<TData> {
+interface PaginationTableProps<TData> {
   table: Table<TData>;
 }
 
-export function DataTablePagination<TData>({ table }: DataTablePaginationProps<TData>) {
-  const { currentPage, totalPages, setCurrentPage, limit, setLimit } = useProductPagination();
+export default function PanigateTableListProduct<TData>({ table }: PaginationTableProps<TData>) {
+  const currentPage = table.getState().pagination.pageIndex + 1;
+  const totalPages = table.getPageCount();
 
   const goToPage = (page: number) => {
-    if (page < 1 || page > totalPages) return;
-    setCurrentPage(page);
+    table.setPageIndex(page - 1);
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between px-2 mt-8 gap-4 lg:space-x-8">
-      <div className="flex items-center space-x-2">
-        <p className="text-sm font-medium">Hàng trên mỗi trang</p>
-        <Select
-          value={`${limit}`}
-          onValueChange={(value) => {
-            const newLimit = Number(value);
-            setLimit(newLimit);
-            table.setPageSize(newLimit);
-          }}
-        >
-          <SelectTrigger className="h-8 w-[70px]">
-            <SelectValue placeholder={table.getState().pagination.pageSize} />
-          </SelectTrigger>
-          <SelectContent side="top">
-            {[10, 20, 25, 30, 40, 50].map((pageSize) => (
-              <SelectItem key={pageSize} value={`${pageSize}`}>
-                {pageSize}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+    <div className="flex flex-wrap items-center justify-between mt-8 gap-2 m:gap-4 lg:space-x-8">
       <div className="flex justify-between md:justify-end flex-1 gap-4">
-        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+        <div className="flex w-[100px] items-center justify-start text-sm font-medium">
           Trang {currentPage} / {totalPages}
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center justify-end gap-2">
           <Button
             variant="outline"
             size="icon"

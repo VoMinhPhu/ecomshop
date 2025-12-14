@@ -11,6 +11,17 @@ export type GetCategoriesAndBrandsResponseType = {
   }[];
 };
 
+export type GetCategoriesAndBrandsToFilterResponseType = {
+  categories: {
+    slug: string;
+    name: string;
+  }[];
+  brands: {
+    slug: string;
+    name: string;
+  }[];
+};
+
 export const createProductSchema = z.object({
   name: z.string().trim().min(1, 'Thêm tên sản phẩm'),
   price: z.string().trim().min(1, 'Cập nhật giá cho sản phẩm'),

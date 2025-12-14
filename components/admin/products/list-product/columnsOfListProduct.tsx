@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Ellipsis, FilePen, Trash2 } from 'lucide-react';
+import Image from 'next/image';
 
 const nameFilterFn: FilterFn<Product> = (row, columnId, filterValue: string) => {
   if (!filterValue) return true;
@@ -18,18 +19,23 @@ const nameFilterFn: FilterFn<Product> = (row, columnId, filterValue: string) => 
 
 export const columnsOfListProduct: ColumnDef<Product>[] = [
   {
+    header: () => <div className="pl-2">Ảnh sản phẩm</div>,
+    cell: ({ row }) => (
+      <div className="flex items-center justify-center">
+        <Image src={row.original.thumbnail} width={50} height={60} alt={row.original.name} />
+      </div>
+    ),
+    accessorKey: 'thumbnail',
+    enableHiding: false,
+    meta: { title: 'Ảnh sản phẩm' },
+  },
+  {
     header: () => <div className="pl-2">Tên sản phẩm</div>,
-    cell: ({ row }) => <div className="pl-2">{row.original.name}</div>,
+    cell: ({ row }) => <div className="pl-2 max-w-80 truncate">{row.original.name}</div>,
     accessorKey: 'name',
     filterFn: nameFilterFn,
     enableHiding: false,
     meta: { title: 'Tên sản phẩm' },
-  },
-  {
-    accessorKey: 'slug',
-    header: 'Slug',
-    enableHiding: true,
-    meta: { title: 'Slug' },
   },
   {
     accessorKey: 'categoryName',

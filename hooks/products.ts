@@ -5,16 +5,24 @@ import {
   getAllProductFn,
   getProductByIdFn,
   getCategoriesAndBrandsFn,
+  getCategoriesAndBrandsToFilterFn,
 } from '@/lib/api/admin/product';
 import { toast } from 'sonner';
 import { AxiosError } from 'axios';
-import useProductPagination from '@/stores/productStore';
 import { Product } from '@/types/products';
 
 const useGetCategoriesAndBrands = () => {
   return useQuery({
     queryKey: ['category', 'brand'],
     queryFn: getCategoriesAndBrandsFn,
+    staleTime: 1000 * 60 * 30,
+  });
+};
+
+const useGetCategoriesAndBrandsToFilter = () => {
+  return useQuery({
+    queryKey: ['category', 'brand'],
+    queryFn: getCategoriesAndBrandsToFilterFn,
     staleTime: 1000 * 60 * 30,
   });
 };
@@ -75,12 +83,20 @@ const useUpdateProduct = () => {
   });
 };
 
-const useGetAllProduct = () => {
-  const { currentPage, limit } = useProductPagination();
-
+const useGetAllProduct = ({
+  brand,
+  category,
+  page,
+  limit,
+}: {
+  page: number;
+  limit: number;
+  brand: string | undefined;
+  category: string | undefined;
+}) => {
   return useQuery({
-    queryKey: ['products', currentPage, limit],
-    queryFn: () => getAllProductFn({ page: currentPage, limit }),
+    queryKey: ['products', page, limit, brand, category],
+    queryFn: () => getAllProductFn({ page: page, limit, brand, category }),
     staleTime: 1000 * 60 * 30,
   });
 };
@@ -94,4 +110,11 @@ const useGetProductById = (id?: string) => {
   });
 };
 
-export { useGetCategoriesAndBrands, useCreateProduct, useUpdateProduct, useGetAllProduct, useGetProductById };
+export {
+  useCreateProduct,
+  useUpdateProduct,
+  useGetAllProduct,
+  useGetProductById,
+  useGetCategoriesAndBrands,
+  useGetCategoriesAndBrandsToFilter,
+};

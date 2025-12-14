@@ -112,7 +112,7 @@ const CropImageField = <TFieldValues extends FieldValues, TName extends Path<TFi
       )}
 
       {croppedImageUrl && (
-        <div className="mt-2 flex justify-center md:justify-start">
+        <div className="mt-2 flex justify-center lg:justify-start">
           <div className="relative group">
             <span
               onClick={cancelUpdateLoadImage}
@@ -121,7 +121,7 @@ const CropImageField = <TFieldValues extends FieldValues, TName extends Path<TFi
                 disabled && 'group-hover:hidden',
               )}
             >
-              <X className="text-white size-5" />
+              <X className="text-red-500 size-5" />
             </span>
             <Image
               src={croppedImageUrl}
@@ -141,7 +141,7 @@ const CropImageField = <TFieldValues extends FieldValues, TName extends Path<TFi
             image={imageSrc}
             crop={crop}
             zoom={zoom}
-            aspect={4 / 5}
+            aspect={1}
             onCropChange={setCrop}
             onZoomChange={setZoom}
             onCropComplete={onCropComplete}
