@@ -22,7 +22,7 @@ import { DataTable } from '@/components/common/tables/data-table';
 import { columnsTableBrand } from '@/components/admin/brands/ColumnTableBrands';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-import ToolbarTableCategory from '@/components/admin/categories/ToolbarTableCategory';
+import ToolbarTableBrand from '@/components/admin/brands/ToolbarTableBrand';
 import PaginationTableCategory from '@/components/admin/categories/PaginationTableCategory';
 
 const Page = () => {
@@ -71,7 +71,7 @@ const Page = () => {
       </CardHeader>
       <Separator />
       <CardContent className="px-2 md:px-4">
-        <ToolbarTableCategory table={table} />
+        <ToolbarTableBrand table={table} />
         <div className="grid grid-cols-1">
           <DataTable isLoading={isLoading} table={table} />
         </div>

@@ -1,72 +1,100 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Plus } from 'lucide-react';
 
-import { Product } from '@/types/products';
+import { useReactTable, getCoreRowModel, type SortingState, type VisibilityState } from '@tanstack/react-table';
 
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
 import { columnsOfListProduct } from '@/components/admin/products/list-product/columnsOfListProduct';
-import LoadingListProducts from '@/components/admin/products/list-product/LoadingListProducts';
-import ListProductHeader from '@/components/admin/products/list-product/ListProductHeader';
-import { DataTable } from '@/components/admin/products/list-product/ListProductData';
+import ToolbarTableProduct from '@/components/admin/products/list-product/ToolbarTableProduct';
+import PanigateTableListProduct from '@/components/admin/products/list-product/PanigateTableListProduct';
+import { DataTable } from '@/components/common/tables/data-table';
 
-import { useGetAllProduct, useGetCategoriesAndBrands } from '@/hooks/products';
-
-import useProductPagination from '@/stores/productStore';
+import { useGetAllProduct } from '@/hooks/products';
 
 const Page = () => {
-  const { setTotalPages } = useProductPagination();
-  const { data, isLoading } = useGetAllProduct();
-  const { data: CategoryAndBrands } = useGetCategoriesAndBrands();
+  const [selectedBrand, setSelectedBrand] = useState<string | undefined>();
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>();
 
-  const [nameFilter, setNameFilter] = useState('');
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [columnVisibility, setColumnVisibility] = useState<Record<string, boolean>>({});
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  });
+
+  const { data, isLoading } = useGetAllProduct({
+    page: pagination.pageIndex + 1,
+    limit: pagination.pageSize,
+    brand: selectedBrand,
+    category: selectedCategory,
+  });
 
   useEffect(() => {
-    if (data?.totalPages) {
-      setTotalPages(data.totalPages);
-    }
-  }, [data, setTotalPages]);
+    setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+  }, [selectedBrand, selectedCategory]);
 
-  if (isLoading || !data || !CategoryAndBrands) return <LoadingListProducts />;
+  const table = useReactTable({
+    data: data?.data ?? [],
+    columns: columnsOfListProduct,
 
-  const products = data.data ?? [];
+    manualPagination: true,
+    pageCount: data?.totalPages ?? -1,
 
-  const filteredData = products.filter(
-    (d: Product) =>
-      d.name.toLowerCase().includes(nameFilter.toLowerCase()) &&
-      (selectedBrand === '' || d.brandId === selectedBrand) &&
-      (selectedCategory === '' || d.categoryId === selectedCategory),
-  );
+    onPaginationChange: setPagination,
+    onSortingChange: setSorting,
+    onColumnVisibilityChange: setColumnVisibility,
+
+    state: {
+      pagination,
+      sorting,
+      columnVisibility,
+    },
+
+    getCoreRowModel: getCoreRowModel(),
+  });
 
   return (
     <div className="p-2 lg:p-4">
-      <Card>
-        <ListProductHeader
-          nameFilter={nameFilter}
-          setNameFilter={setNameFilter}
-          selectedBrand={selectedBrand}
-          setSelectedBrand={setSelectedBrand}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          columnVisibility={columnVisibility}
-          setColumnVisibility={setColumnVisibility}
-          categoryAndBrands={CategoryAndBrands}
-        />
-        <CardContent className="px-2 lg:px-4">
-          <div className="grid grid-cols-1">
-            <DataTable
-              columns={columnsOfListProduct}
-              data={filteredData}
-              columnVisibility={columnVisibility}
-              onColumnVisibilityChange={(updater: React.SetStateAction<Record<string, boolean>>) =>
-                setColumnVisibility(updater)
-              }
-            />
+      <Card className="gap-3">
+        <CardHeader className="px-3 lg:px-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>Danh sách sản phẩm</CardTitle>
+              <CardDescription className="mt-1">Những sản phẩm hiện có trong hệ thống</CardDescription>
+            </div>
+            <Link href="/admin/products/create">
+              <Button className="ml-4">
+                <Plus />
+                <span className="hidden md:block">Thêm sản phẩm</span>
+              </Button>
+            </Link>
           </div>
+
+          <Separator className="mt-4" />
+        </CardHeader>
+
+        <CardContent className="px-2 lg:px-4">
+          <div className="flex items-center gap-1 md:gap-3 mb-3">
+            <p className="font-semibold text-sm">
+              Tất cả (<span className=" hover:underline mx-0.5 font-normal">{data?.total ?? '?'}</span>)
+            </p>
+          </div>
+          <ToolbarTableProduct
+            table={table}
+            selectedBrand={selectedBrand}
+            setSelectedBrand={setSelectedBrand}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
+
+          <DataTable table={table} isLoading={isLoading} />
+          <PanigateTableListProduct table={table} />
         </CardContent>
       </Card>
     </div>

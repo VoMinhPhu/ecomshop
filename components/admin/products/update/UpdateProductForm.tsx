@@ -47,7 +47,6 @@ const UpdateProductForm = ({ categoriesAndBrands, data }: Props) => {
 
   const onSubmit = (values: UpdateProductSchema) => {
     updateProductMutate(values);
-    form.reset();
   };
 
   return (

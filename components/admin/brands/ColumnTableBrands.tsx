@@ -14,11 +14,11 @@ import { Ellipsis, FilePen, Trash2 } from 'lucide-react';
 export const columnsTableBrand: ColumnDef<Brand, any>[] = [
   {
     accessorKey: 'icon',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Icon" />,
+    header: ({ column }) => <DataTableColumnHeader className="text-center" column={column} title="Icon" />,
     meta: { title: 'Icon' },
     cell: ({ row }) => (
-      <div className="flex justify-center">
-        <img src={row.original.icon} alt={row.original.name} className="w-8 h-8 rounded-md" />
+      <div className="flex justify-center items-centerm h-12">
+        <img src={row.original.icon} alt={row.original.name} className="w-8 h-8 rounded-md my-auto" />
       </div>
     ),
     enableHiding: false,
@@ -26,16 +26,18 @@ export const columnsTableBrand: ColumnDef<Brand, any>[] = [
   },
   {
     accessorKey: 'name',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Tên danh mục" />,
-    meta: { title: 'Tên danh mục' },
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Tên thương hiệu" />,
+    meta: { title: 'Tên thương hiệu' },
     enableHiding: false,
     enableSorting: false,
   },
   {
     accessorKey: 'slug',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Slug" />,
+    header: ({ column }) => <DataTableColumnHeader className="text-center" column={column} title="Slug" />,
     meta: { title: 'Slug' },
     cell: ({ row }) => <div className="text-center">{row.original.slug}</div>,
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorKey: 'createdAt',
@@ -44,6 +46,7 @@ export const columnsTableBrand: ColumnDef<Brand, any>[] = [
     cell: ({ row }) => (
       <div className="text-center">{new Date(row.original.createdAt).toLocaleDateString('vi-VN')}</div>
     ),
+    enableHiding: false,
   },
   {
     accessorKey: 'updatedAt',

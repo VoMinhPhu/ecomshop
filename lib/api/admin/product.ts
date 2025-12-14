@@ -6,10 +6,16 @@ import {
   UpdateProductSchema,
   GetAllProductResponseType,
   GetCategoriesAndBrandsResponseType,
+  GetCategoriesAndBrandsToFilterResponseType,
 } from '@/types/products';
 
 const getCategoriesAndBrandsFn = async (): Promise<GetCategoriesAndBrandsResponseType> => {
   const { data } = await axiosInstance.get('/category/categories-brands');
+  return data;
+};
+
+const getCategoriesAndBrandsToFilterFn = async (): Promise<GetCategoriesAndBrandsToFilterResponseType> => {
+  const { data } = await axiosInstance.get('/category/categories-brands-filter');
   return data;
 };
 
@@ -40,7 +46,7 @@ const getAllProductFn = async (filters: FilterProducts = {}): Promise<GetAllProd
   };
   const params = Object.fromEntries(Object.entries(finalFilters).filter(([_, v]) => v !== undefined && v !== null));
 
-  const res = await axiosInstance.get(`/product/all`, { params });
+  const res = await axiosInstance.get(`/product`, { params });
 
   return res.data;
 };
@@ -51,4 +57,11 @@ const getProductByIdFn = async (id: string): Promise<Product> => {
   return res.data;
 };
 
-export { getCategoriesAndBrandsFn, createProductFn, updateProductFn, getAllProductFn, getProductByIdFn };
+export {
+  createProductFn,
+  updateProductFn,
+  getAllProductFn,
+  getProductByIdFn,
+  getCategoriesAndBrandsFn,
+  getCategoriesAndBrandsToFilterFn,
+};
