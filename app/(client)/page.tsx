@@ -1,5 +1,6 @@
 import Banner from '@/components/home/Banner';
 import Categories from '@/components/home/Categories';
+import TopSell from '@/components/home/TopSell';
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
         <Categories />
         <div className="flex-1 h-500">
           <Banner />
+          <TopSell />
         </div>
       </div>
     </div>

@@ -38,7 +38,7 @@ const Banner = () => {
         setApi={setApi}
         plugins={[
           Autoplay({
-            delay: 2000,
+            delay: 4000,
             stopOnInteraction: false,
           }),
         ]}
