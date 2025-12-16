@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 
 import './globals.css';
-import AuthProvider from '@/components/providers/AuthProvider';
 import ToastProvider from '@/components/providers/ToastProvider';
 import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
 
@@ -20,8 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ReactQueryProvider>
-          <AuthProvider>{children}</AuthProvider>
-          <ToastProvider />
+          {children} <ToastProvider />
         </ReactQueryProvider>
       </body>
     </html>
