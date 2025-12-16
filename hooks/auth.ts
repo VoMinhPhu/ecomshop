@@ -69,6 +69,7 @@ const useRegister = () => {
 const useLogout = () => {
   const router = useRouter();
   const clearUser = useUserStore((state) => state.clearUser);
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: logoutFn,
@@ -81,6 +82,8 @@ const useLogout = () => {
           clearUser();
           router.push('/login');
         }, 1500));
+
+      queryClient.invalidateQueries({ queryKey: ['address'] });
     },
   });
 };

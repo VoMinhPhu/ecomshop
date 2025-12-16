@@ -98,7 +98,7 @@ const UserMenuHeader = () => {
               <KeyRound size={20} className="mr-2" strokeWidth={2} />
               Đổi mật khẩu
             </Link>
-            <Link href="/account" className="flex items-center w-full py-1.5 hover:text-primary mt-0.5">
+            <Link href="/account/address" className="flex items-center w-full py-1.5 hover:text-primary mt-0.5">
               <MapPin size={20} className="mr-2" strokeWidth={2} />
               Danh sách địa chỉ
             </Link>

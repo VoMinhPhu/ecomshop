@@ -72,7 +72,7 @@ const NavAccount = () => {
           Đổi mật khẩu
         </Link>
         <Link
-          href={'/account'}
+          href={'/account/address'}
           className={cn(
             'flex items-center w-full cursor-pointer py-1.5 lg:py-1.25 hover:text-primary mt-0.5',
             active === 'address' ? 'text-primary font-medium' : '',

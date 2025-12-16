@@ -25,6 +25,10 @@ const NavLinkHome = () => {
           link = '/account/cart';
           l = 'Giỏ hàng';
         }
+        if (l === 'address') {
+          link = '/account/address';
+          l = 'Quản lý địa chỉ';
+        }
         return (
           <Link
             href={link || '#'}
