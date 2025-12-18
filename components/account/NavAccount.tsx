@@ -59,7 +59,7 @@ const NavAccount = () => {
           )}
         >
           <Package size={20} className="mr-2" strokeWidth={2} />
-          Đơn hàng của bạn
+          Giỏ hàng của bạn
         </Link>
         <Link
           href={'/account'}

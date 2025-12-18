@@ -92,7 +92,7 @@ const UserMenuHeader = () => {
             </Link>
             <Link href="/account/cart" className="flex items-center w-full py-1.5 hover:text-primary mt-0.5">
               <Package size={20} className="mr-2" strokeWidth={2} />
-              Đơn hàng của bạn
+              Giỏ hàng của bạn
             </Link>
             <Link href="/account" className="flex items-center w-full py-1.5 hover:text-primary mt-0.5">
               <KeyRound size={20} className="mr-2" strokeWidth={2} />

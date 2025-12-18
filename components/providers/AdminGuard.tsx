@@ -2,19 +2,23 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import useUserStore from '@/stores/userStore';
+
+import { useGetMe } from '@/hooks/users';
 
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const userRole = useUserStore((s) => s.user?.role);
+
+  const { data, isLoading } = useGetMe();
 
   useEffect(() => {
-    if (!userRole || userRole !== 'admin') {
+    if (!data) return;
+
+    if (data.role !== 'admin') {
       router.replace('/');
     }
-  }, [userRole, router]);
+  }, [data]);
 
-  if (!userRole) return null;
+  if (isLoading) return null;
 
   return <>{children}</>;
 }
