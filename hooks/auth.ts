@@ -18,6 +18,7 @@ const useLogin = () => {
         duration: 2000,
       });
       queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
       queryClient.invalidateQueries({ queryKey: ['token'] });
 
       setTimeout(() => router.push('/account'), 1500);
@@ -84,6 +85,7 @@ const useLogout = () => {
         }, 1500));
 
       queryClient.invalidateQueries({ queryKey: ['address'] });
+      queryClient.invalidateQueries({ queryKey: ['order'] });
     },
   });
 };

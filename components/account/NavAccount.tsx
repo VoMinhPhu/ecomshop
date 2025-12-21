@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import useUserStore from '@/stores/userStore';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
-import { KeyRound, MapPin, Package, User } from 'lucide-react';
+import { FileBox, KeyRound, MapPin, Package, User } from 'lucide-react';
 
 const NavAccount = () => {
   const pathname = usePathname();
@@ -59,6 +59,16 @@ const NavAccount = () => {
           )}
         >
           <Package size={20} className="mr-2" strokeWidth={2} />
+          Giỏ hàng của bạn
+        </Link>
+        <Link
+          href={'/account/order'}
+          className={cn(
+            'flex items-center w-full cursor-pointer py-1.5 lg:py-1.25 hover:text-primary mt-0.5',
+            active === 'order' ? 'text-primary font-medium' : '',
+          )}
+        >
+          <FileBox size={20} className="mr-2" strokeWidth={2} />
           Đơn hàng của bạn
         </Link>
         <Link

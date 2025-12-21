@@ -92,8 +92,10 @@ const Page = () => {
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
           />
+          <div className="grid grid-cols-1">
+            <DataTable table={table} isLoading={isLoading} />
+          </div>
 
-          <DataTable table={table} isLoading={isLoading} />
           <PanigateTableListProduct table={table} />
         </CardContent>
       </Card>

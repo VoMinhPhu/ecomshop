@@ -1,11 +1,14 @@
 'use client';
 
-import AddNewAddressBtn from '@/components/account/address/AddNewAddressBtn';
-import ManageAddress from '@/components/account/address/ManageAddress';
-import { Button } from '@/components/ui/button';
+import { MapPinned } from 'lucide-react';
+
 import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+
 import { useGetAllAddress } from '@/hooks/address';
-import { Ellipsis, MapPinned } from 'lucide-react';
+
+import ManageAddress from '@/components/account/address/ManageAddress';
+import AddNewAddressBtn from '@/components/account/address/AddNewAddressBtn';
 
 const page = () => {
   const { data, isLoading } = useGetAllAddress();
