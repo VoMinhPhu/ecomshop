@@ -4,42 +4,38 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 
+const BREADCRUMB_MAP: Record<string, { label: string; href: string }> = {
+  account: { label: 'Tài khoản', href: '/account' },
+  cart: { label: 'Giỏ hàng', href: '/account/cart' },
+  order: { label: 'Đơn hàng', href: '/account/order' },
+  address: { label: 'Quản lý địa chỉ', href: '/account/address' },
+};
+
 const NavLinkHome = () => {
   const pathname = usePathname();
 
-  const links = pathname.split('/');
+  const segments = pathname.split('/').filter(Boolean);
 
   return (
     <div className="col-span-4 flex items-center gap-3 mt-2">
-      <Link href={'/'} className="text-zinc-400">
+      <Link href="/" className="text-zinc-400">
         Trang chủ
       </Link>
-      {links.map((l, i) => {
-        if (i === 0) return;
-        let link;
-        if (l === 'account') {
-          l = 'Tài khoản';
-          link = '/account';
-        }
-        if (l === 'cart') {
-          link = '/account/cart';
-          l = 'Giỏ hàng';
-        }
-        if (l === 'address') {
-          link = '/account/address';
-          l = 'Quản lý địa chỉ';
-        }
+
+      {segments.map((segment, index) => {
+        const config = BREADCRUMB_MAP[segment];
+
+        if (!config) return null;
+
+        const isLast = index === segments.length - 1;
+
         return (
           <Link
-            href={link || '#'}
-            key={i}
-            className={cn(
-              'flex items-center gap-3 text-zinc-400',
-
-              i === links.length - 1 && 'text-black',
-            )}
+            key={segment}
+            href={config.href}
+            className={cn('flex items-center gap-3 text-zinc-400', isLast && 'text-black')}
           >
-            / {l}
+            / {config.label}
           </Link>
         );
       })}

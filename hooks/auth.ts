@@ -85,6 +85,7 @@ const useLogout = () => {
         }, 1500));
 
       queryClient.invalidateQueries({ queryKey: ['address'] });
+      queryClient.invalidateQueries({ queryKey: ['order'] });
     },
   });
 };

@@ -5,19 +5,24 @@ import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 
 import { Loader, ShoppingCart } from 'lucide-react';
+
 import { useGetUserCart } from '@/hooks/cart';
+import { useCreateOrder } from '@/hooks/order';
 
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+import { cn } from '@/lib/utils';
 import { formatCurrency } from '@/utils/number';
+
 import ManageQuantityBtn from '@/components/account/cart/ManageQuantityBtn';
 import RemoveCartItemBtn from '@/components/account/cart/RemoveCartItemBtn';
 
 const page = () => {
   const { data: carts, isLoading } = useGetUserCart();
+  const { mutate: createOrderMutate, isPending } = useCreateOrder();
 
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [selected, setSelected] = useState<Record<string, boolean>>({});
@@ -51,6 +56,12 @@ const page = () => {
       return sum + price * qty;
     }, 0);
   }, [carts, selected, quantities]);
+
+  const handleCreateOrder = () => {
+    createOrderMutate({
+      cartItemIds: selectedIds,
+    });
+  };
 
   if (isLoading) {
     return (
@@ -114,7 +125,7 @@ const page = () => {
                           width={100}
                           height={100}
                           alt={d.product.name}
-                          className="object-cover w-25 h-25 rounded-md"
+                          className="object-contain w-25 h-25 rounded-md"
                         />
                       </Label>
 
@@ -159,17 +170,8 @@ const page = () => {
                   cartItemIds={selectedIds}
                 />
 
-                <Button
-                  disabled={selectedCount === 0}
-                  onClick={() =>
-                    console.log(
-                      selectedIds.map((id) => ({
-                        id,
-                        quantity: quantities[id],
-                      })),
-                    )
-                  }
-                >
+                <Button disabled={selectedCount === 0} onClick={handleCreateOrder}>
+                  <Loader className={cn('hidden', isPending && 'block animate-spin')} />
                   Mua ngay
                 </Button>
               </div>
