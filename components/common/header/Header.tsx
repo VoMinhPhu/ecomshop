@@ -12,7 +12,7 @@ const Header = () => {
     <div className="fixed top-0 z-50 w-full bg-emerald-600 border-b flex flex-col items-center justify-center">
       <div className="max-w-300 px-2 w-full min-h-19 flex items-center">
         <Link href={'/'}>
-          <Image src={'/logo.svg'} alt="Logo" width={120} height={40} className="h-auto min-w-40 md:min-w-52" />
+          <Image src={'/icons/logo.svg'} alt="Logo" width={120} height={40} className="h-auto min-w-40 md:min-w-52" />
         </Link>
         <div className="hidden lg:block lg:mx-auto">
           <SectionSearch />

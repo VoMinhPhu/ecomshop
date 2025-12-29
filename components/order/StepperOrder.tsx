@@ -2,14 +2,13 @@
 
 import {
   Stepper,
-  StepperDescription,
-  StepperIndicator,
   StepperItem,
-  StepperSeparator,
   StepperTitle,
   StepperTrigger,
+  StepperIndicator,
+  StepperSeparator,
+  StepperDescription,
 } from '@/components/ui/stepper';
-import { useState } from 'react';
 
 const steps = [
   {
@@ -29,9 +28,7 @@ const steps = [
   },
 ];
 
-export default function StepperOrder() {
-  const [step, setStep] = useState<number>(1);
-
+export default function StepperOrder({ step }: { step: number }) {
   return (
     <div className="space-y-8 text-center">
       <Stepper value={step}>
@@ -50,16 +47,6 @@ export default function StepperOrder() {
           </StepperItem>
         ))}
       </Stepper>
-      {/* <div>
-        <button
-          onClick={() => {
-            if (step > 1) setStep(step - 1);
-          }}
-        >
-          Previous
-        </button>
-        <button onClick={() => setStep(step + 1)}>Next</button>
-      </div> */}
     </div>
   );
 }

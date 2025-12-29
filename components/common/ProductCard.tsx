@@ -7,7 +7,7 @@ type Props = {};
 const ProductCard = (props: Props) => {
   return (
     <Link href={`/product/detail/`} className="border rounded-sm hover:shadow">
-      <Image src={'/fire.png'} width={36} height={36} alt="HOT" />
+      <Image src={'/icons/fire.png'} width={36} height={36} alt="HOT" />
       <Image
         src={
           'https://xincoqxttanzbwzrdvfq.supabase.co/storage/v1/object/public/products/452e59fb-4425-4169-9a1c-aece594e19ee.webp'

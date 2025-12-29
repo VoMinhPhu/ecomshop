@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { useEffect } from 'react';
 
+import { Loader } from 'lucide-react';
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -18,11 +20,10 @@ import { cn } from '@/lib/utils';
 import useUserStore from '@/stores/userStore';
 import { formatCurrency } from '@/utils/number';
 
-import { useConfirmOrder, useGetDetailOrder } from '@/hooks/order';
 import { useGetAllAddress } from '@/hooks/address';
+import { useConfirmOrder, useGetDetailOrder } from '@/hooks/order';
 
 import { confirmOrderSchema, ConfirmOrderSchemaType } from '@/types/order';
-import { Loader } from 'lucide-react';
 
 type Props = {
   id: string;
@@ -36,12 +37,20 @@ const Step1 = ({ id }: Props) => {
 
   const form = useForm<ConfirmOrderSchemaType>({
     resolver: zodResolver(confirmOrderSchema),
+    defaultValues: {
+      id: '',
+      shippingAddress: '',
+      phone: '',
+      note: undefined,
+      paymentMethod: 'COD',
+    },
   });
 
   useEffect(() => {
     if (data) {
       form.setValue('id', data.id);
       form.setValue('shippingAddress', data.shippingAddress);
+      form.setValue('note', data.note);
     }
 
     if (user?.phone) form.setValue('phone', user.phone);
@@ -176,7 +185,7 @@ const Step1 = ({ id }: Props) => {
                       )}
                     >
                       <RadioGroupItem value="COD" />
-                      <Image src="/money.png" width={32} height={32} alt="Money" />
+                      <Image src="/icons/money.png" width={32} height={32} alt="Money" />
                       <div>
                         <p className="font-medium">Thanh toán bằng tiền mặt</p>
                         <p className="text-xs text-muted-foreground">Thanh toán khi nhận hàng</p>
@@ -186,14 +195,27 @@ const Step1 = ({ id }: Props) => {
                     <Label
                       className={cn(
                         'flex cursor-pointer items-start gap-3 rounded-md border p-4',
-                        field.value === 'ONLINE' && 'border-primary',
+                        field.value === 'VISA' && 'border-primary',
                       )}
                     >
-                      <RadioGroupItem value="ONLINE" />
-                      <Image src="/visa.png" width={36} height={36} alt="Visa" />
+                      <RadioGroupItem value="VISA" />
+                      <Image src="/icons/visa.png" width={36} height={36} alt="Visa" />
                       <div>
-                        <p className="font-medium">Thanh toán online</p>
-                        <p className="text-xs text-muted-foreground">Thẻ / phương thức online khác</p>
+                        <p className="font-medium">Thanh toán qua thẻ Visa</p>
+                        <p className="text-xs text-muted-foreground">Sử dụng thẻ Visa để thanh toán trực tuyến</p>
+                      </div>
+                    </Label>
+                    <Label
+                      className={cn(
+                        'flex cursor-pointer items-start gap-3 rounded-md border p-4',
+                        field.value === 'QR' && 'border-primary',
+                      )}
+                    >
+                      <RadioGroupItem value="QR" />
+                      <Image src="/icons/qr.svg" width={36} height={36} alt="Qr" />
+                      <div>
+                        <p className="font-medium">Thanh toán qua mã QR</p>
+                        <p className="text-xs text-muted-foreground">Sử dụng mã QR để thanh toán nhanh chóng</p>
                       </div>
                     </Label>
                   </RadioGroup>

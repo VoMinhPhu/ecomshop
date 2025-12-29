@@ -1,4 +1,11 @@
-import { ConfirmOrderType, CreateOrderType, GetOrdersDetailResponse, GetOrdersResponse } from '@/types/order';
+import {
+  OrderStatus,
+  PaymentMethod,
+  CreateOrderType,
+  ConfirmOrderType,
+  GetOrdersResponse,
+  GetOrdersDetailResponse,
+} from '@/types/order';
 import axiosInstance from '../axiosInstance';
 
 const createOrderFn = async (payload: CreateOrderType): Promise<{ orderCode: string; id: string }> => {
@@ -7,7 +14,15 @@ const createOrderFn = async (payload: CreateOrderType): Promise<{ orderCode: str
   return data;
 };
 
-const confirmOrderFn = async (payload: ConfirmOrderType): Promise<{ orderCode: string; id: string }> => {
+const getTotalOrderFn = async (orderCode: string): Promise<{ total: number }> => {
+  const { data } = await axiosInstance.get(`/orders/${orderCode}`);
+
+  return data;
+};
+
+const confirmOrderFn = async (
+  payload: ConfirmOrderType,
+): Promise<{ orderCode: string; id: string; status: OrderStatus; paymentMethod: PaymentMethod }> => {
   const { data } = await axiosInstance.post('/orders/confirm', payload);
 
   return data;
@@ -25,4 +40,4 @@ const getDetailOrderFn = async (id: string): Promise<GetOrdersDetailResponse> =>
   return data;
 };
 
-export { createOrderFn, getOrderFn, getDetailOrderFn, confirmOrderFn };
+export { createOrderFn, getOrderFn, getDetailOrderFn, confirmOrderFn, getTotalOrderFn };

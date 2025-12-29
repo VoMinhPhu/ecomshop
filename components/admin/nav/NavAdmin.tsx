@@ -30,7 +30,7 @@ export default function NavAdmin() {
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
                 <div className="text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Image src={'/logo-small.svg'} width={32} height={32} alt="Logo" />
+                  <Image src={'/icons/logo-small.svg'} width={32} height={32} alt="Logo" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">eComStore</span>

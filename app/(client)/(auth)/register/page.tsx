@@ -31,7 +31,7 @@ const page = () => {
           <p className="text-center text-zinc-400 my-4">Hoặc đăng nhập bằng</p>
 
           <Button variant="outline" className="w-full h-11 text-base">
-            <Image src={'/google.svg'} width={20} height={20} alt="google icon" />
+            <Image src={'/icons/google.svg'} width={20} height={20} alt="google icon" />
             Đăng nhập với Google
           </Button>
         </div>
