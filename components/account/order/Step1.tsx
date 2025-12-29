@@ -185,7 +185,7 @@ const Step1 = ({ id }: Props) => {
                       )}
                     >
                       <RadioGroupItem value="COD" />
-                      <Image src="/money.png" width={32} height={32} alt="Money" />
+                      <Image src="/icons/money.png" width={32} height={32} alt="Money" />
                       <div>
                         <p className="font-medium">Thanh toán bằng tiền mặt</p>
                         <p className="text-xs text-muted-foreground">Thanh toán khi nhận hàng</p>
@@ -199,7 +199,7 @@ const Step1 = ({ id }: Props) => {
                       )}
                     >
                       <RadioGroupItem value="VISA" />
-                      <Image src="/visa.png" width={36} height={36} alt="Visa" />
+                      <Image src="/icons/visa.png" width={36} height={36} alt="Visa" />
                       <div>
                         <p className="font-medium">Thanh toán qua thẻ Visa</p>
                         <p className="text-xs text-muted-foreground">Sử dụng thẻ Visa để thanh toán trực tuyến</p>
@@ -212,7 +212,7 @@ const Step1 = ({ id }: Props) => {
                       )}
                     >
                       <RadioGroupItem value="QR" />
-                      <Image src="/qr.svg" width={36} height={36} alt="Qr" />
+                      <Image src="/icons/qr.svg" width={36} height={36} alt="Qr" />
                       <div>
                         <p className="font-medium">Thanh toán qua mã QR</p>
                         <p className="text-xs text-muted-foreground">Sử dụng mã QR để thanh toán nhanh chóng</p>

@@ -9,7 +9,7 @@ import { PaymentMethod } from '@/types/order';
 
 import { StripeCheckout } from './CheckoutForm';
 
-import hourglassAnimation from '@/public/hourglass.json';
+import hourglassAnimation from '@/public/icons/hourglass.json';
 
 type Props = {
   orderCode: string;

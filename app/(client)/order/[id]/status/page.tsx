@@ -30,7 +30,7 @@ const page = () => {
               <p className="text-center font-semibold text-2xl">
                 {payment === 'true' ? 'Thanh toán thành công' : 'Đặt hàng thành công'}
               </p>
-              <Image width={84} height={84} alt="success" src={'/success.png'} className="mx-auto my-4" />
+              <Image width={84} height={84} alt="success" src={'/icons/success.png'} className="mx-auto my-4" />
             </div>
 
             <div className="px-20 pb-10">

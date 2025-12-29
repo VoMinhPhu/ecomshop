@@ -16,14 +16,14 @@ export default function ProductNotFound() {
       </div>
       <div className="relative pt-4 md:pt-20 lg:pt-4">
         <Image
-          src="/not-found.svg"
+          src="/icons/not-found.svg"
           width={400}
           height={400}
           className="h-auto w-75 md:w-80 lg:w-100"
           alt="Not Found Icon"
         />
         <Image
-          src="/not-found-icon.svg"
+          src="/icons/not-found-icon.svg"
           width={230}
           height={230}
           className="h-auto absolute top-1/2 left-1/2 -translate-x-1/2 md:w-50 lg:w-57.5"
