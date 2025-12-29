@@ -48,17 +48,24 @@ export type Order = {
   orderCode: string;
   status: OrderStatus;
   totalAmount: number;
-  paymentMethod: 'cod' | 'vnpay' | 'momo' | 'stripe' | any;
+  paymentMethod: PaymentMethod;
   createdAt: string;
   items: OrderItem[];
 };
 
 export enum OrderStatus {
   PENDING = 'pending',
+  CONFIRMED = 'confirmed',
   PAID = 'paid',
   SHIPPED = 'shipped',
   COMPLETED = 'completed',
   CANCELLED = 'cancelled',
+}
+
+export enum PaymentMethod {
+  COD = 'COD',
+  VISA = 'VISA',
+  QR = 'QR',
 }
 
 export type GetOrdersResponse = Order[];

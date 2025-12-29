@@ -14,9 +14,7 @@ export default function Page() {
 
   const allOrders = data ?? [];
 
-  const pendingOrders = allOrders.filter((o) =>
-    [OrderStatus.PENDING, OrderStatus.PAID, OrderStatus.SHIPPED].includes(o.status),
-  );
+  const pendingOrders = allOrders.filter((o) => [OrderStatus.PENDING, OrderStatus.SHIPPED].includes(o.status));
 
   const completedOrders = allOrders.filter((o) => o.status === OrderStatus.COMPLETED);
 

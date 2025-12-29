@@ -1,7 +1,10 @@
-import { confirmOrderFn, createOrderFn, getDetailOrderFn, getOrderFn } from '@/lib/api/order';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+
+import { confirmOrderFn, createOrderFn, getDetailOrderFn, getOrderFn, getTotalOrderFn } from '@/lib/api/order';
+
+import { PaymentMethod } from '@/types/order';
 
 const useGetOrder = () => {
   return useQuery({
@@ -11,11 +14,20 @@ const useGetOrder = () => {
   });
 };
 
+const useGetTotalOrder = (orderCode: string) => {
+  return useQuery({
+    queryKey: [orderCode],
+    queryFn: () => getTotalOrderFn(orderCode),
+    staleTime: 1000 * 60 * 10,
+  });
+};
+
 const useGetDetailOrder = (id: string) => {
   return useQuery({
-    queryKey: ['order'],
+    queryKey: ['order', id],
     queryFn: () => getDetailOrderFn(id),
     staleTime: 1000 * 60 * 20,
+    enabled: !!id,
   });
 };
 
@@ -42,19 +54,17 @@ const useCreateOrder = () => {
 
 const useConfirmOrder = () => {
   const queryClient = useQueryClient();
-  // const router = useRouter();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: confirmOrderFn,
     onSuccess: (data) => {
-      toast.success('Xác nhận đơn hàng', {
-        description: 'Xác nhân đơn hàng thành công.',
-        duration: 2500,
-      });
       queryClient.invalidateQueries({ queryKey: ['order'] });
-
-      // router.push(`/order/${data.orderCode}`);
+      if (data.paymentMethod !== PaymentMethod.COD) {
+        router.push(`/order/${data.orderCode}/payment?method=${data.paymentMethod}`);
+      } else router.push(`/order/${data.orderCode}/status`);
     },
+
     onError: () => {
       toast.error('Xác nhận đơn hàng', {
         description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
@@ -64,4 +74,4 @@ const useConfirmOrder = () => {
   });
 };
 
-export { useGetOrder, useCreateOrder, useGetDetailOrder, useConfirmOrder };
+export { useGetOrder, useCreateOrder, useGetDetailOrder, useConfirmOrder, useGetTotalOrder };

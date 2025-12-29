@@ -5,27 +5,20 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-let isRefreshing = false;
-type QueueItem = { resolve: (value?: any) => void; reject: (error?: any) => void };
-let failedQueue: QueueItem[] = [];
-
-const processQueue = (error: any) => {
-  failedQueue.forEach(({ resolve, reject }) => {
-    if (error) reject(error);
-    else resolve();
-  });
-  failedQueue = [];
-};
-
 interface RetryAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
+let isRefreshing = false;
+let refreshPromise: Promise<void> | null = null;
+
 const redirectToLogin = () => {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== 'undefined' && window.location.pathname !== '/login') {
     window.location.href = '/login';
   }
 };
+
+const isAuthApi = (url?: string) => url?.includes('/auth/login') || url?.includes('/auth/refresh');
 
 axiosInstance.interceptors.response.use(
   (response) => response,
@@ -33,36 +26,29 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config as RetryAxiosRequestConfig | undefined;
     if (!originalRequest) return Promise.reject(error);
 
-    // Nếu status 401 và chưa retry
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      if (isRefreshing) {
-        return new Promise((resolve, reject) => {
-          failedQueue.push({ resolve, reject });
-        })
-          .then(() => axiosInstance(originalRequest))
-          .catch((err) => Promise.reject(err));
-      }
+    const status = error.response?.status;
 
+    if (status === 401 && !originalRequest._retry && !isAuthApi(originalRequest.url)) {
       originalRequest._retry = true;
-      isRefreshing = true;
 
       try {
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {}, { withCredentials: true });
-        processQueue(null);
-        return axiosInstance(originalRequest);
-      } catch (err) {
-        processQueue(err);
-        // redirect khi refresh thất bại
-        redirectToLogin();
-        return Promise.reject(err);
-      } finally {
-        isRefreshing = false;
-      }
-    }
+        if (!isRefreshing) {
+          isRefreshing = true;
+          refreshPromise = axios
+            .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {}, { withCredentials: true })
+            .then(() => undefined)
+            .finally(() => {
+              isRefreshing = false;
+              refreshPromise = null;
+            });
+        }
 
-    // Nếu 401 mà đã retry hoặc các lỗi khác
-    if (error.response?.status === 401) {
-      redirectToLogin();
+        await refreshPromise;
+        return axiosInstance(originalRequest);
+      } catch {
+        if (!isRefreshing) redirectToLogin();
+        return Promise.reject(error);
+      }
     }
 
     return Promise.reject(error);
