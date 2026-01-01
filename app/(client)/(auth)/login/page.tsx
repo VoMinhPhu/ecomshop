@@ -94,8 +94,8 @@ const Page = () => {
             </form>
           </Form>
           <p className="text-center text-zinc-400 my-4">Hoặc đăng nhập bằng</p>
-          {/* <Link href={'http://localhost:8080/api/v1/auth/google'}> */}
-          <Link href={`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/google`}>
+
+          <Link href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}>
             <Button variant="outline" className="w-full h-11 text-base">
               <Image src={'/icons/google.svg'} width={20} height={20} alt="google icon" />
               Đăng nhập với Google
