@@ -6,6 +6,12 @@ const getUserCartFn = async (): Promise<{ data: CartItem[] }> => {
   return data;
 };
 
+const addProductToCart = async (payload: { productId: string; quantity: number }) => {
+  const { data } = await axiosInstance.post('/carts/add', payload);
+
+  return data;
+};
+
 const removeCartItemsFn = async (payload: { cartItemIds: string[] }): Promise<{ message: string }> => {
   const { data } = await axiosInstance.delete('/carts/remove', {
     data: payload,
@@ -20,4 +26,4 @@ const updateQuantityCartItemFn = async (payload: { id: string; quantity: number 
   return data;
 };
 
-export { getUserCartFn, removeCartItemsFn, updateQuantityCartItemFn };
+export { getUserCartFn, removeCartItemsFn, updateQuantityCartItemFn, addProductToCart };

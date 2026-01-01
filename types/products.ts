@@ -67,6 +67,25 @@ export interface Product {
   updatedAt: string;
 }
 
+export interface GetProductBySlugResponse {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  thumbnail: string;
+  price: number;
+  salePrice?: number | null;
+  status: ProductStatus;
+  category: {
+    id: string;
+    name: string;
+  };
+  brand: {
+    id: string;
+    name: string;
+  };
+}
+
 export type GetAllProductResponseType = {
   data: Product[];
   total: number;
@@ -85,3 +104,64 @@ export interface FilterProducts {
   page?: number;
   limit?: number;
 }
+
+export type ProductFilterParams = {
+  search?: string;
+  brand?: string[];
+  category?: string[];
+  minPrice?: number;
+  maxPrice?: number;
+  sort?: 'priceAsc' | 'priceDesc' | 'newest';
+  page?: number;
+  limit?: number;
+};
+
+export type UseGetAllProductWithFilterParams = {
+  page: number;
+  limit: number;
+  search?: string;
+  brand?: string[];
+  category?: string[];
+  minPrice?: number;
+  maxPrice?: number;
+  sort?: 'priceAsc' | 'priceDesc' | 'newest';
+};
+
+export interface ProductListItem {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  thumbnail: string;
+  price: number;
+  salePrice: number | null;
+  status: string;
+  createdAt: Date;
+  brand: {
+    id: string;
+    name: string;
+  };
+  category: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface GetProductsWithFiltersResponse {
+  data: ProductListItem[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+export type GetNameAndSlugOfCategoriesAndBrandsResponseType = {
+  categories: {
+    slug: string;
+    name: string;
+  }[];
+  brands: {
+    slug: string;
+    name: string;
+  }[];
+};

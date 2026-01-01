@@ -19,7 +19,7 @@ const Categories = () => {
             return (
               <Link
                 key={item.id}
-                href={'/account'}
+                href={`/products?category=${item.slug}`}
                 className="h-10 flex items-center gap-2 px-1 hover:bg-primary-foreground w-full rounded-sm mb-1 font-light"
               >
                 {item.icon && <Image src={item.icon} width={28} height={28} alt="icon" />}

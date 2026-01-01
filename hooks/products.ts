@@ -1,4 +1,7 @@
+import { AxiosError } from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
+
 import {
   createProductFn,
   updateProductFn,
@@ -7,14 +10,22 @@ import {
   getCategoriesAndBrandsFn,
   getCategoriesAndBrandsToFilterFn,
 } from '@/lib/api/admin/product';
-import { toast } from 'sonner';
-import { AxiosError } from 'axios';
-import { Product } from '@/types/products';
+import { getNameAndSlugOfCategoriesAndBrandsFn, getProductBySlugFn, getProductWithFilterFn } from '@/lib/api/products';
+
+import { GetProductBySlugResponse, Product, UseGetAllProductWithFilterParams } from '@/types/products';
 
 const useGetCategoriesAndBrands = () => {
   return useQuery({
     queryKey: ['category', 'brand'],
     queryFn: getCategoriesAndBrandsFn,
+    staleTime: 1000 * 60 * 30,
+  });
+};
+
+const useGetNameAndSlugOfCategoriesAndBrands = () => {
+  return useQuery({
+    queryKey: ['category', 'brand'],
+    queryFn: getNameAndSlugOfCategoriesAndBrandsFn,
     staleTime: 1000 * 60 * 30,
   });
 };
@@ -101,6 +112,33 @@ const useGetAllProduct = ({
   });
 };
 
+const useGetAllProductWithFilter = ({
+  sort,
+  page,
+  limit,
+  brand,
+  search,
+  category,
+  minPrice,
+  maxPrice,
+}: UseGetAllProductWithFilterParams) => {
+  return useQuery({
+    queryKey: ['products', page, limit, search, brand, category, minPrice, maxPrice, sort],
+    queryFn: () =>
+      getProductWithFilterFn({
+        page,
+        sort,
+        limit,
+        brand,
+        search,
+        category,
+        minPrice,
+        maxPrice,
+      }),
+    staleTime: 1000 * 60 * 30,
+  });
+};
+
 const useGetProductById = (id?: string) => {
   return useQuery<Product>({
     queryKey: ['products', id],
@@ -110,11 +148,23 @@ const useGetProductById = (id?: string) => {
   });
 };
 
+const useGetProductBySlug = (slug: string) => {
+  return useQuery<GetProductBySlugResponse>({
+    queryKey: ['products', 'detail', slug],
+    queryFn: () => getProductBySlugFn(slug),
+    staleTime: 1000 * 60 * 20,
+    enabled: !!slug,
+  });
+};
+
 export {
   useCreateProduct,
   useUpdateProduct,
   useGetAllProduct,
   useGetProductById,
+  useGetProductBySlug,
   useGetCategoriesAndBrands,
+  useGetAllProductWithFilter,
   useGetCategoriesAndBrandsToFilter,
+  useGetNameAndSlugOfCategoriesAndBrands,
 };
