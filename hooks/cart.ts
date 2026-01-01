@@ -1,6 +1,8 @@
+import { AxiosError } from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 import { toast } from 'sonner';
-import { getUserCartFn, removeCartItemsFn, updateQuantityCartItemFn } from '@/lib/api/cart';
+import { addProductToCart, getUserCartFn, removeCartItemsFn, updateQuantityCartItemFn } from '@/lib/api/cart';
 
 const useGetUserCart = () => {
   return useQuery({
@@ -10,13 +12,39 @@ const useGetUserCart = () => {
   });
 };
 
+const useAddProductToCart = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: addProductToCart,
+    onSuccess: () => {
+      toast.success('Thêm sản phẩm vào giỏ hàng', {
+        description: 'Thêm sản phẩm vào giỏ hàng thành công.',
+        duration: 2500,
+      });
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
+    },
+    onError: (e: AxiosError<{ message: string; error: string; statusCode: number }>) => {
+      if (e.status === 409) {
+        return toast.error('Thêm sản phẩm vào giỏ hàng', {
+          description: 'Sản phẩm đã được thêm vào giỏ hàng trước đó.',
+          duration: 2500,
+        });
+      }
+      toast.error('Thêm sản phẩm vào giỏ hàng', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2500,
+      });
+    },
+  });
+};
+
 const useRemoveCartItem = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: removeCartItemsFn,
     onSuccess: () => {
       toast.success('Xóa sản phẩm khỏi giỏ hàng', {
-        description: 'Xóa sản phẩm khỏi giỏ thành công.',
+        description: 'Xóa sản phẩm khỏi giỏ hàng thành công.',
         duration: 2500,
       });
       queryClient.invalidateQueries({ queryKey: ['cart'] });
@@ -46,4 +74,4 @@ const useUpdateQuantityCartItem = () => {
   });
 };
 
-export { useGetUserCart, useRemoveCartItem, useUpdateQuantityCartItem };
+export { useGetUserCart, useRemoveCartItem, useUpdateQuantityCartItem, useAddProductToCart };

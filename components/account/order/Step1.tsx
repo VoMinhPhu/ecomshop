@@ -41,7 +41,7 @@ const Step1 = ({ id }: Props) => {
       id: '',
       shippingAddress: '',
       phone: '',
-      note: undefined,
+      note: '',
       paymentMethod: 'COD',
     },
   });
@@ -50,7 +50,7 @@ const Step1 = ({ id }: Props) => {
     if (data) {
       form.setValue('id', data.id);
       form.setValue('shippingAddress', data.shippingAddress);
-      form.setValue('note', data.note);
+      if (data.note) form.setValue('note', data.note);
     }
 
     if (user?.phone) form.setValue('phone', user.phone);
