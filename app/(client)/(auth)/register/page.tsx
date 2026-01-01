@@ -30,10 +30,12 @@ const page = () => {
 
           <p className="text-center text-zinc-400 my-4">Hoặc đăng nhập bằng</p>
 
-          <Button variant="outline" className="w-full h-11 text-base">
-            <Image src={'/icons/google.svg'} width={20} height={20} alt="google icon" />
-            Đăng nhập với Google
-          </Button>
+          <Link href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}>
+            <Button variant="outline" className="w-full h-11 text-base">
+              <Image src={'/icons/google.svg'} width={20} height={20} alt="google icon" />
+              Đăng nhập với Google
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
