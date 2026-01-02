@@ -1,27 +1,5 @@
 import { z } from 'zod';
 
-export type GetCategoriesAndBrandsResponseType = {
-  categories: {
-    id: string;
-    name: string;
-  }[];
-  brands: {
-    id: string;
-    name: string;
-  }[];
-};
-
-export type GetCategoriesAndBrandsToFilterResponseType = {
-  categories: {
-    slug: string;
-    name: string;
-  }[];
-  brands: {
-    slug: string;
-    name: string;
-  }[];
-};
-
 export const createProductSchema = z.object({
   name: z.string().trim().min(1, 'Thêm tên sản phẩm'),
   price: z.string().trim().min(1, 'Cập nhật giá cho sản phẩm'),
@@ -155,13 +133,16 @@ export interface GetProductsWithFiltersResponse {
   totalPages: number;
 }
 
-export type GetNameAndSlugOfCategoriesAndBrandsResponseType = {
-  categories: {
-    slug: string;
-    name: string;
-  }[];
-  brands: {
-    slug: string;
-    name: string;
-  }[];
+export type ProductOnHomePageResponse = {
+  id: string;
+  name: string;
+  slug: string;
+  thumbnail: string;
+  price: number;
+  salePrice: number;
+  // totalSold: number;
 };
+
+export type TopSellResponseType = ProductOnHomePageResponse[];
+export type NewProductsResponseType = ProductOnHomePageResponse[];
+export type GetDiscountProductsResponseType = ProductOnHomePageResponse[];
