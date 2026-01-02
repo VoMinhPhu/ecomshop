@@ -1,3 +1,4 @@
+import { Category } from '@/types/categories';
 import { NewProductsResponseType, TopSellResponseType } from '@/types/products';
 
 export async function getTopSell(): Promise<TopSellResponseType> {

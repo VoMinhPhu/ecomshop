@@ -4,6 +4,8 @@ import { AxiosError } from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createBrandFn, getAllBrandsFn, getBrandByIdFn, updateBrandFn } from '@/lib/api/brands';
 
+import { Category } from '@/types/categories';
+
 const useGetAllBrands = () => {
   return useQuery<Category[]>({
     queryKey: ['brands'],

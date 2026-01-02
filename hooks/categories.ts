@@ -4,6 +4,8 @@ import { AxiosError } from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createCategoryFn, getAllCategories, getCategoryById, updateCategory } from '@/lib/api/categories';
 
+import { Category } from '@/types/categories';
+
 const useGetAllCategories = () => {
   return useQuery<Category[]>({
     queryKey: ['categories'],

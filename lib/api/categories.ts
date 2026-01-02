@@ -1,3 +1,4 @@
+import { Category } from '@/types/categories';
 import axiosInstance from '../axiosInstance';
 import { CreateCategorySchema, UpdateCategorySchema } from '@/components/admin/categories/schema/categories';
 
