@@ -1,21 +1,16 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
-import CategoiesLoading from './CategoiesLoading';
-import { useGetAllCategories } from '@/hooks/categories';
+import { getAllCategories } from '@/lib/server/product';
 
-const Categories = () => {
-  const { data, isLoading } = useGetAllCategories();
-
-  if (isLoading) return <CategoiesLoading />;
+const Categories = async () => {
+  const data = await getAllCategories();
 
   return (
     <div className="w-50 hidden md:block">
-      <div className="sticky top-40 max-h-155 overflow-y-scroll scrollbar-hide lg:top-23 bg-white rounded-md shadow">
+      <div className="sticky top-40 max-h-[calc(100vh-108px)] overflow-y-scroll scrollbar-hide lg:top-23 bg-white rounded-md shadow">
         <p className="text-lg font-semibold px-4 py-2">Danh mục</p>
         <div className="px-4 pb-8">
-          {data?.map((item: any) => {
+          {data.map((item: any) => {
             return (
               <Link
                 key={item.id}

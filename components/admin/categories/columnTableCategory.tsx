@@ -10,6 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { DataTableColumnHeader } from '@/components/common/tables/data-table-column-header';
 import { Ellipsis, FilePen, Trash2 } from 'lucide-react';
+import { Category } from '@/types/categories';
 
 export const columnsTableCategory: ColumnDef<Category, any>[] = [
   {

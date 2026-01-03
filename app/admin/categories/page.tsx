@@ -25,6 +25,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 import ToolbarTableCategory from '@/components/admin/categories/ToolbarTableCategory';
 import PaginationTableCategory from '@/components/admin/categories/PaginationTableCategory';
+import { Category } from '@/types/categories';
 
 const Page = () => {
   const { data: categories, isLoading } = useGetAllCategories();

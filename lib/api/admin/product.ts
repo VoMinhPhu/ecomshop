@@ -5,16 +5,15 @@ import {
   CreateProductSchema,
   UpdateProductSchema,
   GetAllProductResponseType,
-  GetCategoriesAndBrandsResponseType,
-  GetCategoriesAndBrandsToFilterResponseType,
 } from '@/types/products';
+import { CategoriesAndBrandsResponse } from '@/types/categories';
 
-const getCategoriesAndBrandsFn = async (): Promise<GetCategoriesAndBrandsResponseType> => {
+const getCategoriesAndBrandsFn = async (): Promise<CategoriesAndBrandsResponse<'id'>> => {
   const { data } = await axiosInstance.get('/category/categories-brands');
   return data;
 };
 
-const getCategoriesAndBrandsToFilterFn = async (): Promise<GetCategoriesAndBrandsToFilterResponseType> => {
+const getCategoriesAndBrandsToFilterFn = async (): Promise<CategoriesAndBrandsResponse<'slug'>> => {
   const { data } = await axiosInstance.get('/category/categories-brands-filter');
   return data;
 };

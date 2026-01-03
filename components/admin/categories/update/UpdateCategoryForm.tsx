@@ -13,6 +13,7 @@ import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
 import IconImageField from '@/components/common/fieldOfForm/FieldIconOfForm';
 import { updateCategorySchema, UpdateCategorySchema } from '@/components/admin/categories/schema/categories';
+import { Category } from '@/types/categories';
 
 type Props = {
   data: Category;

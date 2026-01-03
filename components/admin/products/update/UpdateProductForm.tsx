@@ -1,11 +1,5 @@
 'use client';
 
-import {
-  Product,
-  updateProductSchema,
-  UpdateProductSchema,
-  GetCategoriesAndBrandsResponseType,
-} from '@/types/products';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -13,6 +7,9 @@ import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
 
 import { useUpdateProduct } from '@/hooks/products';
+
+import { CategoriesAndBrandsResponse } from '@/types/categories';
+import { Product, updateProductSchema, UpdateProductSchema } from '@/types/products';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
@@ -23,7 +20,7 @@ import CropImageField from '@/components/admin/products/CropImageField';
 import SelectHaveSearchField from '@/components/common/fieldOfForm/SelectHaveSearchField';
 
 type Props = {
-  categoriesAndBrands: GetCategoriesAndBrandsResponseType;
+  categoriesAndBrands: CategoriesAndBrandsResponse<'id'>;
   data: Product;
 };
 

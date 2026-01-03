@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import ProductCard from '../common/ProductCard';
-import { getTopSell } from '@/lib/server/product';
+import { getNewProduct } from '@/lib/server/product';
 
-export default async function TopSell() {
-  const products = await getTopSell();
+export default async function NewProducts() {
+  const products = await getNewProduct();
 
   return (
-    <div className="bg-gradient-to-b from-green-100 to-white mt-4 rounded-md p-4 pb-12 gap-2">
+    <div className="bg-white mt-4 rounded-md p-4 pb-12 gap-2">
       <div className="flex items-center justify-between">
-        <p className="font-bold text-lg">Những sản phẩm bán chạy nhất</p>
-        <Link href="/products" className="text-primary text-sm font-semibold">
+        <p className="font-bold text-lg">Những sản phẩm mới của cửa hàng</p>
+        <Link href="/products?sort=newest" className="text-primary text-sm font-semibold">
           Xem tất cả
         </Link>
       </div>

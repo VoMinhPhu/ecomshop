@@ -4,6 +4,8 @@ import { AxiosError } from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createCategoryFn, getAllCategories, getCategoryById, updateCategory } from '@/lib/api/categories';
 
+import { Category } from '@/types/categories';
+
 const useGetAllCategories = () => {
   return useQuery<Category[]>({
     queryKey: ['categories'],
@@ -26,12 +28,15 @@ const useUpdateCategory = () => {
 
   return useMutation({
     mutationFn: updateCategory,
-    onSuccess: () => {
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['categories'] });
+
+      await fetch('/api/revalidate/categories', { method: 'POST' });
+
       toast.success('Cập nhật danh mục', {
         description: 'Cập nhật danh mục thành công',
         duration: 2500,
       });
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
     },
     onError(error: AxiosError) {
       if (error.status === 404) {
@@ -54,12 +59,15 @@ const useCreateCategory = () => {
 
   return useMutation({
     mutationFn: createCategoryFn,
-    onSuccess: () => {
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['categories'] });
+
+      await fetch('/api/revalidate/categories', { method: 'POST' });
+
       toast.success('Tạo danh mục', {
         description: 'Tạo danh mục thành công',
         duration: 2500,
       });
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
     },
     onError(error: AxiosError) {
       if (error.status === 409) {
