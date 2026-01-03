@@ -1,10 +1,10 @@
 import { AxiosError } from 'axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import useUserStore from '@/stores/userStore';
-import { loginFn, logoutFn, registerFn } from '@/lib/api/auth';
+import { checkAdminFn, loginFn, logoutFn, registerFn } from '@/lib/api/auth';
 
 const useLogin = () => {
   const router = useRouter();
@@ -76,18 +76,28 @@ const useLogout = () => {
   return useMutation({
     mutationFn: logoutFn,
     onSuccess: () => {
-      (toast.success('Đăng xuất', {
+      toast.success('Đăng xuất', {
         description: 'Đăng xuất thành công.',
         duration: 3000,
-      }),
-        setTimeout(() => {
-          clearUser();
-          router.push('/login');
-        }, 1500));
+      });
+      setTimeout(() => {
+        clearUser();
+        router.push('/');
+      }, 1500);
 
       queryClient.invalidateQueries({ queryKey: ['order'] });
+      queryClient.invalidateQueries({ queryKey: ['user'] });
     },
   });
 };
 
-export { useLogin, useRegister, useLogout };
+const useCheckIsAdmin = () => {
+  return useQuery({
+    queryKey: ['admin'],
+    queryFn: checkAdminFn,
+    staleTime: 1000 * 60 * 10,
+    retry: 0,
+  });
+};
+
+export { useLogin, useRegister, useLogout, useCheckIsAdmin };

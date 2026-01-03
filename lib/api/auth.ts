@@ -11,6 +11,12 @@ const loginFn = async (paload: LoginPayload) => {
   return data;
 };
 
+const checkAdminFn = async (): Promise<{ isAdmin: boolean }> => {
+  const { data } = await axiosInstance.get('/auth/is-admin');
+
+  return data;
+};
+
 const registerFn = async (paload: RegisterPayload) => {
   const { data } = await axiosInstance.post('/auth/register', paload, {
     headers: {
@@ -27,4 +33,4 @@ const logoutFn = async () => {
   return data;
 };
 
-export { loginFn, registerFn, logoutFn };
+export { loginFn, registerFn, logoutFn, checkAdminFn };
