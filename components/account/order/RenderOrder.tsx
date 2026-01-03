@@ -1,7 +1,9 @@
 import Image from 'next/image';
-import { Order } from '@/types/order';
+import { Order, OrderStatus } from '@/types/order';
 import { formatCurrency } from '@/utils/number';
 import { formatStatusOrder, getStatusColor } from '@/utils/order';
+import { Dot } from 'lucide-react';
+import Link from 'next/link';
 
 type Props = {
   orders: Order[];
@@ -18,7 +20,18 @@ const RenderOrder = ({ orders }: Props) => {
           <p className="font-semibold">
             Mã đơn hàng: <span className="text-primary">{d.orderCode}</span>
           </p>
-          <p className={`font-semibold text-right mr-2 ${getStatusColor(d.status)}`}>{formatStatusOrder(d.status)}</p>
+          <span className={`font-semibold text-right mr-2 flex items-center ${getStatusColor(d.status)}`}>
+            {d.status === OrderStatus.PENDING ? (
+              <Link href={`/order/${d.orderCode}`} className="flex items-center text-sm">
+                <span>
+                  <Dot className="animate-ping" />
+                </span>
+                {formatStatusOrder(d.status)} &gt;
+              </Link>
+            ) : (
+              formatStatusOrder(d.status)
+            )}
+          </span>
         </div>
         <div>
           {d.items.map((i) => (
