@@ -12,12 +12,6 @@ interface RetryAxiosRequestConfig extends InternalAxiosRequestConfig {
 let isRefreshing = false;
 let refreshPromise: Promise<void> | null = null;
 
-const redirectToLogin = () => {
-  if (typeof window !== 'undefined' && window.location.pathname !== '/login') {
-    window.location.href = '/login';
-  }
-};
-
 const isAuthApi = (url?: string) => url?.includes('/auth/login') || url?.includes('/auth/refresh');
 
 axiosInstance.interceptors.response.use(
@@ -46,7 +40,6 @@ axiosInstance.interceptors.response.use(
         await refreshPromise;
         return axiosInstance(originalRequest);
       } catch {
-        if (!isRefreshing) redirectToLogin();
         return Promise.reject(error);
       }
     }

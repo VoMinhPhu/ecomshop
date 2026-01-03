@@ -1,39 +1,42 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Loader } from 'lucide-react';
+
 import {
   Dialog,
   DialogClose,
   DialogTitle,
-  DialogFooter,
   DialogHeader,
-  DialogTrigger,
+  DialogFooter,
   DialogContent,
+  DialogTrigger,
   DialogDescription,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import SelectSearch from './SelectSearch';
+import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { useAddAddress } from '@/hooks/address';
-import { cn } from '@/lib/utils';
-import { Loader } from 'lucide-react';
+
+import SelectSearch from './SelectSearch';
+
 import { useGetProvinces } from '@/hooks/map';
+import { useAddAddress } from '@/hooks/address';
+
+import { cn } from '@/lib/utils';
+
 import { Province, Ward } from '@/types/map';
 
 const AddNewAddressBtn = () => {
-  const [provinces, setProvinces] = useState<Province[]>([]);
   const [wards, setWards] = useState<Ward[]>([]);
-
+  const [provinces, setProvinces] = useState<Province[]>([]);
   const [validAddress, setValidAddress] = useState<boolean>(true);
 
-  const [provinceCode, setProvinceCode] = useState('');
-  const [wardCode, setWardCode] = useState('');
   const [street, setStreet] = useState('');
-
-  const { mutate: addAddressMutate, isPending } = useAddAddress();
+  const [wardCode, setWardCode] = useState('');
+  const [provinceCode, setProvinceCode] = useState('');
 
   const { data } = useGetProvinces();
+  const { mutate: addAddressMutate, isPending } = useAddAddress();
 
   useEffect(() => {
     if (data) setProvinces(data);
@@ -60,8 +63,8 @@ const AddNewAddressBtn = () => {
       return;
     }
 
-    const province = provinces.find((p) => p.code.toString() === provinceCode)?.name;
     const ward = wards.find((w) => w.code.toString() === wardCode)?.name;
+    const province = provinces.find((p) => p.code.toString() === provinceCode)?.name;
 
     if (!province || !ward) return;
 

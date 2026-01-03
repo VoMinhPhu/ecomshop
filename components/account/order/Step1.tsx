@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useEffect } from 'react';
 
-import { Loader } from 'lucide-react';
+import { Loader, PackageOpenIcon } from 'lucide-react';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,6 +15,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
+import AddNewAddressBtn from '../address/AddNewAddressBtn';
 
 import { cn } from '@/lib/utils';
 import useUserStore from '@/stores/userStore';
@@ -67,8 +69,26 @@ const Step1 = ({ id }: Props) => {
     confirmOrderMutate(values);
   }
 
-  if (isLoading || addressLoading) return <div>Loading...</div>;
-  if (!data) return <div>No data</div>;
+  if (isLoading || addressLoading)
+    return (
+      <div className="p-10 pt-0">
+        <p className="font-semibold">THÔNG TIN ĐƠN HÀNG</p>
+        <div className="flex flex-col gap-2 items-center justify-center py-10">
+          <Loader className="animate-spin text-primary size-8" />
+          Đang tải thông tin đơn hàng
+        </div>
+      </div>
+    );
+  if (!data)
+    return (
+      <div className="p-10 pt-0">
+        <p className="font-semibold">THÔNG TIN ĐƠN HÀNG</p>
+        <div className="flex flex-col gap-2 items-center justify-center py-10">
+          <PackageOpenIcon className="size-20 text-zinc-400" strokeWidth={1.35} />
+          Đơn hàng không tồn tại
+        </div>
+      </div>
+    );
 
   return (
     <div className="px-10 pb-16">
@@ -108,7 +128,15 @@ const Step1 = ({ id }: Props) => {
               name="shippingAddress"
               render={({ field }) => (
                 <FormItem className="gap-0">
-                  <p className="font-semibold mb-1">Địa chỉ nhận hàng</p>
+                  <p className="font-semibold mb-1 flex gap-2">
+                    Địa chỉ nhận hàng{' '}
+                    <Label className="text-primary text-sm border-l-[2px] px-2 cursor-pointer">
+                      Thêm điạ chỉ mới
+                      <span className="hidden">
+                        <AddNewAddressBtn />
+                      </span>
+                    </Label>
+                  </p>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger className="w-full">
@@ -136,7 +164,7 @@ const Step1 = ({ id }: Props) => {
                 <FormItem className="mt-4">
                   <div>
                     <span className="font-semibold mr-1">
-                      Số điện thoại:{' '}
+                      Số điện thoại:
                       <span className="font-normal ml-2 text-zinc-500 text-sm">(Số điện thoại nhận hàng)</span>
                     </span>
                     <FormControl>

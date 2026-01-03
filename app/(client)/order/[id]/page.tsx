@@ -1,4 +1,3 @@
-import { StripeCheckout } from '@/components/account/order/CheckoutForm';
 import Step1 from '@/components/account/order/Step1';
 import StepperOrder from '@/components/order/StepperOrder';
 

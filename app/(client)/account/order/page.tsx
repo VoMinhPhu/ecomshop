@@ -18,6 +18,8 @@ export default function Page() {
 
   const completedOrders = allOrders.filter((o) => o.status === OrderStatus.COMPLETED);
 
+  const paidOrders = allOrders.filter((o) => o.status === OrderStatus.PAID);
+
   const cancelledOrders = allOrders.filter((o) => o.status === OrderStatus.CANCELLED);
 
   if (isLoading)
@@ -56,17 +58,23 @@ export default function Page() {
                 className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow"
                 value="tab-2"
               >
-                Chờ xử lý
+                Cần xác nhận
               </TabsTrigger>
               <TabsTrigger
                 className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow"
                 value="tab-3"
               >
-                Hoàn thành
+                Đã thanh toán
               </TabsTrigger>
               <TabsTrigger
                 className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow"
                 value="tab-4"
+              >
+                Hoàn thành
+              </TabsTrigger>
+              <TabsTrigger
+                className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow"
+                value="tab-5"
               >
                 Đã hủy
               </TabsTrigger>
@@ -80,10 +88,14 @@ export default function Page() {
             </TabsContent>
 
             <TabsContent value="tab-3">
-              <RenderOrder orders={completedOrders} />
+              <RenderOrder orders={paidOrders} />
             </TabsContent>
 
             <TabsContent value="tab-4">
+              <RenderOrder orders={completedOrders} />
+            </TabsContent>
+
+            <TabsContent value="tab-5">
               <RenderOrder orders={cancelledOrders} />
             </TabsContent>
           </Tabs>
