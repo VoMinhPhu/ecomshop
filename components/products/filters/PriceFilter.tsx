@@ -14,7 +14,7 @@ type Props = {
 
 const PriceFilter = ({ minInput, maxInput, setMinInput, setMaxInput, applyPrice, clearPrice }: Props) => {
   return (
-    <div>
+    <div className="mb-2">
       <p className="mb-1 text-zinc-500 text-sm">Mức giá</p>
       <div className="flex items-end gap-3">
         <Input
