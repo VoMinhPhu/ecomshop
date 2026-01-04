@@ -9,6 +9,7 @@ import { useGetAllProductWithFilter } from '@/hooks/products';
 
 import { formatCurrency } from '@/utils/number';
 import ListProductLoading from './ListProductLoading';
+import { ProductPagination } from './filters/ProductPagination';
 
 const ListProducts = () => {
   const searchParams = useSearchParams();
@@ -81,6 +82,9 @@ const ListProducts = () => {
           </Link>
         );
       })}
+      <div className="lg:col-span-5 md:col-span-3 col-span-2">
+        <ProductPagination totalPages={data.totalPages} />
+      </div>
     </div>
   );
 };

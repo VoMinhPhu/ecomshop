@@ -27,6 +27,9 @@ export const useProductFilter = () => {
   const [minApplied, setMinApplied] = useState(minInput);
   const [maxApplied, setMaxApplied] = useState(maxInput);
 
+  const pageParam = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+  const [page, setPage] = useState<number>(pageParam);
+
   useEffect(() => {
     const params = new URLSearchParams();
 
@@ -36,33 +39,50 @@ export const useProductFilter = () => {
     if (minApplied !== undefined) params.set('minPrice', String(minApplied));
     if (maxApplied !== undefined) params.set('maxPrice', String(maxApplied));
 
+    if (page && page > 1) params.set('page', String(page));
+
     router.push(`/products?${params.toString()}`);
-  }, [brands, categories, sort, minApplied, maxApplied, router]);
+  }, [brands, categories, sort, minApplied, maxApplied, page, router]);
+
+  const resetPage = () => setPage(1);
 
   return {
     sort,
+    page,
     brands,
     minInput,
     maxInput,
     categories,
     minApplied,
     maxApplied,
-    setSort,
-    setBrands,
+    setPage,
+    setSort: (v: SortType) => {
+      setSort(v);
+      resetPage();
+    },
+    setBrands: (v: string[]) => {
+      setBrands(v);
+      resetPage();
+    },
+    setCategories: (v: string[]) => {
+      setCategories(v);
+      resetPage();
+    },
     setMinInput,
     setMaxInput,
-    setCategories,
     applyPrice: () => {
       if (minInput != null && minInput < 0) return;
       if (maxInput != null && maxInput <= 0) return;
       setMinApplied(minInput);
       setMaxApplied(maxInput);
+      resetPage();
     },
     clearPrice: () => {
       setMinInput(undefined);
       setMaxInput(undefined);
       setMinApplied(undefined);
       setMaxApplied(undefined);
+      resetPage();
     },
   };
 };
