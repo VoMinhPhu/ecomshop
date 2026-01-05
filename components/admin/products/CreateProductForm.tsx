@@ -45,7 +45,7 @@ const CreateProductForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit, (e) => console.log(e))} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           name="name"
           control={form.control}
@@ -64,9 +64,8 @@ const CreateProductForm = () => {
               <SelectHaveSearchField
                 nameField="Danh mục"
                 requireIcon
-                value={field.value}
+                field={field}
                 options={(data?.categories ?? []).map((c) => ({ value: c.id, label: c.name }))}
-                onSelect={field.onChange}
               />
             )}
           />
@@ -77,9 +76,8 @@ const CreateProductForm = () => {
               <SelectHaveSearchField
                 nameField="Thương hiệu"
                 requireIcon
-                value={field.value}
+                field={field}
                 options={(data?.brands ?? []).map((b) => ({ value: b.id, label: b.name }))}
-                onSelect={field.onChange}
               />
             )}
           />

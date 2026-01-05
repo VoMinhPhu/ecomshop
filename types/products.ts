@@ -31,9 +31,8 @@ export const createProductSchema = z.object({
 
 export type CreateProductSchema = z.infer<typeof createProductSchema>;
 
-export const updateProductSchema = createProductSchema.extend({
+export const updateProductSchema = createProductSchema.omit({ images: true }).extend({
   id: z.string().min(1, 'ID là bắt buộc'),
-  thumbnail: z.union([z.instanceof(Blob), z.string().url(), z.literal('').optional()]),
 });
 
 export type UpdateProductSchema = z.infer<typeof updateProductSchema>;
@@ -48,8 +47,11 @@ export interface Product {
   id: string;
   name: string;
   slug: string;
+  stock: number;
+  sold: number;
   description: string;
   thumbnail: string;
+  images: { id: string; url: string }[];
   price: number;
   salePrice?: number | null;
   status: ProductStatus;
@@ -61,10 +63,14 @@ export interface Product {
   updatedAt: string;
 }
 
+export type GetProductByIdResponse = GetProductBySlugResponse;
+
 export interface GetProductBySlugResponse {
   id: string;
   name: string;
   slug: string;
+  stock: number;
+  sold: number;
   description: string;
   thumbnail: string;
   images: { id: string; url: string }[];

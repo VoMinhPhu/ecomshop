@@ -36,11 +36,7 @@ const createProductFn = async (data: CreateProductSchema) => {
 };
 
 const updateProductFn = async (data: UpdateProductSchema) => {
-  const res = await axiosInstance.patch('/product/update', data, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  const res = await axiosInstance.patch('/product/update', data);
 
   return res.data;
 };

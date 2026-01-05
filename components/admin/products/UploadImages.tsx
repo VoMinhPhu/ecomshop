@@ -44,6 +44,12 @@ export default function UploadImages<TFieldValues extends FieldValues, TName ext
   });
 
   useEffect(() => {
+    if (!field.value || field.value.length === 0) {
+      clearFiles();
+    }
+  }, [field.value]);
+
+  useEffect(() => {
     const blobs = files.filter((f) => f.file instanceof File).map((f) => f.file);
     field.onChange(blobs);
   }, [files.length]);
