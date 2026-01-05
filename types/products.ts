@@ -2,15 +2,31 @@ import { z } from 'zod';
 
 export const createProductSchema = z.object({
   name: z.string().trim().min(1, 'Thêm tên sản phẩm'),
-  price: z.string().trim().min(1, 'Cập nhật giá cho sản phẩm'),
-  salePrice: z.string().optional(),
-  description: z.string('Mô tả cho sản phẩm').trim().min(1, 'Mô tả cho sản phẩm'),
+  price: z
+    .string()
+    .trim()
+    .min(1, 'Cập nhật giá cho sản phẩm')
+    .refine((v) => !isNaN(Number(v)) && Number(v) > 0, 'Giá không hợp lệ'),
+  stock: z
+    .string()
+    .trim()
+    .min(1, 'Số lượng sản phẩm hiện có')
+    .refine((v) => Number.isInteger(Number(v)) && Number(v) >= 0, 'Stock không hợp lệ'),
+  salePrice: z
+    .string()
+    .optional()
+    .refine((v) => v === undefined || (!isNaN(Number(v)) && Number(v) > 0), 'Giá khuyến mãi không hợp lệ'),
+  description: z.string().trim().min(1, 'Mô tả cho sản phẩm'),
   categoryId: z.string().min(1, 'Category ID là bắt buộc'),
   brandId: z.string().min(1, 'Brand ID là bắt buộc'),
   status: z.string(),
-  thumbnail: z.custom<Blob>((file) => file instanceof Blob, {
-    message: 'Hãy chọn ảnh sản phẩm',
-  }),
+  images: z
+    .array(
+      z.custom<Blob>((file) => file instanceof Blob, {
+        message: 'Ảnh không hợp lệ',
+      }),
+    )
+    .min(1, 'Hãy chọn ít nhất 1 ảnh sản phẩm'),
 });
 
 export type CreateProductSchema = z.infer<typeof createProductSchema>;
@@ -51,6 +67,7 @@ export interface GetProductBySlugResponse {
   slug: string;
   description: string;
   thumbnail: string;
+  images: { id: string; url: string }[];
   price: number;
   salePrice?: number | null;
   status: ProductStatus;

@@ -7,8 +7,9 @@ import { useCreateProduct, useGetCategoriesAndBrands } from '@/hooks/products';
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
 
+import UploadImages from './UploadImages';
 import MarkdownField from './MarkdownField';
-import CropImageField from './CropImageField';
+
 import InputField from '@/components/common/fieldOfForm/InputField';
 import SelectField from '@/components/common/fieldOfForm/SelectField';
 import SelectHaveSearchField from '@/components/common/fieldOfForm/SelectHaveSearchField';
@@ -29,10 +30,11 @@ const CreateProductForm = () => {
       price: '',
       salePrice: undefined,
       description: undefined,
+      stock: '0',
       categoryId: '',
       brandId: '',
       status: 'active',
-      thumbnail: undefined,
+      images: undefined,
     },
   });
 
@@ -43,7 +45,7 @@ const CreateProductForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit, (e) => console.log(e))} className="space-y-4">
         <FormField
           name="name"
           control={form.control}
@@ -52,7 +54,7 @@ const CreateProductForm = () => {
           )}
         />
 
-        <FormField name="thumbnail" control={form.control} render={({ field }) => <CropImageField field={field} />} />
+        <FormField name="images" control={form.control} render={({ field }) => <UploadImages field={field} />} />
 
         <div className="grid md:grid-cols-2 gap-y-4 md:gap-2">
           <FormField
@@ -96,6 +98,13 @@ const CreateProductForm = () => {
             )}
           />
         </div>
+        <FormField
+          name="stock"
+          control={form.control}
+          render={({ field }) => (
+            <InputField requireIcon label="Số lượng" field={field} placeholder="Nhập số lượng sản phẩm" type="number" />
+          )}
+        />
 
         <FormField
           name="description"

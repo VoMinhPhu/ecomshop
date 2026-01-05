@@ -11,6 +11,7 @@ type InputFieldProps<TFieldValues extends FieldValues, TName extends Path<TField
   placeholder?: string;
   disabled?: boolean;
   requireIcon?: boolean;
+  type?: string;
 };
 
 const InputField = <TFieldValues extends FieldValues, TName extends Path<TFieldValues>>({
@@ -19,6 +20,7 @@ const InputField = <TFieldValues extends FieldValues, TName extends Path<TFieldV
   placeholder,
   disabled,
   requireIcon = false,
+  type = 'text',
 }: InputFieldProps<TFieldValues, TName>) => (
   <FormItem>
     <FormLabel className="gap-1">
@@ -26,7 +28,7 @@ const InputField = <TFieldValues extends FieldValues, TName extends Path<TFieldV
       <span className={cn('text-red-500 font-bold', !requireIcon && 'hidden')}>*</span>
     </FormLabel>
     <FormControl>
-      <Input placeholder={placeholder} disabled={disabled} {...field} value={field.value ?? ''} />
+      <Input placeholder={placeholder} disabled={disabled} {...field} value={field.value ?? ''} type={type} />
     </FormControl>
     <FormMessage />
   </FormItem>

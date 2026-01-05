@@ -32,7 +32,7 @@ const useGetNameAndSlugOfCategoriesAndBrands = () => {
 
 const useGetCategoriesAndBrandsToFilter = () => {
   return useQuery({
-    queryKey: ['category', 'brand'],
+    queryKey: ['category', 'brand', 'filter'],
     queryFn: getCategoriesAndBrandsToFilterFn,
     staleTime: 1000 * 60 * 30,
   });

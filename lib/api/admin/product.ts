@@ -19,12 +19,20 @@ const getCategoriesAndBrandsToFilterFn = async (): Promise<CategoriesAndBrandsRe
 };
 
 const createProductFn = async (data: CreateProductSchema) => {
-  const res = await axiosInstance.post('/product/create', data, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
+  const { images, ...rest } = data;
+  const formData = new FormData();
+
+  Object.entries(rest).forEach(([key, value]) => {
+    if (value !== undefined) {
+      formData.append(key, value);
+    }
   });
-  return res.data;
+
+  images.forEach((file) => {
+    formData.append('images', file);
+  });
+
+  return axiosInstance.post('/product/create', formData);
 };
 
 const updateProductFn = async (data: UpdateProductSchema) => {
