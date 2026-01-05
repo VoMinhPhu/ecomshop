@@ -4,6 +4,7 @@ import {
   FilterProducts,
   CreateProductSchema,
   UpdateProductSchema,
+  ChangeThumbnailSchema,
   GetAllProductResponseType,
 } from '@/types/products';
 import { CategoriesAndBrandsResponse } from '@/types/categories';
@@ -60,11 +61,27 @@ const getProductByIdFn = async (id: string): Promise<Product> => {
   return res.data;
 };
 
+const changeThumbnailFn = async (payload: ChangeThumbnailSchema) => {
+  const { image } = payload;
+  const formData = new FormData();
+
+  formData.append('id', payload.id);
+  formData.append('image', image);
+
+  const data = await axiosInstance.patch('/product/thumbnail', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return data;
+};
+
 export {
   createProductFn,
   updateProductFn,
   getAllProductFn,
   getProductByIdFn,
+  changeThumbnailFn,
   getCategoriesAndBrandsFn,
   getCategoriesAndBrandsToFilterFn,
 };

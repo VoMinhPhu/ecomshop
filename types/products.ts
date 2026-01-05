@@ -29,7 +29,19 @@ export const createProductSchema = z.object({
     .min(1, 'Hãy chọn ít nhất 1 ảnh sản phẩm'),
 });
 
+export const changeThumbnailSchema = z.object({
+  id: z.string().min(1, 'ID là bắt buộc'),
+  image: z
+    .custom<Blob>((file) => file instanceof Blob, {
+      message: 'Ảnh không hợp lệ',
+    })
+    .refine((file) => file instanceof Blob, {
+      message: 'Ảnh phải là một file Blob hợp lệ',
+    }),
+});
+
 export type CreateProductSchema = z.infer<typeof createProductSchema>;
+export type ChangeThumbnailSchema = z.infer<typeof changeThumbnailSchema>;
 
 export const updateProductSchema = createProductSchema.omit({ images: true }).extend({
   id: z.string().min(1, 'ID là bắt buộc'),

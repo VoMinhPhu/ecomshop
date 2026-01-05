@@ -11,6 +11,7 @@ import { useUpdateProduct } from '@/hooks/products';
 import { CategoriesAndBrandsResponse } from '@/types/categories';
 import { GetProductByIdResponse, updateProductSchema, UpdateProductSchema } from '@/types/products';
 
+import MangageImage from './ManageImages';
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
@@ -43,12 +44,11 @@ const UpdateProductForm = ({ categoriesAndBrands, data }: Props) => {
 
   const onSubmit = (values: UpdateProductSchema) => {
     updateProductMutate(values);
-    console.log(values);
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit, (e) => console.log(e))} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           name="name"
           control={form.control}
@@ -63,6 +63,8 @@ const UpdateProductForm = ({ categoriesAndBrands, data }: Props) => {
           )}
         />
 
+        <MangageImage images={data.images} name={data.name} thumbnail={data.thumbnail} productId={data.id} />
+
         <div className="grid md:grid-cols-2 gap-y-4 md:gap-2">
           <FormField
             name="categoryId"
@@ -74,10 +76,10 @@ const UpdateProductForm = ({ categoriesAndBrands, data }: Props) => {
                 requireIcon
                 disabled={isPending}
                 options={categoriesAndBrands.categories.map((c) => ({ value: c.id, label: c.name }))}
-                // onSelect={field.onChange}
               />
             )}
           />
+
           <FormField
             name="brandId"
             control={form.control}
@@ -88,7 +90,6 @@ const UpdateProductForm = ({ categoriesAndBrands, data }: Props) => {
                 requireIcon
                 disabled={isPending}
                 options={categoriesAndBrands.brands.map((b) => ({ value: b.id, label: b.name }))}
-                // onSelect={field.onChange}
               />
             )}
           />

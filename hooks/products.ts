@@ -9,6 +9,7 @@ import {
   getProductByIdFn,
   getCategoriesAndBrandsFn,
   getCategoriesAndBrandsToFilterFn,
+  changeThumbnailFn,
 } from '@/lib/api/admin/product';
 import { getNameAndSlugOfCategoriesAndBrandsFn, getProductBySlugFn, getProductWithFilterFn } from '@/lib/api/products';
 
@@ -94,6 +95,34 @@ const useUpdateProduct = () => {
   });
 };
 
+const useChangeThumbnail = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: changeThumbnailFn,
+    onSuccess: () => {
+      toast.success('Cập nhật ảnh thu nhỏ', {
+        description: 'Cập nhật ảnh thu nhỏ thành công.',
+        duration: 2000,
+      });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+    onError(error: AxiosError) {
+      if (error.status === 404) {
+        toast.error('Cập nhật ảnh thu nhỏ', {
+          description: 'Ảnh thu nhỏ không tồn tại trong hệ thống.',
+          duration: 2000,
+        });
+        return;
+      }
+      toast.error('Cập nhật ảnh thu nhỏ', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2000,
+      });
+    },
+  });
+};
+
 const useGetAllProduct = ({
   brand,
   category,
@@ -162,6 +191,7 @@ export {
   useUpdateProduct,
   useGetAllProduct,
   useGetProductById,
+  useChangeThumbnail,
   useGetProductBySlug,
   useGetCategoriesAndBrands,
   useGetAllProductWithFilter,
