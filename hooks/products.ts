@@ -10,10 +10,18 @@ import {
   getCategoriesAndBrandsFn,
   getCategoriesAndBrandsToFilterFn,
   changeThumbnailFn,
+  updateImageProductFn,
+  deleteImageProductFn,
+  addNewImagesProductFn,
 } from '@/lib/api/admin/product';
 import { getNameAndSlugOfCategoriesAndBrandsFn, getProductBySlugFn, getProductWithFilterFn } from '@/lib/api/products';
 
-import { GetProductBySlugResponse, Product, UseGetAllProductWithFilterParams } from '@/types/products';
+import {
+  GetProductByIdResponse,
+  GetProductBySlugResponse,
+  Product,
+  UseGetAllProductWithFilterParams,
+} from '@/types/products';
 
 const useGetCategoriesAndBrands = () => {
   return useQuery({
@@ -25,7 +33,7 @@ const useGetCategoriesAndBrands = () => {
 
 const useGetNameAndSlugOfCategoriesAndBrands = () => {
   return useQuery({
-    queryKey: ['category', 'brand'],
+    queryKey: ['category', 'brand', 'slug'],
     queryFn: getNameAndSlugOfCategoriesAndBrandsFn,
     staleTime: 1000 * 60 * 30,
   });
@@ -60,6 +68,27 @@ const useCreateProduct = () => {
         return;
       }
       toast.error('Tạo mới sản phẩm', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2500,
+      });
+    },
+  });
+};
+
+const useAddNewImagesProduct = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: addNewImagesProductFn,
+    onSuccess: () => {
+      toast.success('Thêm mới ảnh sản phẩm', {
+        description: 'Thêm mới ảnh sản phẩm thành công.',
+        duration: 2500,
+      });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+    onError(error: AxiosError) {
+      toast.error('Thêm mới ảnh sản phẩm', {
         description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
         duration: 2500,
       });
@@ -123,6 +152,62 @@ const useChangeThumbnail = () => {
   });
 };
 
+const useUpdateImageProduct = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateImageProductFn,
+    onSuccess: () => {
+      toast.success('Cập nhật ảnh chi tiết', {
+        description: 'Cập nhật ảnh chi tiết thành công.',
+        duration: 2000,
+      });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+    onError(error: AxiosError) {
+      if (error.status === 404) {
+        toast.error('Cập nhật ảnh chi tiết', {
+          description: 'ảnh chi tiết không tồn tại trong hệ thống.',
+          duration: 2000,
+        });
+        return;
+      }
+      toast.error('Cập nhật ảnh chi tiết', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2000,
+      });
+    },
+  });
+};
+
+const useDeleteImageProduct = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteImageProductFn,
+    onSuccess: () => {
+      toast.success('Xóa ảnh chi tiết', {
+        description: 'Xóa ảnh chi tiết thành công.',
+        duration: 2000,
+      });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+    onError(error: AxiosError) {
+      if (error.status === 404) {
+        toast.error('Xóa ảnh chi tiết', {
+          description: 'ảnh chi tiết không tồn tại trong hệ thống.',
+          duration: 2000,
+        });
+        return;
+      }
+      toast.error('Xóa ảnh chi tiết', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2000,
+      });
+    },
+  });
+};
+
 const useGetAllProduct = ({
   brand,
   category,
@@ -169,7 +254,7 @@ const useGetAllProductWithFilter = ({
 };
 
 const useGetProductById = (id?: string) => {
-  return useQuery<Product>({
+  return useQuery<GetProductByIdResponse>({
     queryKey: ['products', id],
     queryFn: () => getProductByIdFn(id!),
     staleTime: 1000 * 60 * 10,
@@ -193,6 +278,9 @@ export {
   useGetProductById,
   useChangeThumbnail,
   useGetProductBySlug,
+  useUpdateImageProduct,
+  useDeleteImageProduct,
+  useAddNewImagesProduct,
   useGetCategoriesAndBrands,
   useGetAllProductWithFilter,
   useGetCategoriesAndBrandsToFilter,

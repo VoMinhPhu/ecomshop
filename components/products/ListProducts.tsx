@@ -57,15 +57,21 @@ const ListProducts = () => {
             key={d.id}
             className="bg-white rounded-md border hover:shadow hover:transform hover:scale-101 duration-150"
           >
-            <div className="relative">
+            <div className="relative h-60">
               <Image
                 src={d.thumbnail}
                 alt={d.name}
                 width={200}
-                height={250}
+                height={200}
                 className="mx-auto rounded-t-md md:rounded-t-none"
               />
-              <Image src={'/chinh-hang.png'} alt={d.name} width={200} height={250} className="absolute bottom-0" />
+              <Image
+                src={'/chinh-hang.png'}
+                alt={d.name}
+                width={200}
+                height={200}
+                className="absolute h-full bottom-0"
+              />
             </div>
 
             <div className="px-2 pb-6 pt-3">

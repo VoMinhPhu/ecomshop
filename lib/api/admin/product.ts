@@ -1,11 +1,13 @@
 import axiosInstance from '@/lib/axiosInstance';
 import {
-  Product,
   FilterProducts,
   CreateProductSchema,
   UpdateProductSchema,
   ChangeThumbnailSchema,
   GetAllProductResponseType,
+  UpdateImageProductSchema,
+  AddNewImageProductSchema,
+  GetProductByIdResponse,
 } from '@/types/products';
 import { CategoriesAndBrandsResponse } from '@/types/categories';
 
@@ -36,6 +38,17 @@ const createProductFn = async (data: CreateProductSchema) => {
   return axiosInstance.post('/product/create', formData);
 };
 
+const addNewImagesProductFn = async (data: AddNewImageProductSchema) => {
+  const formData = new FormData();
+  formData.append('productId', data.productId);
+
+  data.images.forEach((file) => {
+    formData.append('images', file);
+  });
+
+  return axiosInstance.post('/product/new-images', formData);
+};
+
 const updateProductFn = async (data: UpdateProductSchema) => {
   const res = await axiosInstance.patch('/product/update', data);
 
@@ -55,7 +68,7 @@ const getAllProductFn = async (filters: FilterProducts = {}): Promise<GetAllProd
   return res.data;
 };
 
-const getProductByIdFn = async (id: string): Promise<Product> => {
+const getProductByIdFn = async (id: string): Promise<GetProductByIdResponse> => {
   const res = await axiosInstance.get(`/product/admin/${id}`);
 
   return res.data;
@@ -76,12 +89,35 @@ const changeThumbnailFn = async (payload: ChangeThumbnailSchema) => {
   return data;
 };
 
+const updateImageProductFn = async (payload: UpdateImageProductSchema) => {
+  const { image } = payload;
+  const formData = new FormData();
+
+  formData.append('id', payload.id);
+  formData.append('image', image);
+
+  const data = await axiosInstance.patch('/product/image', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return data;
+};
+
+const deleteImageProductFn = async (payload: { id: string }) => {
+  const data = await axiosInstance.delete('/product/image', { data: payload });
+  return data;
+};
+
 export {
   createProductFn,
   updateProductFn,
   getAllProductFn,
   getProductByIdFn,
   changeThumbnailFn,
+  updateImageProductFn,
+  addNewImagesProductFn,
+  deleteImageProductFn,
   getCategoriesAndBrandsFn,
   getCategoriesAndBrandsToFilterFn,
 };
