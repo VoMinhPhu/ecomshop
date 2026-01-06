@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
@@ -6,31 +8,30 @@ import { FormLabel } from '@/components/ui/form';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { Command, CommandInput, CommandList, CommandItem, CommandEmpty } from '@/components/ui/command';
 
+import { ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
+
 type Option = {
   value: string;
   label: string;
 };
 
-type SelectHaveSearchFieldProps = {
+type SelectHaveSearchFieldProps<TFieldValues extends FieldValues, TName extends Path<TFieldValues>> = {
   options: Option[];
-  value: string;
-  onSelect: (value: string) => void;
+  field: ControllerRenderProps<TFieldValues, TName>;
   nameField: string;
   requireIcon?: boolean;
   disabled?: boolean;
 };
 
-const SelectHaveSearchField = ({
+const SelectHaveSearchField = <TFieldValues extends FieldValues, TName extends Path<TFieldValues>>({
   options,
-  value,
-  onSelect,
+  field,
   nameField,
   requireIcon = false,
   disabled = false,
-}: SelectHaveSearchFieldProps) => {
+}: SelectHaveSearchFieldProps<TFieldValues, TName>) => {
   const [open, setOpen] = useState(false);
-
-  const selected = options.find((o: any) => o.value === value);
+  const selected = options.find((o: any) => o.value === field.value);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -43,7 +44,7 @@ const SelectHaveSearchField = ({
           <Button
             variant="outline"
             disabled={disabled}
-            className={`w-full font-normal justify-between rounded-md ${value ? '' : 'text-muted-foreground'}`}
+            className={`w-full font-normal justify-between rounded-md ${field.value ? '' : 'text-muted-foreground'}`}
           >
             {selected?.label || 'Chọn danh mục'}
             <ChevronDown />
@@ -59,7 +60,7 @@ const SelectHaveSearchField = ({
               <CommandItem
                 key={opt.value}
                 onSelect={() => {
-                  onSelect(opt.value);
+                  field.onChange(opt.value);
                   setOpen(false);
                 }}
               >

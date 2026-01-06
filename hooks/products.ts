@@ -9,10 +9,19 @@ import {
   getProductByIdFn,
   getCategoriesAndBrandsFn,
   getCategoriesAndBrandsToFilterFn,
+  changeThumbnailFn,
+  updateImageProductFn,
+  deleteImageProductFn,
+  addNewImagesProductFn,
 } from '@/lib/api/admin/product';
 import { getNameAndSlugOfCategoriesAndBrandsFn, getProductBySlugFn, getProductWithFilterFn } from '@/lib/api/products';
 
-import { GetProductBySlugResponse, Product, UseGetAllProductWithFilterParams } from '@/types/products';
+import {
+  GetProductByIdResponse,
+  GetProductBySlugResponse,
+  Product,
+  UseGetAllProductWithFilterParams,
+} from '@/types/products';
 
 const useGetCategoriesAndBrands = () => {
   return useQuery({
@@ -24,7 +33,7 @@ const useGetCategoriesAndBrands = () => {
 
 const useGetNameAndSlugOfCategoriesAndBrands = () => {
   return useQuery({
-    queryKey: ['category', 'brand'],
+    queryKey: ['category', 'brand', 'slug'],
     queryFn: getNameAndSlugOfCategoriesAndBrandsFn,
     staleTime: 1000 * 60 * 30,
   });
@@ -32,7 +41,7 @@ const useGetNameAndSlugOfCategoriesAndBrands = () => {
 
 const useGetCategoriesAndBrandsToFilter = () => {
   return useQuery({
-    queryKey: ['category', 'brand'],
+    queryKey: ['category', 'brand', 'filter'],
     queryFn: getCategoriesAndBrandsToFilterFn,
     staleTime: 1000 * 60 * 30,
   });
@@ -66,6 +75,27 @@ const useCreateProduct = () => {
   });
 };
 
+const useAddNewImagesProduct = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: addNewImagesProductFn,
+    onSuccess: () => {
+      toast.success('Thêm mới ảnh sản phẩm', {
+        description: 'Thêm mới ảnh sản phẩm thành công.',
+        duration: 2500,
+      });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+    onError(error: AxiosError) {
+      toast.error('Thêm mới ảnh sản phẩm', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2500,
+      });
+    },
+  });
+};
+
 const useUpdateProduct = () => {
   const queryClient = useQueryClient();
 
@@ -89,6 +119,90 @@ const useUpdateProduct = () => {
       toast.error('Cập nhật sản phẩm', {
         description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
         duration: 2500,
+      });
+    },
+  });
+};
+
+const useChangeThumbnail = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: changeThumbnailFn,
+    onSuccess: () => {
+      toast.success('Cập nhật ảnh thu nhỏ', {
+        description: 'Cập nhật ảnh thu nhỏ thành công.',
+        duration: 2000,
+      });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+    onError(error: AxiosError) {
+      if (error.status === 404) {
+        toast.error('Cập nhật ảnh thu nhỏ', {
+          description: 'Ảnh thu nhỏ không tồn tại trong hệ thống.',
+          duration: 2000,
+        });
+        return;
+      }
+      toast.error('Cập nhật ảnh thu nhỏ', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2000,
+      });
+    },
+  });
+};
+
+const useUpdateImageProduct = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateImageProductFn,
+    onSuccess: () => {
+      toast.success('Cập nhật ảnh chi tiết', {
+        description: 'Cập nhật ảnh chi tiết thành công.',
+        duration: 2000,
+      });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+    onError(error: AxiosError) {
+      if (error.status === 404) {
+        toast.error('Cập nhật ảnh chi tiết', {
+          description: 'ảnh chi tiết không tồn tại trong hệ thống.',
+          duration: 2000,
+        });
+        return;
+      }
+      toast.error('Cập nhật ảnh chi tiết', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2000,
+      });
+    },
+  });
+};
+
+const useDeleteImageProduct = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteImageProductFn,
+    onSuccess: () => {
+      toast.success('Xóa ảnh chi tiết', {
+        description: 'Xóa ảnh chi tiết thành công.',
+        duration: 2000,
+      });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+    onError(error: AxiosError) {
+      if (error.status === 404) {
+        toast.error('Xóa ảnh chi tiết', {
+          description: 'ảnh chi tiết không tồn tại trong hệ thống.',
+          duration: 2000,
+        });
+        return;
+      }
+      toast.error('Xóa ảnh chi tiết', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2000,
       });
     },
   });
@@ -140,7 +254,7 @@ const useGetAllProductWithFilter = ({
 };
 
 const useGetProductById = (id?: string) => {
-  return useQuery<Product>({
+  return useQuery<GetProductByIdResponse>({
     queryKey: ['products', id],
     queryFn: () => getProductByIdFn(id!),
     staleTime: 1000 * 60 * 10,
@@ -162,7 +276,11 @@ export {
   useUpdateProduct,
   useGetAllProduct,
   useGetProductById,
+  useChangeThumbnail,
   useGetProductBySlug,
+  useUpdateImageProduct,
+  useDeleteImageProduct,
+  useAddNewImagesProduct,
   useGetCategoriesAndBrands,
   useGetAllProductWithFilter,
   useGetCategoriesAndBrandsToFilter,

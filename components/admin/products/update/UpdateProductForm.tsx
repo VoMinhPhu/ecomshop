@@ -9,19 +9,19 @@ import { Loader } from 'lucide-react';
 import { useUpdateProduct } from '@/hooks/products';
 
 import { CategoriesAndBrandsResponse } from '@/types/categories';
-import { Product, updateProductSchema, UpdateProductSchema } from '@/types/products';
+import { GetProductByIdResponse, updateProductSchema, UpdateProductSchema } from '@/types/products';
 
+import MangageImage from './ManageImages';
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
 import SelectField from '@/components/common/fieldOfForm/SelectField';
 import MarkdownField from '@/components/admin/products/MarkdownField';
-import CropImageField from '@/components/admin/products/CropImageField';
 import SelectHaveSearchField from '@/components/common/fieldOfForm/SelectHaveSearchField';
 
 type Props = {
   categoriesAndBrands: CategoriesAndBrandsResponse<'id'>;
-  data: Product;
+  data: GetProductByIdResponse;
 };
 
 const UpdateProductForm = ({ categoriesAndBrands, data }: Props) => {
@@ -34,11 +34,11 @@ const UpdateProductForm = ({ categoriesAndBrands, data }: Props) => {
       name: data.name,
       price: `${data.price}`,
       salePrice: data.salePrice ? `${data.salePrice}` : undefined,
+      stock: `${data.stock}`,
       description: data.description,
-      categoryId: data.categoryId,
-      brandId: data.brandId,
+      categoryId: data.category.id,
+      brandId: data.brand.id,
       status: data.status,
-      thumbnail: data.thumbnail,
     },
   });
 
@@ -63,11 +63,7 @@ const UpdateProductForm = ({ categoriesAndBrands, data }: Props) => {
           )}
         />
 
-        <FormField
-          name="thumbnail"
-          control={form.control}
-          render={({ field }) => <CropImageField disabled={isPending} field={field} />}
-        />
+        <MangageImage images={data.images} name={data.name} thumbnail={data.thumbnail} productId={data.id} />
 
         <div className="grid md:grid-cols-2 gap-y-4 md:gap-2">
           <FormField
@@ -75,26 +71,25 @@ const UpdateProductForm = ({ categoriesAndBrands, data }: Props) => {
             control={form.control}
             render={({ field }) => (
               <SelectHaveSearchField
+                field={field}
                 nameField="Danh mục"
                 requireIcon
                 disabled={isPending}
-                value={field.value}
-                options={(categoriesAndBrands?.categories ?? []).map((c) => ({ value: c.id, label: c.name }))}
-                onSelect={field.onChange}
+                options={categoriesAndBrands.categories.map((c) => ({ value: c.id, label: c.name }))}
               />
             )}
           />
+
           <FormField
             name="brandId"
             control={form.control}
             render={({ field }) => (
               <SelectHaveSearchField
+                field={field}
                 nameField="Thương hiệu"
                 requireIcon
                 disabled={isPending}
-                value={field.value}
-                options={(categoriesAndBrands?.brands ?? []).map((b) => ({ value: b.id, label: b.name }))}
-                onSelect={field.onChange}
+                options={categoriesAndBrands.brands.map((b) => ({ value: b.id, label: b.name }))}
               />
             )}
           />
@@ -115,6 +110,14 @@ const UpdateProductForm = ({ categoriesAndBrands, data }: Props) => {
             )}
           />
         </div>
+
+        <FormField
+          name="stock"
+          control={form.control}
+          render={({ field }) => (
+            <InputField requireIcon label="Số lượng" field={field} placeholder="Nhập số lượng sản phẩm" type="number" />
+          )}
+        />
 
         <FormField
           name="description"

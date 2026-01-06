@@ -16,15 +16,21 @@ const DiscountProductCard = ({ product }: Props) => {
       key={product.id}
       className="bg-white rounded-md border hover:shadow hover:transform hover:scale-101 duration-150"
     >
-      <div className="relative">
+      <div className="relative h-55 flex items-center justify-center">
         <Image
           src={product.thumbnail}
           alt={product.name}
           width={160}
-          height={200}
-          className="mx-auto rounded-t-md md:rounded-t-none"
+          height={160}
+          className="rounded-t-md md:rounded-t-none"
         />
-        <Image src={'/chinh-hang.png'} alt={product.name} width={200} height={250} className="absolute bottom-0" />
+        <Image
+          src={'/chinh-hang.png'}
+          alt={product.name}
+          width={160}
+          height={160}
+          className="absolute w-full h-full bottom-0"
+        />
         <span className="absolute top-0 right-0 text-red-500 font-semibold bg-amber-200 pr-1 pl-4 rounded-bl-sm rounded-tr-md">
           {Math.round(((product.price - product.salePrice) / product.price) * 100)}%
         </span>

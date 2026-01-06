@@ -58,7 +58,7 @@ const FilterProductPage = () => {
             }}
           />
         </div>
-        <div className="w-60 flex items-start justify-end mt-2 md:mt-0">
+        <div className="w-60 flex items-start md:justify-end justify-start mt-2 md:mt-0">
           <div className="flex gap-2 items-center justify-end">
             <p className="text-sm">Sắp xếp theo:</p>
             <SortFilter value={filter.sort} onChange={filter.setSort} />
