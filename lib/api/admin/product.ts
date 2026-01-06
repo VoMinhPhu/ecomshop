@@ -1,15 +1,14 @@
 import axiosInstance from '@/lib/axiosInstance';
+
 import {
-  FilterProducts,
   CreateProductSchema,
   UpdateProductSchema,
   ChangeThumbnailSchema,
-  GetAllProductResponseType,
-  UpdateImageProductSchema,
   AddNewImageProductSchema,
-  GetProductByIdResponse,
-} from '@/types/products';
+  UpdateImageProductSchema,
+} from '@/schemas/products';
 import { CategoriesAndBrandsResponse } from '@/types/categories';
+import { FilterProducts, GetAllProductResponseType, GetProductByIdResponse } from '@/types/products';
 
 const getCategoriesAndBrandsFn = async (): Promise<CategoriesAndBrandsResponse<'id'>> => {
   const { data } = await axiosInstance.get('/category/categories-brands');

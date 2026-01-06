@@ -9,7 +9,7 @@ import { Loader } from 'lucide-react';
 import { useUpdateProduct } from '@/hooks/products';
 
 import { CategoriesAndBrandsResponse } from '@/types/categories';
-import { GetProductByIdResponse, updateProductSchema, UpdateProductSchema } from '@/types/products';
+import { GetProductByIdResponse } from '@/types/products';
 
 import MangageImage from './ManageImages';
 import { Button } from '@/components/ui/button';
@@ -18,6 +18,7 @@ import InputField from '@/components/common/fieldOfForm/InputField';
 import SelectField from '@/components/common/fieldOfForm/SelectField';
 import MarkdownField from '@/components/admin/products/MarkdownField';
 import SelectHaveSearchField from '@/components/common/fieldOfForm/SelectHaveSearchField';
+import { updateProductSchema, UpdateProductSchema } from '@/schemas/products';
 
 type Props = {
   categoriesAndBrands: CategoriesAndBrandsResponse<'id'>;

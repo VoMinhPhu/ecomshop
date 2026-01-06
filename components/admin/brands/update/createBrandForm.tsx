@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
 import IconImageField from '@/components/common/fieldOfForm/FieldIconOfForm';
-import { createBrandSchema, CreateBrandSchema } from '@/components/admin/brands/schemas/brands';
+import { createBrandSchema, CreateBrandSchema } from '@/schemas/brands';
 
 const CreateBrandForm = () => {
   const { mutate: createBrandMutate, isPending } = useCreateBrand();

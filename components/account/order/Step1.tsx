@@ -25,7 +25,7 @@ import { formatCurrency } from '@/utils/number';
 import { useGetAllAddress } from '@/hooks/address';
 import { useConfirmOrder, useGetDetailOrder } from '@/hooks/order';
 
-import { confirmOrderSchema, ConfirmOrderSchemaType } from '@/types/order';
+import { confirmOrderSchema, ConfirmOrderSchemaType } from '@/schemas/orders';
 
 type Props = {
   id: string;
