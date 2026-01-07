@@ -103,6 +103,11 @@ const updateImageProductFn = async (payload: UpdateImageProductSchema) => {
   return data;
 };
 
+const deleteProductFn = async (payload: { id: string }) => {
+  const data = await axiosInstance.delete('/product', { data: payload });
+  return data;
+};
+
 const deleteImageProductFn = async (payload: { id: string }) => {
   const data = await axiosInstance.delete('/product/image', { data: payload });
   return data;
@@ -112,6 +117,7 @@ export {
   createProductFn,
   updateProductFn,
   getAllProductFn,
+  deleteProductFn,
   getProductByIdFn,
   changeThumbnailFn,
   updateImageProductFn,
