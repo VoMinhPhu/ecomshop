@@ -26,7 +26,7 @@ const useAddProductToCart = () => {
     onError: (e: AxiosError<{ message: string; error: string; statusCode: number }>) => {
       if (e.status === 409) {
         return toast.error('Thêm sản phẩm vào giỏ hàng', {
-          description: 'Sản phẩm đã được thêm vào giỏ hàng trước đó.',
+          description: 'Sản phẩm đã có trong giỏ hàng.',
           duration: 2500,
         });
       }

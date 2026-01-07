@@ -1,5 +1,5 @@
 import { Category } from '@/types/categories';
-import { NewProductsResponseType, TopSellResponseType } from '@/types/products';
+import { GetProductBySlugResponse, NewProductsResponseType, TopSellResponseType } from '@/types/products';
 
 export async function getTopSell(): Promise<TopSellResponseType> {
   try {
@@ -50,5 +50,18 @@ export async function getAllCategories(): Promise<Category[]> {
   } catch (err) {
     console.warn('Fetch categories failed:', err);
     return [];
+  }
+}
+
+export async function getStaticProductInfo(slug: string): Promise<GetProductBySlugResponse | null> {
+  try {
+    const res = await fetch(`${process.env.API_URL}/product/${slug}`, {
+      next: { revalidate: 60 * 5 },
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch (err) {
+    console.warn('Fetch static product infomation failed:', err);
+    return null;
   }
 }

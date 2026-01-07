@@ -24,20 +24,21 @@ export interface Product {
   updatedAt: string;
 }
 
-export type GetProductByIdResponse = GetProductBySlugResponse;
+export type GetProductByIdResponse = GetProductBySlugResponse & {
+  sold: number;
+  price: number;
+  stock: number;
+  salePrice: number;
+  thumbnail: string;
+  status: ProductStatus;
+};
 
 export interface GetProductBySlugResponse {
   id: string;
   name: string;
   slug: string;
-  stock: number;
-  sold: number;
   description: string;
-  thumbnail: string;
   images: { id: string; url: string }[];
-  price: number;
-  salePrice?: number | null;
-  status: ProductStatus;
   category: {
     id: string;
     name: string;
@@ -46,6 +47,14 @@ export interface GetProductBySlugResponse {
     id: string;
     name: string;
   };
+}
+
+export interface GetDynamicProductInsoBySlugResponse {
+  stock: number;
+  sold: number;
+  price: number;
+  salePrice?: number | null;
+  status: ProductStatus;
 }
 
 export type GetAllProductResponseType = {
