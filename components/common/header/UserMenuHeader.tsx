@@ -12,7 +12,9 @@ import useUserStore from '@/stores/userStore';
 import { Button } from '@/components/ui/button';
 import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { FileBox, KeyRound, LayoutDashboard, Loader, LogIn, LogOut, MapPin, Package, User } from 'lucide-react';
+import { FileBox, KeyRound, LayoutDashboard, Loader, LogOut, MapPin, Package, User } from 'lucide-react';
+
+import AuthPopup from '@/components/auth/AuthPopup';
 
 const UserMenuHeader = () => {
   const { mutate: logoutMutate } = useLogout();
@@ -35,13 +37,7 @@ const UserMenuHeader = () => {
   }
 
   if (!user) {
-    return (
-      <Link href="/login">
-        <Button className="h-12 cursor-pointer" variant="secondary">
-          <LogIn /> Đăng nhập
-        </Button>
-      </Link>
-    );
+    return <AuthPopup />;
   }
 
   return (
@@ -50,10 +46,10 @@ const UserMenuHeader = () => {
         <div className="cursor-pointer">
           <Image
             src={user.avatar ?? '/avatar.svg'}
-            width={48}
-            height={48}
+            width={40}
+            height={40}
             alt="avatar"
-            className="rounded-full bg-white"
+            className="rounded-full bg-white border border-zinc-400"
           />
         </div>
       </DropdownMenuTrigger>
@@ -79,42 +75,37 @@ const UserMenuHeader = () => {
             <Link
               href="/admin"
               className={cn(
-                'flex items-center w-full py-1.5 hover:text-primary mt-0.5',
+                'flex items-center w-full py-1.25 hover:text-primary text-[15px]',
                 user.role !== 'admin' && 'hidden',
               )}
             >
               <LayoutDashboard size={20} className="mr-2" strokeWidth={2} />
               Tới trang quản trị
             </Link>
-            <Link href="/account" className="flex items-center w-full py-1.5 hover:text-primary mt-0.5">
+            <Link href="/account" className="flex items-center w-full py-1.25 hover:text-primary text-[15px]">
               <User size={20} className="mr-2" strokeWidth={2} />
               Thông tin tài khoản
             </Link>
-            <Link href="/account/cart" className="flex items-center w-full py-1.5 hover:text-primary mt-0.5">
+            <Link href="/account/cart" className="flex items-center w-full py-1.25 hover:text-primary text-[15px]">
               <Package size={20} className="mr-2" strokeWidth={2} />
               Giỏ hàng của bạn
             </Link>
-            <Link href="/account/order" className="flex items-center w-full py-1.5 hover:text-primary mt-0.5">
+            <Link href="/account/order" className="flex items-center w-full py-1.25 hover:text-primary text-[15px]">
               <FileBox size={20} className="mr-2" strokeWidth={2} />
               Đơn hàng của bạn
             </Link>
-            <Link href="/account" className="flex items-center w-full py-1.5 hover:text-primary mt-0.5">
+            <Link href="/account" className="flex items-center w-full py-1.25 hover:text-primary text-[15px]">
               <KeyRound size={20} className="mr-2" strokeWidth={2} />
               Đổi mật khẩu
             </Link>
-            <Link href="/account/address" className="flex items-center w-full py-1.5 hover:text-primary mt-0.5">
+            <Link href="/account/address" className="flex items-center w-full py-1.25 hover:text-primary text-[15px]">
               <MapPin size={20} className="mr-2" strokeWidth={2} />
               Danh sách địa chỉ
             </Link>
           </CardContent>
 
-          <div className="px-2 text-red-500 mt-3">
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              size="lg"
-              className="w-full hover:text-red-500 cursor-pointer"
-            >
+          <div className="px-4 mt-2">
+            <Button onClick={handleLogout} variant="outline" size="lg" className="w-full cursor-pointer">
               <LogOut />
               Đăng xuất
             </Button>

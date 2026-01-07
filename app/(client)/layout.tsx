@@ -4,7 +4,7 @@ import Header from '@/components/common/header/Header';
 import Footer from '@/components/common/footer/Footer';
 
 export const metadata: Metadata = {
-  title: 'E-com Store',
+  title: 'Ecomshop',
   description:
     'Cửa hàng thương mại điện tử chuyên cung cấp sản phẩm chất lượng – thời trang, điện tử, gia dụng với giá tốt, giao hàng toàn quốc.',
 };
