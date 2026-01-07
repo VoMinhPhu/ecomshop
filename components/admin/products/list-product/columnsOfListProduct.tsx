@@ -32,7 +32,11 @@ export const columnsOfListProduct: ColumnDef<Product>[] = [
   },
   {
     header: () => <div className="pl-2">Tên sản phẩm</div>,
-    cell: ({ row }) => <div className="pl-2 max-w-80 truncate">{row.original.name}</div>,
+    cell: ({ row }) => (
+      <div className="max-w-70 pl-1 whitespace-normal break-words">
+        <p>{row.original.name}</p>
+      </div>
+    ),
     accessorKey: 'name',
     filterFn: nameFilterFn,
     enableHiding: false,

@@ -2,7 +2,7 @@ import { toast } from 'sonner';
 import { AxiosError } from 'axios';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createBrandFn, getAllBrandsFn, getBrandByIdFn, updateBrandFn } from '@/lib/api/brands';
+import { createBrandFn, deleteBrandFn, getAllBrandsFn, getBrandByIdFn, updateBrandFn } from '@/lib/api/brands';
 
 import { Category } from '@/types/categories';
 
@@ -80,4 +80,35 @@ const useCreateBrand = () => {
   });
 };
 
-export { useGetAllBrands, useGetBrandById, useUpdateBrand, useCreateBrand };
+const useDeleteBrand = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteBrandFn,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['brands'] });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+
+      toast.success('Xóa thương hiệu', {
+        description: 'Xóa thương hiệu thành công',
+        duration: 2500,
+      });
+    },
+    onError(error: AxiosError<{ message: string; error: string; statusCode: number }>) {
+      if (error.status === 404) {
+        toast.error('Xóa thương hiệu', {
+          description: 'Thương hiệu không tồn tại trong hệ thống.',
+          duration: 2500,
+        });
+        return;
+      }
+
+      toast.error('Xóa thương hiệu', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2500,
+      });
+    },
+  });
+};
+
+export { useGetAllBrands, useGetBrandById, useUpdateBrand, useCreateBrand, useDeleteBrand };

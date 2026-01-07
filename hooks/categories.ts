@@ -99,6 +99,7 @@ const useDeleteCategory = () => {
     mutationFn: deleteCategoryFn,
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
 
       await fetch('/api/revalidate/categories', { method: 'POST' });
 

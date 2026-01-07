@@ -14,21 +14,21 @@ import {
 import { Button } from '@/components/ui/button';
 
 import { cn } from '@/lib/utils';
-import { useDeleteCategory } from '@/hooks/categories';
+import { useDeleteBrand } from '@/hooks/brands';
 
 import { Loader, Trash2 } from 'lucide-react';
 
 type Props = {
-  categoryId: string;
+  brandId: string;
   name: string;
 };
 
-export default function DeleteCategoryBtn({ categoryId, name }: Props) {
-  const { mutate: deleteCategoryMutate, isPending } = useDeleteCategory();
+export default function DeleteBrandBtn({ brandId, name }: Props) {
+  const { mutate: deleteBrandMutate, isPending } = useDeleteBrand();
 
-  const handleDeleteCategory = () => {
-    deleteCategoryMutate({
-      id: categoryId,
+  const handleDeleteBrand = () => {
+    deleteBrandMutate({
+      id: brandId,
     });
   };
 
@@ -45,16 +45,13 @@ export default function DeleteCategoryBtn({ categoryId, name }: Props) {
         <AlertDialogHeader>
           <AlertDialogTitle>Bạn chắc chắn chứ?</AlertDialogTitle>
           <AlertDialogDescription>
-            Danh mục<span className="text-primary font-semibold mx-1.5">{name}</span>sẽ bị xóa vĩnh viễn khỏi hệ thống,
-            việc này có nghĩa là những sản phẩm thuộc danh mục cũng sẽ bị xóa bỏ.
+            Thương hiệu<span className="text-primary font-semibold mx-1.5">{name}</span>sẽ bị xóa vĩnh viễn khỏi hệ
+            thống, việc này có nghĩa là những sản phẩm thuộc thương hiệu này cũng sẽ bị xóa bỏ.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Hủy bỏ</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={handleDeleteCategory}
-            className="bg-destructive hover:bg-destructive cursor-pointer"
-          >
+          <AlertDialogAction onClick={handleDeleteBrand} className="bg-destructive hover:bg-destructive cursor-pointer">
             Xóa
           </AlertDialogAction>
         </AlertDialogFooter>

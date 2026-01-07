@@ -39,8 +39,9 @@ const CreateProductForm = () => {
   });
 
   const onSubmit = (values: CreateProductSchema) => {
-    createProductMutate(values);
-    form.reset();
+    createProductMutate(values, {
+      onSuccess: () => form.reset(),
+    });
   };
 
   return (
