@@ -1,6 +1,6 @@
 import { Category } from '@/types/categories';
 import axiosInstance from '../axiosInstance';
-import { CreateCategorySchema, UpdateCategorySchema } from '@/components/admin/categories/schema/categories';
+import { CreateCategorySchema, UpdateCategorySchema } from '@/schemas/categories';
 
 const getAllCategories = async (): Promise<Category[]> => {
   const { data } = await axiosInstance.get('/category/all');

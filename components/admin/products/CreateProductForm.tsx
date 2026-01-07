@@ -17,7 +17,7 @@ import SelectHaveSearchField from '@/components/common/fieldOfForm/SelectHaveSea
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 
-import { createProductSchema, type CreateProductSchema } from '@/types/products';
+import { createProductSchema, CreateProductSchema } from '@/schemas/products';
 
 const CreateProductForm = () => {
   const { data } = useGetCategoriesAndBrands();

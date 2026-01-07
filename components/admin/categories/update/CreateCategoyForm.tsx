@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
 import IconImageField from '@/components/common/fieldOfForm/FieldIconOfForm';
-import { createCategorySchema, CreateCategorySchema } from '@/components/admin/categories/schema/categories';
+import { createCategorySchema, CreateCategorySchema } from '@/schemas/categories';
 
 const CreateCategoyForm = () => {
   const { mutate: createCategoryMutate, isPending } = useCreateCategory();

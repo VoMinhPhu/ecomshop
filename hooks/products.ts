@@ -7,20 +7,23 @@ import {
   updateProductFn,
   getAllProductFn,
   getProductByIdFn,
-  getCategoriesAndBrandsFn,
-  getCategoriesAndBrandsToFilterFn,
   changeThumbnailFn,
   updateImageProductFn,
   deleteImageProductFn,
   addNewImagesProductFn,
+  getCategoriesAndBrandsFn,
+  getCategoriesAndBrandsToFilterFn,
 } from '@/lib/api/admin/product';
-import { getNameAndSlugOfCategoriesAndBrandsFn, getProductBySlugFn, getProductWithFilterFn } from '@/lib/api/products';
+import {
+  getProductWithFilterFn,
+  getDynamicProductInsoByIdFn,
+  getNameAndSlugOfCategoriesAndBrandsFn,
+} from '@/lib/api/products';
 
 import {
   GetProductByIdResponse,
-  GetProductBySlugResponse,
-  Product,
   UseGetAllProductWithFilterParams,
+  GetDynamicProductInsoBySlugResponse,
 } from '@/types/products';
 
 const useGetCategoriesAndBrands = () => {
@@ -262,10 +265,10 @@ const useGetProductById = (id?: string) => {
   });
 };
 
-const useGetProductBySlug = (slug: string) => {
-  return useQuery<GetProductBySlugResponse>({
-    queryKey: ['products', 'detail', slug],
-    queryFn: () => getProductBySlugFn(slug),
+const useGetDynamicProductInfoById = (slug: string) => {
+  return useQuery<GetDynamicProductInsoBySlugResponse>({
+    queryKey: ['products', 'detail', 'dynamic', slug],
+    queryFn: () => getDynamicProductInsoByIdFn(slug),
     staleTime: 1000 * 60 * 20,
     enabled: !!slug,
   });
@@ -277,12 +280,12 @@ export {
   useGetAllProduct,
   useGetProductById,
   useChangeThumbnail,
-  useGetProductBySlug,
   useUpdateImageProduct,
   useDeleteImageProduct,
   useAddNewImagesProduct,
   useGetCategoriesAndBrands,
   useGetAllProductWithFilter,
+  useGetDynamicProductInfoById,
   useGetCategoriesAndBrandsToFilter,
   useGetNameAndSlugOfCategoriesAndBrands,
 };

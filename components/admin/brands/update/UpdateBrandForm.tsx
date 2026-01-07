@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
 import IconImageField from '@/components/common/fieldOfForm/FieldIconOfForm';
-import { updateBrandSchema, UpdateBrandSchema } from '@/components/admin/brands/schemas/brands';
+import { updateBrandSchema, UpdateBrandSchema } from '@/schemas/brands';
 
 type Props = {
   data: Brand;

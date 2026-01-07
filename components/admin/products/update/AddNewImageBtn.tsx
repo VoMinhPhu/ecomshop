@@ -20,8 +20,8 @@ import { Button } from '@/components/ui/button';
 import { useFileUpload } from '@/hooks/use-file-upload';
 import { useAddNewImagesProduct } from '@/hooks/products';
 
-import { addNewImageProductSchema, AddNewImageProductSchema } from '@/types/products';
 import { cn } from '@/lib/utils';
+import { addNewImageProductSchema, AddNewImageProductSchema } from '@/schemas/products';
 
 type Props = {
   productId: string;

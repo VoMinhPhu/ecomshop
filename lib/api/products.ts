@@ -2,10 +2,14 @@ import QueryString from 'qs';
 import axiosInstance from '@/lib/axiosInstance';
 
 import { CategoriesAndBrandsResponse } from '@/types/categories';
-import { ProductFilterParams, GetProductBySlugResponse, GetProductsWithFiltersResponse } from '@/types/products';
+import {
+  ProductFilterParams,
+  GetProductsWithFiltersResponse,
+  GetDynamicProductInsoBySlugResponse,
+} from '@/types/products';
 
-const getProductBySlugFn = async (slug: string): Promise<GetProductBySlugResponse> => {
-  const res = await axiosInstance.get(`/product/${slug}`);
+const getDynamicProductInsoByIdFn = async (slug: string): Promise<GetDynamicProductInsoBySlugResponse> => {
+  const res = await axiosInstance.get(`/product/dynamic/${slug}`);
 
   return res.data;
 };
@@ -25,4 +29,4 @@ const getProductWithFilterFn = async (params: ProductFilterParams): Promise<GetP
   return res.data;
 };
 
-export { getProductBySlugFn, getProductWithFilterFn, getNameAndSlugOfCategoriesAndBrandsFn };
+export { getProductWithFilterFn, getDynamicProductInsoByIdFn, getNameAndSlugOfCategoriesAndBrandsFn };

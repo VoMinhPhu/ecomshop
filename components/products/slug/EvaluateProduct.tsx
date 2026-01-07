@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { Button } from '../ui/button';
 import { Ellipsis, Star } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 type Props = {};
 

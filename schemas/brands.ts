@@ -7,11 +7,10 @@ export const createBrandSchema = z.object({
   }),
 });
 
-export type CreateBrandSchema = z.infer<typeof createBrandSchema>;
-
 export const updateBrandSchema = createBrandSchema.extend({
   id: z.string().min(1, 'ID là bắt buộc'),
   icon: z.union([z.instanceof(Blob), z.string().url(), z.literal('').optional()]),
 });
 
+export type CreateBrandSchema = z.infer<typeof createBrandSchema>;
 export type UpdateBrandSchema = z.infer<typeof updateBrandSchema>;
