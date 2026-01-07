@@ -113,7 +113,7 @@ export const columnsOfListProduct: ColumnDef<Product>[] = [
             </Button>
           </Link>
 
-          <DeleteProductBtn productId={row.original.id} />
+          <DeleteProductBtn productId={row.original.id} name={row.original.name} />
         </DropdownMenuContent>
       </DropdownMenu>
     ),

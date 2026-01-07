@@ -32,4 +32,9 @@ const createCategoryFn = async (data: CreateCategorySchema) => {
   return res.data;
 };
 
-export { getAllCategories, updateCategory, getCategoryById, createCategoryFn };
+const deleteCategoryFn = async (payload: { id: string }) => {
+  const data = await axiosInstance.delete('/category', { data: payload });
+  return data;
+};
+
+export { getAllCategories, updateCategory, getCategoryById, createCategoryFn, deleteCategoryFn };

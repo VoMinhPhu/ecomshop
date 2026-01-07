@@ -14,21 +14,21 @@ import {
 import { Button } from '@/components/ui/button';
 
 import { cn } from '@/lib/utils';
-import { useDeleteProduct } from '@/hooks/products';
+import { useDeleteCategory } from '@/hooks/categories';
 
 import { Loader, Trash2 } from 'lucide-react';
 
 type Props = {
-  productId: string;
+  categoryId: string;
   name: string;
 };
 
-export default function DeleteProductBtn({ productId, name }: Props) {
-  const { mutate: deleteProductMutate, isPending } = useDeleteProduct();
+export default function DeleteCategoryBtn({ categoryId, name }: Props) {
+  const { mutate: deleteCategoryMutate, isPending } = useDeleteCategory();
 
   const handleDeleteProduct = () => {
-    deleteProductMutate({
-      id: productId,
+    deleteCategoryMutate({
+      id: categoryId,
     });
   };
 
@@ -45,9 +45,8 @@ export default function DeleteProductBtn({ productId, name }: Props) {
         <AlertDialogHeader>
           <AlertDialogTitle>Bạn chắc chắn chứ?</AlertDialogTitle>
           <AlertDialogDescription>
-            Nếu bạn nhấn nút
-            <span className="text-red-500 font-semibold text-base mx-1.5">xóa</span>
-            sản phẩm<span className="text-primary mx-1.5">{name}</span>sẽ bị xóa vĩnh viễn
+            Danh mục<span className="text-primary font-semibold mx-1.5">{name}</span>sẽ bị xóa vĩnh viễn khỏi hệ thống,
+            việc này có nghĩa là những sản phẩm thuộc danh mục cũng sẽ bị xóa bỏ.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
