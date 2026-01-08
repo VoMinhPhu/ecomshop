@@ -6,15 +6,7 @@ import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from 'recharts';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
-const chartData = [
-  { day: 'T2', revenue: 1200 },
-  { day: 'T3', revenue: 1500 },
-  { day: 'T4', revenue: 1000 },
-  { day: 'T5', revenue: 1300 },
-  { day: 'T6', revenue: 1700 },
-  { day: 'T7', revenue: 2000 },
-  { day: 'CN', revenue: 1800 },
-];
+import { RevenueByDay } from '@/types/dashboard';
 
 const chartConfig = {
   revenue: {
@@ -23,7 +15,25 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function RevenueWeek() {
+interface RevenueWeekProps {
+  data: RevenueByDay[]; // last7Days
+}
+
+const DAY_LABELS = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+
+function mapWeekData(data: RevenueByDay[]) {
+  return data.map((item) => {
+    const d = new Date(item.date);
+    return {
+      day: DAY_LABELS[d.getDay()],
+      revenue: item.revenue,
+    };
+  });
+}
+
+export default function RevenueWeek({ data }: RevenueWeekProps) {
+  const chartData = mapWeekData(data);
+
   return (
     <Card className="order-1 lg:order-2">
       <CardHeader className="items-center pb-4">

@@ -1,151 +1,130 @@
-import Link from 'next/link';
-import { ReactNode } from 'react';
+'use client';
 
-import { formatCurrency } from '@/utils/number';
+import { JSX } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 import { CircleCheck, Loader, XCircle } from 'lucide-react';
+
+import { formatCurrency } from '@/utils/number';
+import { useGetRecentOrders } from '@/hooks/dashboard';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableRow, TableBody, TableCell, TableHead, TableHeader, TableCaption } from '@/components/ui/table';
 
-const orders = [
-  {
-    id: '6f1fcb41-1d79-4f9d-8b73-50ad978fc1c1',
-    userName: 'Nguyễn Minh Hùng',
-    email: 'hung.nguyen@example.com',
-    nameProduct: 'Laptop ABC',
-    status: 'Done',
-    totalAmount: 2500000000,
-  },
-  {
-    id: 'c7b3f53b-2472-4f8c-a9f6-2a2e2e1f2a8a',
-    userName: 'Trần Thị Mai',
-    email: 'mai.tran@example.com',
-    nameProduct: 'Tai nghe XYZ',
-    status: 'In process',
-    totalAmount: 15000000,
-  },
-  {
-    id: 'b8d6a31e-6e7a-4ab4-a0e9-fd28dbf3055f',
-    userName: 'Lê Quốc Bảo',
-    email: 'quoc.bao@example.com',
-    nameProduct: 'Điện thoại MNO',
-    status: 'Cancel',
-    totalAmount: 35000000,
-  },
-  {
-    id: 'a2b7f3e1-4c18-4b6b-a9dd-7f01a6ecf421',
-    userName: 'Phạm Thị Hồng',
-    email: 'hong.pham@example.com',
-    nameProduct: 'Chuột không dây',
-    status: 'Done',
-    totalAmount: 8000000,
-  },
-  {
-    id: '9b5f8d17-3f60-44f1-b7e2-245a2d8fd9c4',
-    userName: 'Đỗ Văn Hưng',
-    email: 'hung.do@example.com',
-    nameProduct: 'Bàn phím cơ',
-    status: 'In process',
-    totalAmount: 12000000,
-  },
-  {
-    id: '0cf8914c-1a8f-4c8c-b1aa-f1b5a3de2c77',
-    userName: 'Nguyễn Văn Quang',
-    email: 'quang.nguyen@example.com',
-    nameProduct: 'Màn hình 24 inch',
-    status: 'Done',
-    totalAmount: 22000000,
-  },
-  {
-    id: '3e6a7d8f-9e3c-46e9-9f8f-0dc36d7a2e53',
-    userName: 'Hoàng Thị Lan',
-    email: 'lan.hoang@example.com',
-    nameProduct: 'Loa bluetooth',
-    status: 'Cancel',
-    totalAmount: 10000000,
-  },
-  {
-    id: '82d53764-dae5-4dcf-9439-0f53564c7fd7',
-    userName: 'Vũ Văn Phúc',
-    email: 'phuc.vu@example.com',
-    nameProduct: 'Máy in mini',
-    status: 'In process',
-    totalAmount: 18000000,
-  },
-  {
-    id: 'f7e0c8ba-2213-4fb5-8b43-573e2bb16ac5',
-    userName: 'Nguyễn Thị Hương',
-    email: 'huong.nguyen@example.com',
-    nameProduct: 'Ổ cứng SSD',
-    status: 'Done',
-    totalAmount: 20000000,
-  },
-  {
-    id: '1a2c3e4d-5f6a-7b8c-9d0e-1f2a3b4c5d6e',
-    userName: 'Trần Văn Khánh',
-    email: 'khanh.tran@example.com',
-    nameProduct: 'Webcam HD',
-    status: 'Cancel',
-    totalAmount: 9000000,
-  },
-];
+import { RecentOrder } from '@/types/dashboard';
+import { OrderStatus, PaymentMethod } from '@/types/order';
 
-const statusIcons: Record<string, ReactNode> = {
-  Done: <CircleCheck className="fill-green-500 text-white" />,
-  'In process': <Loader className="text-amber-500" strokeWidth={3} />,
-  Cancel: <XCircle className="text-red-500" />,
+const statusMap: Record<OrderStatus, { label: string; icon: JSX.Element }> = {
+  pending: {
+    label: 'Chưa xác nhận',
+    icon: <Loader className="text-amber-500" strokeWidth={3} />,
+  },
+  confirmed: {
+    label: 'Đã xác nhận',
+    icon: <Loader className="text-blue-500" strokeWidth={3} />,
+  },
+  paid: {
+    label: 'Đã thanh toán',
+    icon: <CircleCheck className="fill-green-500 text-white" />,
+  },
+  shipped: {
+    label: 'Đang giao',
+    icon: <Loader className="text-purple-500" strokeWidth={3} />,
+  },
+  completed: {
+    label: 'Hoàn thành',
+    icon: <CircleCheck className="fill-green-600 text-white" />,
+  },
+  cancelled: {
+    label: 'Đã huỷ',
+    icon: <XCircle className="text-red-500" />,
+  },
+};
+
+const paymentMethodMap: Record<PaymentMethod, { label: string; icon: JSX.Element }> = {
+  COD: {
+    label: 'Trực tiếp',
+    icon: <Image src={'/icons/money.png'} width={32} height={32} alt="VISA Icon" />,
+  },
+  QR: {
+    label: 'QR',
+    icon: <Image src={'/icons/QR.svg'} width={24} height={24} alt="VISA Icon" />,
+  },
+  VISA: {
+    label: 'VISA',
+    icon: <Image src={'/icons/visa.png'} width={32} height={32} alt="VISA Icon" />,
+  },
 };
 
 export default function RecentOrders() {
+  const { data, isLoading } = useGetRecentOrders();
+
+  if (isLoading) return null;
+
   return (
     <Card>
       <CardHeader className="flex items-center justify-between">
         <div>
-          <CardTitle>Đơn hàng</CardTitle>
-          <CardDescription className="mt-1.5">Những đơn hàng được tạo thời gian gần đây</CardDescription>
+          <CardTitle>Đơn hàng gần đây</CardTitle>
+          <CardDescription className="mt-1.5">5 đơn hàng được tạo gần nhất</CardDescription>
         </div>
-        <div>
-          <Link href={'#'}>
-            <Button className="cursor-pointer">Xem tất cả</Button>
-          </Link>
-        </div>
+        <Link href="/admin/orders">
+          <Button>Xem tất cả</Button>
+        </Link>
       </CardHeader>
+
       <CardContent>
         <div className="border rounded-lg overflow-hidden">
           <Table>
-            <TableCaption className="mb-8">10 đơn hàng được tạo thời gian gần đây</TableCaption>
+            <TableCaption className="mb-6">Danh sách đơn hàng mới nhất</TableCaption>
+
             <TableHeader className="bg-zinc-100">
               <TableRow className="h-12">
-                <TableHead className="pl-4 lg:pl-12">Tên khách hàng</TableHead>
-                <TableHead className="max-w-50">Email</TableHead>
-                <TableHead className="max-w-50">Tên sản phẩm</TableHead>
-                <TableHead className="w-28">Trạng thái</TableHead>
-                <TableHead className="text-right pr-4 w-[140px]">Giá (vnđ)</TableHead>
+                <TableHead className="pl-6">Mã đơn</TableHead>
+                <TableHead>Sản phẩm</TableHead>
+                <TableHead className="w-24 text-center">SL</TableHead>
+                <TableHead className="w-32">Trạng thái</TableHead>
+                <TableHead className="w-32 text-center">Phương thức</TableHead>
+                <TableHead className="w-32 text-right">Tổng tiền</TableHead>
+                <TableHead className="w-36 text-right pr-6">Ngày tạo</TableHead>
               </TableRow>
             </TableHeader>
 
             <TableBody>
-              {orders.map((order) => (
-                <TableRow key={order.id}>
-                  <TableCell className="truncate font-medium lg:pl-12" title={order.userName}>
-                    {order.userName}
-                  </TableCell>
-                  <TableCell className="truncate max-w-50" title={order.email}>
-                    {order.email}
-                  </TableCell>
-                  <TableCell className="truncate max-w-50">{order.nameProduct}</TableCell>
-                  <TableCell className="w-28">
-                    <Badge variant="outline" className="flex items-center gap-1 text-muted-foreground">
-                      {statusIcons[order.status]}
-                      {order.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-right pr-4 w-35">{formatCurrency(order.totalAmount)}</TableCell>
-                </TableRow>
-              ))}
+              {data?.map((order: RecentOrder) => {
+                const status = statusMap[order.status];
+                const paymentMethod = paymentMethodMap[order.paymentMethod];
+                const firstProduct = order.products[0];
+
+                return (
+                  <TableRow key={order.id}>
+                    <TableCell className="pl-6 font-medium">{order.orderCode}</TableCell>
+                    <TableCell className="truncate max-w-[260px]">{firstProduct?.name}</TableCell>
+                    <TableCell className="text-center">{order.itemsCount}</TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className="flex items-center gap-1 text-muted-foreground">
+                        {status.icon}
+                        {status.label}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <span className="flex items-center pl-5 gap-2 text-muted-foreground text-xs my-2">
+                        {paymentMethod.icon}
+                        {paymentMethod.label}
+                      </span>
+                    </TableCell>
+
+                    <TableCell className="text-right">{formatCurrency(order.totalAmount)}</TableCell>
+
+                    <TableCell className="text-right pr-6">
+                      {new Date(order.createdAt).toLocaleDateString('vi-VN')}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </div>
