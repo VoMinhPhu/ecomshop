@@ -33,8 +33,8 @@ export default function NavAdmin() {
                   <Image src={'/icons/logo-small.svg'} width={32} height={32} alt="Logo" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">eComStore</span>
-                  <span className="truncate text-xs">Trao đổi và mua bán</span>
+                  <span className="truncate font-medium">Ecomshop</span>
+                  <span className="truncate text-xs">Mua bán sản phẩm chất lượng</span>
                 </div>
               </Link>
             </SidebarMenuButton>

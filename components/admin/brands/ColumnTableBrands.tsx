@@ -1,15 +1,13 @@
 import Link from 'next/link';
 import { ColumnDef } from '@tanstack/react-table';
 
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { DataTableColumnHeader } from '@/components/common/tables/data-table-column-header';
-import { Ellipsis, FilePen, Trash2 } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+
+import { Ellipsis, FilePen } from 'lucide-react';
+
+import DeleteBrandBtn from './DeleteBrandBtn';
 
 export const columnsTableBrand: ColumnDef<Brand, any>[] = [
   {
@@ -65,19 +63,14 @@ export const columnsTableBrand: ColumnDef<Brand, any>[] = [
             <Ellipsis />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem>
-            <Link href={`/admin/brands/${row.original.id}`} className="flex items-center text-amber-500 w-full gap-2">
-              <FilePen className="text-amber-500" />
-              Sửa
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <div className="gap-2 flex text-red-500">
-              <Trash2 className="text-red-500" />
-              Xóa
-            </div>
-          </DropdownMenuItem>
+        <DropdownMenuContent align="end" className="w-14">
+          <Link href={`/admin/brands/${row.original.id}`}>
+            <Button variant="ghost" className="w-full justify-start text-amber-500 hover:text-amber-500" size="sm">
+              <FilePen />
+              Chỉnh sửa
+            </Button>
+          </Link>
+          <DeleteBrandBtn brandId={row.original.id} name={row.original.name} />
         </DropdownMenuContent>
       </DropdownMenu>
     ),

@@ -31,4 +31,9 @@ const createBrandFn = async (data: CreateBrandSchema) => {
   return res.data;
 };
 
-export { getAllBrandsFn, updateBrandFn, getBrandByIdFn, createBrandFn };
+const deleteBrandFn = async (payload: { id: string }) => {
+  const data = await axiosInstance.delete('/brands', { data: payload });
+  return data;
+};
+
+export { getAllBrandsFn, updateBrandFn, getBrandByIdFn, createBrandFn, deleteBrandFn };

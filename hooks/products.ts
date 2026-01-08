@@ -13,6 +13,7 @@ import {
   addNewImagesProductFn,
   getCategoriesAndBrandsFn,
   getCategoriesAndBrandsToFilterFn,
+  deleteProductFn,
 } from '@/lib/api/admin/product';
 import {
   getProductWithFilterFn,
@@ -183,6 +184,34 @@ const useUpdateImageProduct = () => {
   });
 };
 
+const useDeleteProduct = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteProductFn,
+    onSuccess: () => {
+      toast.success('Xóa sản phẩm', {
+        description: 'Xóa sản phẩm thành công.',
+        duration: 2000,
+      });
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+    onError(error: AxiosError) {
+      if (error.status === 404) {
+        toast.error('Xóa sản phẩm', {
+          description: 'Sản phẩm không tồn tại trong hệ thống.',
+          duration: 2000,
+        });
+        return;
+      }
+      toast.error('Xóa sản phẩm', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2000,
+      });
+    },
+  });
+};
+
 const useDeleteImageProduct = () => {
   const queryClient = useQueryClient();
 
@@ -275,6 +304,7 @@ const useGetDynamicProductInfoById = (slug: string) => {
 };
 
 export {
+  useDeleteProduct,
   useCreateProduct,
   useUpdateProduct,
   useGetAllProduct,

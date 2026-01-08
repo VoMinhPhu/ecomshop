@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Product } from '@/types/products';
 import { ColumnDef, FilterFn } from '@tanstack/react-table';
 import {
@@ -9,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Ellipsis, FilePen, Trash2 } from 'lucide-react';
-import Image from 'next/image';
+import DeleteProductBtn from './DeleteProductBtn';
 
 const nameFilterFn: FilterFn<Product> = (row, columnId, filterValue: string) => {
   if (!filterValue) return true;
@@ -21,8 +22,8 @@ export const columnsOfListProduct: ColumnDef<Product>[] = [
   {
     header: () => <div className="pl-2">Ảnh sản phẩm</div>,
     cell: ({ row }) => (
-      <div className="flex items-center justify-center">
-        <Image src={row.original.thumbnail} width={50} height={60} alt={row.original.name} />
+      <div className="flex items-center justify-center py-1">
+        <Image src={row.original.thumbnail} width={80} height={80} alt={row.original.name} />
       </div>
     ),
     accessorKey: 'thumbnail',
@@ -31,7 +32,11 @@ export const columnsOfListProduct: ColumnDef<Product>[] = [
   },
   {
     header: () => <div className="pl-2">Tên sản phẩm</div>,
-    cell: ({ row }) => <div className="pl-2 max-w-80 truncate">{row.original.name}</div>,
+    cell: ({ row }) => (
+      <div className="max-w-70 pl-1 whitespace-normal break-words">
+        <p>{row.original.name}</p>
+      </div>
+    ),
     accessorKey: 'name',
     filterFn: nameFilterFn,
     enableHiding: false,
@@ -104,19 +109,15 @@ export const columnsOfListProduct: ColumnDef<Product>[] = [
             <Ellipsis />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem>
-            <Link href={`/admin/products/${row.original.id}`} className="flex items-center text-amber-500 w-full gap-2">
-              <FilePen className="text-amber-500" />
-              Sửa
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <div className="gap-2 flex text-red-500">
-              <Trash2 className="text-red-500" />
-              Xóa
-            </div>
-          </DropdownMenuItem>
+        <DropdownMenuContent align="end" className="w-14">
+          <Link href={`/admin/products/${row.original.id}`}>
+            <Button variant="ghost" className="w-full justify-start text-amber-500 hover:text-amber-500" size="sm">
+              <FilePen />
+              Chỉnh sửa
+            </Button>
+          </Link>
+
+          <DeleteProductBtn productId={row.original.id} name={row.original.name} />
         </DropdownMenuContent>
       </DropdownMenu>
     ),

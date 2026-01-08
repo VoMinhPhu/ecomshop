@@ -6,21 +6,23 @@ import { ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 import { FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 
 type InputFieldProps<TFieldValues extends FieldValues, TName extends Path<TFieldValues>> = {
-  label: string;
-  field: ControllerRenderProps<TFieldValues, TName>;
-  placeholder?: string;
-  disabled?: boolean;
-  requireIcon?: boolean;
   type?: string;
+  label: string;
+  disabled?: boolean;
+  className?: string;
+  placeholder?: string;
+  requireIcon?: boolean;
+  field: ControllerRenderProps<TFieldValues, TName>;
 };
 
 const InputField = <TFieldValues extends FieldValues, TName extends Path<TFieldValues>>({
   label,
   field,
-  placeholder,
   disabled,
-  requireIcon = false,
+  className,
+  placeholder,
   type = 'text',
+  requireIcon = false,
 }: InputFieldProps<TFieldValues, TName>) => (
   <FormItem>
     <FormLabel className="gap-1">
@@ -28,7 +30,14 @@ const InputField = <TFieldValues extends FieldValues, TName extends Path<TFieldV
       <span className={cn('text-red-500 font-bold', !requireIcon && 'hidden')}>*</span>
     </FormLabel>
     <FormControl>
-      <Input placeholder={placeholder} disabled={disabled} {...field} value={field.value ?? ''} type={type} />
+      <Input
+        {...field}
+        type={type}
+        disabled={disabled}
+        value={field.value ?? ''}
+        className={cn(className)}
+        placeholder={placeholder}
+      />
     </FormControl>
     <FormMessage />
   </FormItem>

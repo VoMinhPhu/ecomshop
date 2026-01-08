@@ -27,10 +27,15 @@ export default function ChangeThumbnail({ thumbnail, productId }: Props) {
   const fileName = files[0]?.file.name || null;
 
   const handleChangeThumbnail = () => {
-    changeThumbnailMutate({
-      id: productId,
-      image: files[0].file as File,
-    });
+    changeThumbnailMutate(
+      {
+        id: productId,
+        image: files[0].file as File,
+      },
+      {
+        onSuccess: () => removeFile(files[0].id),
+      },
+    );
   };
 
   return (
@@ -54,7 +59,7 @@ export default function ChangeThumbnail({ thumbnail, productId }: Props) {
             {fileName ? 'Chọn ảnh khác' : 'Chọn ảnh'}
           </Button>
           <input {...getInputProps()} aria-label="Upload image file" className="sr-only" tabIndex={-1} />
-          <Button disabled={isPending} onClick={handleChangeThumbnail}>
+          <Button disabled={isPending || !fileName} onClick={handleChangeThumbnail}>
             <Loader className={cn('animate-spin', !isPending && 'hidden')} />
             {isPending ? 'Đang thay đổi' : ' Thay đổi'}
           </Button>
