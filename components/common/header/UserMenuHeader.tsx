@@ -55,7 +55,7 @@ const UserMenuHeader = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <div className="py-1">
-          <CardHeader className="flex gap-2 px-4">
+          <CardHeader className="flex gap-2 px-2">
             <Image
               src={user.avatar ?? '/avatar.svg'}
               width={40}
@@ -67,45 +67,45 @@ const UserMenuHeader = () => {
               <p className="text-sm font-semibold bg-gradient-to-r from-green-400 via-green-500 to-green-700 bg-clip-text text-transparent">
                 {user.name}
               </p>
-              <CardDescription className="text-xs max-w-40 truncate">{user.email}</CardDescription>
+              <CardDescription className="text-xs max-w-30 truncate">{user.email}</CardDescription>
             </div>
           </CardHeader>
 
-          <CardContent className="py-1 md:pl-5">
+          <CardContent className="py-1 md:pl-3">
             <Link
               href="/admin"
               className={cn(
-                'flex items-center w-full py-1.25 hover:text-primary text-[15px]',
+                'flex items-center w-full py-1 hover:text-primary text-[15px]',
                 user.role !== 'admin' && 'hidden',
               )}
             >
-              <LayoutDashboard size={20} className="mr-2" strokeWidth={2} />
+              <LayoutDashboard size={18} className="mr-2" strokeWidth={1.75} />
               Tới trang quản trị
             </Link>
-            <Link href="/account" className="flex items-center w-full py-1.25 hover:text-primary text-[15px]">
-              <User size={20} className="mr-2" strokeWidth={2} />
+            <Link href="/account" className="flex items-center w-full py-1 hover:text-primary text-[15px]">
+              <User size={18} className="mr-2" strokeWidth={1.75} />
               Thông tin tài khoản
             </Link>
-            <Link href="/account/cart" className="flex items-center w-full py-1.25 hover:text-primary text-[15px]">
-              <Package size={20} className="mr-2" strokeWidth={2} />
+            <Link href="/account/cart" className="flex items-center w-full py-1 hover:text-primary text-[15px]">
+              <Package size={18} className="mr-2" strokeWidth={1.75} />
               Giỏ hàng của bạn
             </Link>
-            <Link href="/account/order" className="flex items-center w-full py-1.25 hover:text-primary text-[15px]">
-              <FileBox size={20} className="mr-2" strokeWidth={2} />
+            <Link href="/account/order" className="flex items-center w-full py-1 hover:text-primary text-[15px]">
+              <FileBox size={18} className="mr-2" strokeWidth={1.75} />
               Đơn hàng của bạn
             </Link>
-            <Link href="/account" className="flex items-center w-full py-1.25 hover:text-primary text-[15px]">
-              <KeyRound size={20} className="mr-2" strokeWidth={2} />
+            <Link href="/account" className="flex items-center w-full py-1 hover:text-primary text-[15px]">
+              <KeyRound size={18} className="mr-2" strokeWidth={1.75} />
               Đổi mật khẩu
             </Link>
-            <Link href="/account/address" className="flex items-center w-full py-1.25 hover:text-primary text-[15px]">
-              <MapPin size={20} className="mr-2" strokeWidth={2} />
+            <Link href="/account/address" className="flex items-center w-full py-1 hover:text-primary text-[15px]">
+              <MapPin size={18} className="mr-2" strokeWidth={1.75} />
               Danh sách địa chỉ
             </Link>
           </CardContent>
 
-          <div className="px-4 mt-2">
-            <Button onClick={handleLogout} variant="outline" size="lg" className="w-full cursor-pointer">
+          <div className="px-2 mt-2 pb-3">
+            <Button onClick={handleLogout} variant="outline" className="w-full">
               <LogOut />
               Đăng xuất
             </Button>
