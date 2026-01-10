@@ -16,6 +16,7 @@ import {
   deleteProductFn,
 } from '@/lib/api/admin/product';
 import {
+  searchProductFn,
   getProductWithFilterFn,
   getDynamicProductInsoByIdFn,
   getNameAndSlugOfCategoriesAndBrandsFn,
@@ -258,6 +259,16 @@ const useGetAllProduct = ({
   });
 };
 
+const useSearchProduct = (query: string) => {
+  return useQuery({
+    queryKey: ['search', query],
+    queryFn: () => searchProductFn(query),
+    enabled: query.trim().length > 0,
+    retry: 1,
+    staleTime: 1000 * 60 * 30,
+  });
+};
+
 const useGetAllProductWithFilter = ({
   sort,
   page,
@@ -308,6 +319,7 @@ export {
   useCreateProduct,
   useUpdateProduct,
   useGetAllProduct,
+  useSearchProduct,
   useGetProductById,
   useChangeThumbnail,
   useUpdateImageProduct,
