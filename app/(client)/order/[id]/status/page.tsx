@@ -1,12 +1,16 @@
 'use client';
 
+import Link from 'next/link';
 import Image from 'next/image';
 import { useParams, useSearchParams } from 'next/navigation';
 
 import { formatCurrency } from '@/utils/number';
 import { useGetDetailOrder } from '@/hooks/order';
 
+import { Button } from '@/components/ui/button';
 import StepperOrder from '@/components/order/StepperOrder';
+
+import { CircleCheck, ShoppingCartIcon } from 'lucide-react';
 
 const page = () => {
   const searchParams = useSearchParams();
@@ -30,7 +34,7 @@ const page = () => {
               <p className="text-center font-semibold text-2xl">
                 {payment === 'true' ? 'Thanh toán thành công' : 'Đặt hàng thành công'}
               </p>
-              <Image width={84} height={84} alt="success" src={'/icons/success.png'} className="mx-auto my-4" />
+              <CircleCheck className="fill-primary text-white size-25 mx-auto mt-6 mb-4" />
             </div>
 
             <div className="px-20 pb-10">
@@ -73,6 +77,14 @@ const page = () => {
                 <div className="flex items-center justify-between mt-8">
                   <span className="font-semibold mr-1">Tổng đơn hàng:</span>
                   <span className="font-semibold text-red-500 text-lg">{formatCurrency(data.totalAmount)} đ</span>
+                </div>
+                <div className="text-right pt-8">
+                  <Link href={'/products'}>
+                    <Button size="lg">
+                      <ShoppingCartIcon />
+                      Tiếp tục mua sắm
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-type CartItem = {
+export type CartItem = {
   id: string;
   quantity: number;
   product: {
@@ -8,4 +8,9 @@ type CartItem = {
     thumbnail: string;
     slug: string;
   };
+};
+
+export type CartUIState = {
+  quantity: number;
+  selected: boolean;
 };
