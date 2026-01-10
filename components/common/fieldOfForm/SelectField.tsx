@@ -22,7 +22,12 @@ const SelectField = <TFieldValues extends FieldValues, TName extends Path<TField
   <FormItem>
     <FormLabel>{label}</FormLabel>
     <FormControl>
-      <Select onValueChange={(val) => field.onChange(val || undefined)} value={field.value ?? ''} disabled={disabled}>
+      <Select
+        key={field.value ?? 'empty'}
+        onValueChange={(val) => field.onChange(val || undefined)}
+        value={field.value ?? ''}
+        disabled={disabled}
+      >
         <SelectTrigger className="w-full">
           <SelectValue placeholder={placeholder || `Chọn ${label.toLowerCase()}`} />
         </SelectTrigger>

@@ -16,10 +16,3 @@ export interface UserState {
   setUser: (user: UserInfo) => void;
   clearUser: () => void;
 }
-
-export type UpdateUserInfoType = {
-  name?: string;
-  phone?: string;
-  gender?: string;
-  dateOfBirth?: string;
-};

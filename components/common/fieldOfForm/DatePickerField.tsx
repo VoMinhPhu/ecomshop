@@ -29,7 +29,7 @@ const DatePickerField = <TFieldValues extends FieldValues, TName extends Path<TF
         <PopoverTrigger asChild>
           <FormControl>
             <Button variant="outline" className="w-full justify-between font-normal">
-              {field.value ? convertDate(field.value) : 'Chọn ngày'}
+              {field.value ? convertDate(new Date(field.value)) : 'Chọn ngày'}
               <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </FormControl>

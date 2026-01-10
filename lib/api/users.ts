@@ -1,5 +1,6 @@
-import { UpdateUserInfoType, UserInfo } from '@/types/users';
+import { UserInfo } from '@/types/users';
 import axiosInstance from '../axiosInstance';
+import { UpdateUserInfoType } from '@/schemas/user';
 
 const getMeFn = async (): Promise<UserInfo> => {
   const { data } = await axiosInstance.get('/users/me');

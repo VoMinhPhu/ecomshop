@@ -1,4 +1,5 @@
 'use client';
+
 import useUserStore from '@/stores/userStore';
 
 import { Card } from '@/components/ui/card';
@@ -7,6 +8,8 @@ import AvatarSection from '@/components/account/AvatarSection';
 
 const Page = () => {
   const user = useUserStore((state) => state.user);
+
+  if (!user) return null;
 
   return (
     <Card className="mt-4 lg:ml-4 px-4 gap-0">
