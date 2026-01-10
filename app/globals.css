@@ -129,3 +129,27 @@
   -ms-overflow-style: none; /* IE, Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* Toàn bộ trang */
+html,
+body {
+  /* Chrome, Edge, Safari */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgb(177, 177, 200) transparent;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 3px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(177, 177, 200);
+  border-radius: 3px;
+}
