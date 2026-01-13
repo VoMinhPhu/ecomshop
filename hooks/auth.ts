@@ -85,6 +85,7 @@ const useLogout = () => {
 
       queryClient.invalidateQueries({ queryKey: ['order'] });
       queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
     },
   });
 };

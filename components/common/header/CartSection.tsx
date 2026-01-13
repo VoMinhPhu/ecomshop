@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import { ShoppingCartIcon } from 'lucide-react';
 
 export default function CartSection() {
-  const { data: carts, isLoading } = useGetUserCart();
+  const { data: carts, isLoading, isError } = useGetUserCart();
 
-  if (isLoading)
+  if (isLoading || isError)
     return (
       <Link href={'/account/cart'}>
         <Button
@@ -25,9 +25,7 @@ export default function CartSection() {
       </Link>
     );
 
-  if (!carts) return null;
-
-  const totalQuantity = carts.data.reduce((sum, item) => sum + item.quantity, 0);
+  const totalQuantity = carts?.data.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <Link href={'/account/cart'}>

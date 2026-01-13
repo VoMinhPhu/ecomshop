@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 import { useGetMe } from '@/hooks/users';
@@ -11,12 +11,14 @@ import useUserStore from '@/stores/userStore';
 
 import { Button } from '@/components/ui/button';
 import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { FileBox, KeyRound, LayoutDashboard, Loader, LogOut, MapPin, Package, User } from 'lucide-react';
 
 import AuthPopup from '@/components/auth/AuthPopup';
 
 const UserMenuHeader = () => {
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
   const { mutate: logoutMutate } = useLogout();
   const { setUser, user, clearUser } = useUserStore();
   const { data, isError, dataUpdatedAt, isLoading } = useGetMe();
@@ -26,7 +28,23 @@ const UserMenuHeader = () => {
     if (isError) clearUser();
   }, [dataUpdatedAt, isError]);
 
-  const handleLogout = () => logoutMutate();
+  useEffect(() => {
+    if (!openMenu) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpenMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [openMenu]);
+
+  const handleLogout = () => {
+    setOpenMenu(false);
+    logoutMutate();
+  };
 
   if (isLoading) {
     return (
@@ -41,20 +59,18 @@ const UserMenuHeader = () => {
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <div className="cursor-pointer">
-          <Image
-            src={user.avatar ?? '/avatar.svg'}
-            width={40}
-            height={40}
-            alt="avatar"
-            className="rounded-full bg-white border border-zinc-400"
-          />
-        </div>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <div className="py-1">
+    <div className="relative" ref={menuRef}>
+      <div className="cursor-pointer" onClick={() => setOpenMenu(!openMenu)}>
+        <Image
+          src={user.avatar ?? '/avatar.svg'}
+          width={40}
+          height={40}
+          alt="avatar"
+          className="rounded-full bg-white border border-zinc-400"
+        />
+      </div>
+      <div className={cn('absolute z-20 lg:-right-4 -right-1 top-12', !openMenu && 'hidden')}>
+        <div className="py-1 bg-white w-50 rounded-md px-1 pt-1 shadow-md">
           <CardHeader className="flex gap-2 px-2">
             <Image
               src={user.avatar ?? '/avatar.svg'}
@@ -71,7 +87,7 @@ const UserMenuHeader = () => {
             </div>
           </CardHeader>
 
-          <CardContent className="py-1 md:pl-3">
+          <CardContent className="py-1 md:pl-3 px-3">
             <Link
               href="/admin"
               className={cn(
@@ -111,8 +127,8 @@ const UserMenuHeader = () => {
             </Button>
           </div>
         </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </div>
+    </div>
   );
 };
 

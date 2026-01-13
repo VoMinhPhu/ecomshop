@@ -135,7 +135,6 @@ html,
 body {
   /* Chrome, Edge, Safari */
   scrollbar-width: thin; /* Firefox */
-  overflow-y: scroll;
   scrollbar-color: rgb(177, 177, 200) transparent;
 }
 
