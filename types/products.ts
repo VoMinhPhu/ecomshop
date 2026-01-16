@@ -74,6 +74,14 @@ type BaseFilter = {
   limit?: number;
 };
 
+export type SearchProductResponse = {
+  name: string;
+  slug: string;
+  thumbnail: string;
+  price: number;
+  salePrice: number | null;
+}[];
+
 export type FilterProducts = BaseFilter & {
   brand?: string;
   category?: string;

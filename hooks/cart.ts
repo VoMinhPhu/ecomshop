@@ -8,6 +8,7 @@ const useGetUserCart = () => {
   return useQuery({
     queryKey: ['cart'],
     queryFn: getUserCartFn,
+    retry: 0,
     staleTime: 1000 * 60 * 20,
   });
 };

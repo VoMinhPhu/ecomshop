@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { notFound } from 'next/navigation';
 
 import RenderImages from '@/components/products/slug/RenderImages';
-import EvaluateProduct from '@/components/products/slug/EvaluateProduct';
+import EvaluateProduct from '@/components/products/slug/comment/EvaluateProduct';
 import RenderDynamicProduct from '@/components/products/slug/RenderDynamicProduct';
 
 import { getStaticProductInfo } from '@/lib/server/product';
@@ -42,7 +42,7 @@ export default async function Page({ params }: PageProps) {
           <ReactMarkdown>{data.description}</ReactMarkdown>
         </div>
       </div>
-      <EvaluateProduct />
+      <EvaluateProduct productId={data.id} />
     </>
   );
 }

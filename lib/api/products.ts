@@ -4,6 +4,7 @@ import axiosInstance from '@/lib/axiosInstance';
 import { CategoriesAndBrandsResponse } from '@/types/categories';
 import {
   ProductFilterParams,
+  SearchProductResponse,
   GetProductsWithFiltersResponse,
   GetDynamicProductInsoBySlugResponse,
 } from '@/types/products';
@@ -29,4 +30,10 @@ const getProductWithFilterFn = async (params: ProductFilterParams): Promise<GetP
   return res.data;
 };
 
-export { getProductWithFilterFn, getDynamicProductInsoByIdFn, getNameAndSlugOfCategoriesAndBrandsFn };
+const searchProductFn = async (query: string): Promise<SearchProductResponse> => {
+  const res = await axiosInstance.get('/product/search', { params: { q: query } });
+
+  return res.data;
+};
+
+export { getProductWithFilterFn, getDynamicProductInsoByIdFn, getNameAndSlugOfCategoriesAndBrandsFn, searchProductFn };

@@ -1,65 +1,47 @@
 'use client';
 
 import z from 'zod';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { Loader } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
+
 import { UserInfo } from '@/types/users';
-import { formatDateToYMD } from '@/utils/date';
+import { updateUserInfoSchema, UpdateUserInfoType } from '@/schemas/user';
+
 import { useUpdateUserInfo } from '@/hooks/users';
 
-import { Loader } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormLabel } from '@/components/ui/form';
+
 import InputField from '@/components/common/fieldOfForm/InputField';
 import SelectField from '@/components/common/fieldOfForm/SelectField';
 import DatePickerField from '@/components/common/fieldOfForm/DatePickerField';
 
-const updateUserInfoSchema = z.object({
-  name: z.string().min(1, 'Tên không được để trống').optional(),
-  gender: z.enum(['male', 'female']).optional(),
-  phone: z
-    .string()
-    .optional()
-    .refine((val) => !val || /^0\d{9}$/.test(val), {
-      message: 'Số điện thoại không hợp lệ',
-    }),
-  dateOfBirth: z
-    .date()
-    .optional()
-    .refine((date) => !date || (date >= new Date('1900-01-01') && date <= new Date()), {
-      message: 'Ngày sinh phải nằm trong khoảng từ năm 1900 đến nay',
-    }),
-});
-
 type Props = {
-  user: UserInfo | null;
+  user: UserInfo;
 };
 
 const UserInfoForm = ({ user }: Props) => {
   const { mutate: updateInfoUserMutate, isPending } = useUpdateUserInfo();
 
-  const form = useForm<z.infer<typeof updateUserInfoSchema>>({
+  const form = useForm<UpdateUserInfoType>({
     resolver: zodResolver(updateUserInfoSchema),
-  });
-
-  useEffect(() => {
-    if (!user) return;
-    form.reset({
-      name: user.name ?? '',
+    defaultValues: {
+      name: user.name,
       phone: user.phone ?? undefined,
-      dateOfBirth: user.dateOfBirth ? new Date(user.dateOfBirth) : undefined,
       gender: user.gender ?? undefined,
-    });
-  }, [user]);
+      dateOfBirth: user.dateOfBirth ?? undefined,
+    },
+  });
 
   const onSubmit = (values: z.infer<typeof updateUserInfoSchema>) => {
     const payload = {
       ...values,
-      dateOfBirth: values.dateOfBirth ? formatDateToYMD(values.dateOfBirth) : undefined,
+      dateOfBirth: values.dateOfBirth ?? undefined,
     };
     updateInfoUserMutate(payload);
   };
