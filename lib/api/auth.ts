@@ -11,6 +11,12 @@ const loginFn = async (paload: LoginPayload) => {
   return data;
 };
 
+const verifyAccountFn = async (code: string): Promise<{ status: string }> => {
+  const { data } = await axiosInstance.get(`/auth/verify/${code}`);
+
+  return data;
+};
+
 const checkAdminFn = async (): Promise<{ isAdmin: boolean }> => {
   const { data } = await axiosInstance.get('/auth/is-admin');
 
@@ -33,4 +39,4 @@ const logoutFn = async () => {
   return data;
 };
 
-export { loginFn, registerFn, logoutFn, checkAdminFn };
+export { loginFn, registerFn, logoutFn, checkAdminFn, verifyAccountFn };
