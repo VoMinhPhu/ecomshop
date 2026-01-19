@@ -18,8 +18,8 @@ const FilterProductPage = () => {
   if (!data) return null;
 
   return (
-    <div className="space-y-4 bg-white pt-3 pb-6 px-2 border rounded-sm">
-      <p className="font-semibold text-2xl">SẢN PHẨM</p>
+    <div className="bg-white pt-3 pb-6 px-2 border rounded-sm">
+      <p className="font-semibold text-2xl mb-2">SẢN PHẨM</p>
       <div className="grid md:grid-cols-3 grid-cols-1 mb-1">
         <BrandFilter
           brands={data.brands}
