@@ -15,7 +15,7 @@ export default function CommentItem({ item, level = 0 }: { item: Review; level?:
           width={32}
           height={32}
           alt={item.user.name}
-          src={item.user.avatar}
+          src={item.user.avatar ?? '/avatar.svg'}
           className={cn('rounded-full border', item.role === 'admin' && 'border-red-500')}
         />
         <div className="flex-1">

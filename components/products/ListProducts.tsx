@@ -57,7 +57,7 @@ const ListProducts = () => {
             key={d.id}
             className="bg-white rounded-md border hover:shadow hover:transform hover:scale-101 duration-150"
           >
-            <div className="relative h-60">
+            <div className="relative h-66 flex items-start pt-3 justify-center">
               <Image
                 src={d.thumbnail}
                 alt={d.name}
@@ -70,7 +70,7 @@ const ListProducts = () => {
                 alt={d.name}
                 width={200}
                 height={200}
-                className="absolute h-full bottom-0"
+                className="absolute h-full w-full bottom-0 left-0"
               />
             </div>
 

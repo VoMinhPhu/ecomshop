@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import useUserStore from '@/stores/userStore';
-import { checkAdminFn, loginFn, logoutFn, registerFn } from '@/lib/api/auth';
+import { checkAdminFn, loginFn, logoutFn, registerFn, verifyAccountFn } from '@/lib/api/auth';
 
 const useLogin = () => {
   const router = useRouter();
@@ -39,8 +39,6 @@ const useLogin = () => {
 };
 
 const useRegister = () => {
-  const router = useRouter();
-
   return useMutation({
     mutationFn: registerFn,
     onSuccess: () => {
@@ -48,7 +46,6 @@ const useRegister = () => {
         description: 'Đăng Ký thành công, vui lòng kiểm tra email để xác thực tài khoản.',
         duration: 2000,
       });
-      setTimeout(() => router.push('/account'), 2500);
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 409) {
@@ -99,4 +96,12 @@ const useCheckIsAdmin = () => {
   });
 };
 
-export { useLogin, useRegister, useLogout, useCheckIsAdmin };
+const useVerifyAccount = (code: string) => {
+  return useQuery({
+    queryKey: ['verify'],
+    queryFn: () => verifyAccountFn(code),
+    retry: 1,
+  });
+};
+
+export { useLogin, useRegister, useLogout, useCheckIsAdmin, useVerifyAccount };
