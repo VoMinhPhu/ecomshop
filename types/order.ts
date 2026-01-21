@@ -49,7 +49,7 @@ export enum OrderStatus {
 export enum PaymentMethod {
   COD = 'COD',
   VISA = 'VISA',
-  QR = 'QR',
+  VNPAY = 'VNPAY',
 }
 
 export type GetOrdersResponse = Order[];

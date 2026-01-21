@@ -7,6 +7,7 @@ const useGetMe = () => {
     queryKey: ['user'],
     queryFn: getMeFn,
     staleTime: 1000 * 60 * 10,
+    refetchOnWindowFocus: false,
     retry: 1,
   });
 };

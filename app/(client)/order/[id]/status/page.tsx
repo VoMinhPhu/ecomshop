@@ -7,10 +7,13 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { formatCurrency } from '@/utils/number';
 import { useGetDetailOrder } from '@/hooks/order';
 
+import { ShoppingCartIcon } from 'lucide-react';
+
+import Lottie from 'lottie-react';
+import successAnimation from '@/public/icons/success.json';
+
 import { Button } from '@/components/ui/button';
 import StepperOrder from '@/components/order/StepperOrder';
-
-import { CircleCheck, ShoppingCartIcon } from 'lucide-react';
 
 const page = () => {
   const searchParams = useSearchParams();
@@ -23,7 +26,7 @@ const page = () => {
 
   return (
     <div className="bg-zinc-100 pb-10 pt-4">
-      <div className="max-w-298 mx-auto bg-white">
+      <div className="max-w-298 mx-auto bg-white rounded-xs">
         <div className="py-6 px-10">
           <StepperOrder step={3} />
         </div>
@@ -34,7 +37,7 @@ const page = () => {
               <p className="text-center font-semibold text-2xl">
                 {payment === 'true' ? 'Thanh toán thành công' : 'Đặt hàng thành công'}
               </p>
-              <CircleCheck className="fill-primary text-white size-25 mx-auto mt-6 mb-4" />
+              <Lottie animationData={successAnimation} loop={false} autoPlay className="w-20 h-20 mx-auto my-3" />
             </div>
 
             <div className="px-20 pb-10">

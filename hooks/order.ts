@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { confirmOrderFn, createOrderFn, getDetailOrderFn, getOrderFn, getTotalOrderFn } from '@/lib/api/order';
 
 import { PaymentMethod } from '@/types/order';
+import { paymentWithVnpayFn } from '@/lib/api/payment';
 
 const useGetOrder = () => {
   return useQuery({
@@ -58,10 +59,15 @@ const useConfirmOrder = () => {
 
   return useMutation({
     mutationFn: confirmOrderFn,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       queryClient.invalidateQueries({ queryKey: ['order'] });
-      if (data.paymentMethod !== PaymentMethod.COD) {
+
+      if (data.paymentMethod === PaymentMethod.VISA) {
         router.push(`/order/${data.orderCode}/payment?method=${data.paymentMethod}`);
+      } else if (data.paymentMethod === PaymentMethod.VNPAY) {
+        const res = await paymentWithVnpayFn({ orderCode: data.orderCode });
+
+        window.location.href = res.paymentUrl;
       } else router.push(`/order/${data.orderCode}/status`);
     },
 
