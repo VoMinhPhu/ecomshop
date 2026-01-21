@@ -49,9 +49,9 @@ const paymentMethodMap: Record<PaymentMethod, { label: string; icon: JSX.Element
     label: 'Trực tiếp',
     icon: <Image src={'/icons/money.png'} width={32} height={32} alt="VISA Icon" />,
   },
-  QR: {
-    label: 'QR',
-    icon: <Image src={'/icons/QR.svg'} width={24} height={24} alt="VISA Icon" />,
+  VNPAY: {
+    label: 'VNPAY',
+    icon: <Image src={'/icons/vnpay.svg'} width={44} height={40} alt="VISA Icon" />,
   },
   VISA: {
     label: 'VISA',
