@@ -236,14 +236,14 @@ const Step1 = ({ id }: Props) => {
                     <Label
                       className={cn(
                         'flex cursor-pointer items-start gap-3 rounded-md border p-4',
-                        field.value === 'QR' && 'border-primary',
+                        field.value === 'VNPAY' && 'border-primary',
                       )}
                     >
-                      <RadioGroupItem value="QR" />
-                      <Image src="/icons/qr.svg" width={36} height={36} alt="Qr" />
+                      <RadioGroupItem value="VNPAY" />
+                      <Image src="/icons/vnpay.webp" width={36} height={36} alt="VNPAY" />
                       <div>
-                        <p className="font-medium">Thanh toán qua mã QR</p>
-                        <p className="text-xs text-muted-foreground">Sử dụng mã QR để thanh toán nhanh chóng</p>
+                        <p className="font-medium">Thanh toán qua VNPAY</p>
+                        <p className="text-xs text-muted-foreground">Sử dụng VNPAY để thanh toán nhanh chóng</p>
                       </div>
                     </Label>
                   </RadioGroup>

@@ -29,7 +29,7 @@ const ShowPayment = ({ orderCode, paymentMethod }: Props) => {
         <p className="text-primary text-xl mt-1 font-semibold">{formatCurrency(data.total)} đ</p>
       </div>
       <div className="lg:w-150 md:max-w-lg max-w-sm mx-auto">
-        <div className={cn(paymentMethod === PaymentMethod.QR && 'hidden')}>
+        <div className={cn(paymentMethod === PaymentMethod.VNPAY && 'hidden')}>
           <StripeCheckout amount={data.total} orderCode={orderCode} />
         </div>
         <div className={cn(paymentMethod === PaymentMethod.VISA && 'hidden')}>
