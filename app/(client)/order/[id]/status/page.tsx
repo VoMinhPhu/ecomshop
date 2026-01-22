@@ -7,7 +7,7 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { formatCurrency } from '@/utils/number';
 import { useGetDetailOrder } from '@/hooks/order';
 
-import { ShoppingCartIcon } from 'lucide-react';
+import { Loader, ShoppingCartIcon } from 'lucide-react';
 
 import Lottie from 'lottie-react';
 import successAnimation from '@/public/icons/success.json';
@@ -22,7 +22,7 @@ const page = () => {
 
   const { id } = useParams();
 
-  const { data } = useGetDetailOrder(id as string);
+  const { data, isLoading } = useGetDetailOrder(id as string);
 
   return (
     <div className="bg-zinc-100 pb-10 pt-4">
@@ -31,9 +31,16 @@ const page = () => {
           <StepperOrder step={3} />
         </div>
 
+        {isLoading && (
+          <div className="lg:max-w-lg md:max-w-md max-w-sm mx-auto pt-6 pb-10">
+            <p className="text-center font-semibold text-2xl">Đang xử lý đơn hàng của bạn...</p>
+            <Loader className="mx-auto size-15 mt-6 text-primary animate-spin" />
+          </div>
+        )}
+
         {data && (
           <>
-            <div className="lg:max-w-lg md:max-w-md max-w-sm mx-auto py-10">
+            <div className="lg:max-w-lg md:max-w-md max-w-sm mx-auto py-6">
               <p className="text-center font-semibold text-2xl">
                 {payment === 'true' ? 'Thanh toán thành công' : 'Đặt hàng thành công'}
               </p>
