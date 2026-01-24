@@ -4,12 +4,19 @@ import {
   CreateOrderType,
   ConfirmOrderType,
   GetOrdersResponse,
+  CreateSingleOrderType,
   GetOrdersDetailResponse,
 } from '@/types/order';
 import axiosInstance from '../axiosInstance';
 
 const createOrderFn = async (payload: CreateOrderType): Promise<{ orderCode: string; id: string }> => {
   const { data } = await axiosInstance.post('/orders', payload);
+
+  return data;
+};
+
+const createSingleOrderFn = async (payload: CreateSingleOrderType): Promise<{ orderCode: string; id: string }> => {
+  const { data } = await axiosInstance.post('/orders/single', payload);
 
   return data;
 };
@@ -40,4 +47,4 @@ const getDetailOrderFn = async (id: string): Promise<GetOrdersDetailResponse> =>
   return data;
 };
 
-export { createOrderFn, getOrderFn, getDetailOrderFn, confirmOrderFn, getTotalOrderFn };
+export { createOrderFn, getOrderFn, getDetailOrderFn, confirmOrderFn, getTotalOrderFn, createSingleOrderFn };

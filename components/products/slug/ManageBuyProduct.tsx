@@ -2,8 +2,9 @@
 
 import { Button } from '@/components/ui/button';
 import { useAddProductToCart } from '@/hooks/cart';
-import useUserStore from '@/stores/userStore';
-import { MinusIcon, PlusIcon, ShoppingCartIcon } from 'lucide-react';
+import { useCreateSingleOrder } from '@/hooks/order';
+import { cn } from '@/lib/utils';
+import { Loader, MinusIcon, PlusIcon, ShoppingCartIcon } from 'lucide-react';
 
 type Props = {
   productId: string;
@@ -13,7 +14,7 @@ type Props = {
 
 export default function ManageBuyProduct({ productId, quantity, setQuantity }: Props) {
   const { mutate: addProductToCartMutate, isPending } = useAddProductToCart();
-  const user = useUserStore((s) => s.user);
+  const { mutate: createOrderMutate, isPending: isCreatingOrder } = useCreateSingleOrder();
 
   const handleUpdateQuantity = (action: 'increase' | 'decrease') => {
     if (action === 'increase') {
@@ -25,6 +26,13 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity }: P
 
   const handleAddToCart = () => {
     addProductToCartMutate({
+      productId: productId,
+      quantity: quantity,
+    });
+  };
+
+  const handleCreateSingleOrder = () => {
+    createOrderMutate({
       productId: productId,
       quantity: quantity,
     });
@@ -55,7 +63,15 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity }: P
       </div>
 
       <div className="md:flex gap-3 items-center grid grid-cols-2 mb-6">
-        <Button className="h-12 text-lg lg:w-3/5 md:w-4/7 w-full">Mua ngay</Button>
+        <Button
+          onClick={handleCreateSingleOrder}
+          disabled={isCreatingOrder}
+          className="h-12 text-lg lg:w-3/5 md:w-4/7 w-full"
+        >
+          <Loader className={cn('animate-spin size-5', !isCreatingOrder && 'hidden')} strokeWidth={2.5} />
+
+          {isCreatingOrder ? 'Đang xử lý...' : 'Mua ngay'}
+        </Button>
         <Button
           disabled={isPending}
           onClick={handleAddToCart}
