@@ -110,7 +110,10 @@ const UserMenuHeader = () => {
               <FileBox size={18} className="mr-2" strokeWidth={1.75} />
               Đơn hàng của bạn
             </Link>
-            <Link href="/account" className="flex items-center w-full py-1 hover:text-primary text-[15px]">
+            <Link
+              href="/account/change-password"
+              className="flex items-center w-full py-1 hover:text-primary text-[15px]"
+            >
               <KeyRound size={18} className="mr-2" strokeWidth={1.75} />
               Đổi mật khẩu
             </Link>

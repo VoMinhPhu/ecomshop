@@ -9,6 +9,7 @@ const BREADCRUMB_MAP: Record<string, { label: string; href: string }> = {
   cart: { label: 'Giỏ hàng', href: '/account/cart' },
   order: { label: 'Đơn hàng', href: '/account/order' },
   address: { label: 'Quản lý địa chỉ', href: '/account/address' },
+  'change-password': { label: 'Đổi mật khẩu', href: '/account/change-password' },
 };
 
 const NavLinkHome = () => {
