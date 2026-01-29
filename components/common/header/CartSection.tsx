@@ -10,7 +10,7 @@ export default function CartSection() {
 
   if (isLoading || isError)
     return (
-      <Link href={'/account/cart'}>
+      <Link href={'/account/cart'} className="md:block hidden">
         <Button
           variant={'outline'}
           className="bg-transparent cursor-pointer shadow-none hover:bg-white/80 h-10 py-0 text-white"

@@ -72,10 +72,10 @@ const NavAccount = () => {
           Đơn hàng của bạn
         </Link>
         <Link
-          href={'/account'}
+          href={'/account/change-password'}
           className={cn(
             'flex items-center w-full cursor-pointer py-1.5 lg:py-1.25 hover:text-primary mt-0.5',
-            active === 'changePassword' ? 'text-primary font-medium' : '',
+            active === 'change-password' ? 'text-primary font-medium' : '',
           )}
         >
           <KeyRound size={20} className="mr-2" strokeWidth={2} />

@@ -6,31 +6,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
 import { useRegister } from '@/hooks/auth';
+import { formRegiterSchema } from '@/schemas/auth';
 
 import { LoaderIcon } from 'lucide-react';
 import PasswordInput from './PasswordInput';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-
-const formRegiterSchema = z
-  .object({
-    name: z.string().min(1, 'Vui lòng nhập họ và tên.').max(50),
-    email: z.email('Vui lòng nhập địa chỉ email hợp lệ.'),
-    password: z
-      .string()
-      .min(6, 'Mật khẩu ít nhất phải 6 kí tự.')
-      .max(50)
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).+$/,
-        'Mật khẩu phải bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.',
-      ),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Mật khẩu không khớp.',
-    path: ['confirmPassword'],
-  });
 
 const FormRegister = () => {
   const { mutate: registerMutate, isPending } = useRegister();

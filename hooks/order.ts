@@ -2,7 +2,14 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
-import { confirmOrderFn, createOrderFn, getDetailOrderFn, getOrderFn, getTotalOrderFn } from '@/lib/api/order';
+import {
+  getOrderFn,
+  createOrderFn,
+  confirmOrderFn,
+  getTotalOrderFn,
+  getDetailOrderFn,
+  createSingleOrderFn,
+} from '@/lib/api/order';
 
 import { PaymentMethod } from '@/types/order';
 import { paymentWithVnpayFn } from '@/lib/api/payment';
@@ -53,6 +60,26 @@ const useCreateOrder = () => {
   });
 };
 
+const useCreateSingleOrder = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: createSingleOrderFn,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['order'] });
+
+      router.push(`/order/${data.orderCode}`);
+    },
+    onError: () => {
+      toast.error('Tạo mới đơn hàng', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2500,
+      });
+    },
+  });
+};
+
 const useConfirmOrder = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -80,4 +107,4 @@ const useConfirmOrder = () => {
   });
 };
 
-export { useGetOrder, useCreateOrder, useGetDetailOrder, useConfirmOrder, useGetTotalOrder };
+export { useGetOrder, useCreateOrder, useGetDetailOrder, useConfirmOrder, useGetTotalOrder, useCreateSingleOrder };

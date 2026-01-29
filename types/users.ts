@@ -9,6 +9,7 @@ export interface UserInfo {
   gender: null | 'male' | 'female';
   dateOfBirth: string | null;
   isVerified: boolean;
+  hasPassword: boolean;
 }
 
 export interface UserState {

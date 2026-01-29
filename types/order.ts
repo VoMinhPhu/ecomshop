@@ -5,6 +5,11 @@ export type CreateOrderType = {
   paymentMethod?: string;
 };
 
+export type CreateSingleOrderType = {
+  productId: string;
+  quantity: number;
+};
+
 export type ConfirmOrderType = {
   id: string;
   note?: string;
