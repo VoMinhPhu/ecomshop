@@ -1,6 +1,6 @@
-import { LoginPayload, RegisterPayload } from '@/types/auth';
+import { LoginPayload, RegisterPayload, ResetPasswordPayload } from '@/types/auth';
 import axiosInstance from '../axiosInstance';
-import { FormChangePasswordType, FormSetPasswordType } from '@/schemas/auth';
+import { FormChangePasswordType, FormForgotPasswordType, FormSetPasswordType } from '@/schemas/auth';
 
 const loginFn = async (paload: LoginPayload) => {
   const { data } = await axiosInstance.post('/auth/login', paload, {
@@ -20,6 +20,18 @@ const changePasswordFn = async (payload: FormChangePasswordType) => {
 
 const setPasswordFn = async (payload: FormSetPasswordType) => {
   const { data } = await axiosInstance.post('/auth/set-password', payload);
+
+  return data;
+};
+
+const resetPasswordFn = async (payload: ResetPasswordPayload) => {
+  const { data } = await axiosInstance.post('/auth/reset-password', payload);
+
+  return data;
+};
+
+const forgotPasswordFn = async (payload: FormForgotPasswordType) => {
+  const { data } = await axiosInstance.post('/auth/forgot-password', payload);
 
   return data;
 };
@@ -52,4 +64,14 @@ const logoutFn = async () => {
   return data;
 };
 
-export { loginFn, registerFn, logoutFn, checkAdminFn, verifyAccountFn, changePasswordFn, setPasswordFn };
+export {
+  loginFn,
+  logoutFn,
+  registerFn,
+  checkAdminFn,
+  setPasswordFn,
+  resetPasswordFn,
+  verifyAccountFn,
+  changePasswordFn,
+  forgotPasswordFn,
+};

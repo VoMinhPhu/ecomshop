@@ -10,8 +10,10 @@ import {
   registerFn,
   checkAdminFn,
   setPasswordFn,
+  resetPasswordFn,
   verifyAccountFn,
   changePasswordFn,
+  forgotPasswordFn,
 } from '@/lib/api/auth';
 
 const useLogin = () => {
@@ -77,6 +79,56 @@ const useSetPassword = () => {
     },
     onError: (err: AxiosError<{ message: string; error: string; statusCode: number }>) => {
       toast.error('Đặt mật khẩu', {
+        description: 'Hiện không thể đặt mật khẩu.',
+        duration: 2000,
+      });
+    },
+  });
+};
+
+const useResetPassword = () => {
+  return useMutation({
+    mutationFn: resetPasswordFn,
+    onSuccess: () => {
+      toast.success('Đặt lại mật khẩu', {
+        description: 'Đặt lại mật khẩu thành công.',
+        duration: 1500,
+      });
+    },
+    onError: (err: AxiosError<{ message: string; error: string; statusCode: number }>) => {
+      if (err.status === 404) {
+        toast.error('Đặt lại mật khẩu', {
+          description: 'Token không hợp lệ.',
+          duration: 2000,
+        });
+        return;
+      }
+      toast.error('Đặt lại mật khẩu', {
+        description: 'Token đã hết hạn.',
+        duration: 2000,
+      });
+    },
+  });
+};
+
+const useForgotPassword = () => {
+  return useMutation({
+    mutationFn: forgotPasswordFn,
+    onSuccess: () => {
+      toast.success('Quên mật khẩu', {
+        description: 'Gửi yêu cầu đặt lại mật khẩu thành công.',
+        duration: 1500,
+      });
+    },
+    onError: (err: AxiosError<{ message: string; error: string; statusCode: number }>) => {
+      if (err.status === 404) {
+        toast.error('Quên mật khẩu', {
+          description: 'Tài khoản không tồn tại trong hệ thống.',
+          duration: 2000,
+        });
+        return;
+      }
+      toast.error('Quên mật khẩu', {
         description: 'Hiện không thể đặt mật khẩu.',
         duration: 2000,
       });
@@ -150,4 +202,14 @@ const useVerifyAccount = (code: string) => {
   });
 };
 
-export { useLogin, useRegister, useLogout, useChangePassword, useSetPassword, useCheckIsAdmin, useVerifyAccount };
+export {
+  useLogin,
+  useLogout,
+  useRegister,
+  useSetPassword,
+  useCheckIsAdmin,
+  useVerifyAccount,
+  useResetPassword,
+  useChangePassword,
+  useForgotPassword,
+};

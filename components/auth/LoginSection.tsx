@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Image from 'next/image';
 
 import { SetStateAction } from 'react';
@@ -73,9 +74,13 @@ export default function LoginSection({ closeDialogFn }: Props) {
             )}
           />
           <div className="flex justify-end gap-2">
-            <a className="text-sm underline hover:no-underline" href="#">
+            <Link
+              onClick={() => closeDialogFn(false)}
+              className="text-sm underline hover:no-underline"
+              href="/auth/forgot-password"
+            >
               Quên mật khẩu?
-            </a>
+            </Link>
           </div>
           <Button disabled={isPending} className="w-full" type="submit" size="lg">
             <Loader className={cn('animate-spin', !isPending && 'hidden')} />
