@@ -5,20 +5,32 @@ import { toast } from 'sonner';
 import {
   getOrderFn,
   createOrderFn,
+  getAllOrderFn,
   confirmOrderFn,
   getTotalOrderFn,
   getDetailOrderFn,
   createSingleOrderFn,
+  updateStatusOrderFn,
+  getDetailOrderByIdFn,
 } from '@/lib/api/order';
-
-import { PaymentMethod } from '@/types/order';
 import { paymentWithVnpayFn } from '@/lib/api/payment';
+
+import { GetAllOrderParams, PaymentMethod } from '@/types/order';
 
 const useGetOrder = () => {
   return useQuery({
     queryKey: ['order'],
     queryFn: getOrderFn,
     staleTime: 1000 * 60 * 20,
+  });
+};
+
+const useGetAllOrder = (params: GetAllOrderParams) => {
+  return useQuery({
+    queryKey: ['orders', params],
+    queryFn: () => getAllOrderFn(params),
+    staleTime: 1000 * 60 * 5,
+    placeholderData: (prev) => prev,
   });
 };
 
@@ -34,6 +46,15 @@ const useGetDetailOrder = (id: string) => {
   return useQuery({
     queryKey: ['order', id],
     queryFn: () => getDetailOrderFn(id),
+    staleTime: 1000 * 60 * 20,
+    enabled: !!id,
+  });
+};
+
+const useGetDetailOrderById = (id: string) => {
+  return useQuery({
+    queryKey: ['order', id],
+    queryFn: () => getDetailOrderByIdFn(id),
     staleTime: 1000 * 60 * 20,
     enabled: !!id,
   });
@@ -107,4 +128,38 @@ const useConfirmOrder = () => {
   });
 };
 
-export { useGetOrder, useCreateOrder, useGetDetailOrder, useConfirmOrder, useGetTotalOrder, useCreateSingleOrder };
+const useUpdateStatusOrder = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateStatusOrderFn,
+    onSuccess: async (data) => {
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
+      queryClient.invalidateQueries({ queryKey: ['order', data.id] });
+
+      toast.success('Cập nhật trạng thái đơn hàng', {
+        description: 'Cập nhật trạng thái đơn hàng thành công.',
+        duration: 1500,
+      });
+    },
+
+    onError: () => {
+      toast.error('Cập nhật trạng thái đơn hàng', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2500,
+      });
+    },
+  });
+};
+
+export {
+  useGetOrder,
+  useGetAllOrder,
+  useCreateOrder,
+  useConfirmOrder,
+  useGetTotalOrder,
+  useGetDetailOrder,
+  useUpdateStatusOrder,
+  useCreateSingleOrder,
+  useGetDetailOrderById,
+};

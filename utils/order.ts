@@ -3,7 +3,7 @@ import { OrderStatus } from '@/types/order';
 const formatStatusOrder = (status: OrderStatus): string => {
   switch (status) {
     case OrderStatus.PENDING:
-      return 'Xác nhận ngay';
+      return 'Cần xác nhận';
     case OrderStatus.PAID:
       return 'Đã thanh toán';
     case OrderStatus.SHIPPED:
@@ -13,7 +13,7 @@ const formatStatusOrder = (status: OrderStatus): string => {
     case OrderStatus.CANCELLED:
       return 'Đã hủy';
     default:
-      return '';
+      return 'Đã xác nhận';
   }
 };
 

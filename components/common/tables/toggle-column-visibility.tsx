@@ -19,7 +19,7 @@ export function DataTableViewOptions<TData>({ table }: { table: Table<TData> }) 
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="ml-auto">
           <Settings2 />
-          Hiển thị
+          <span className="hidden lg:block">Hiển thị</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

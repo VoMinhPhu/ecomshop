@@ -1,9 +1,11 @@
 import {
   OrderStatus,
   PaymentMethod,
+  GetAllOrderRes,
   CreateOrderType,
   ConfirmOrderType,
   GetOrdersResponse,
+  GetAllOrderParams,
   CreateSingleOrderType,
   GetOrdersDetailResponse,
 } from '@/types/order';
@@ -41,10 +43,43 @@ const getOrderFn = async (): Promise<GetOrdersResponse> => {
   return data;
 };
 
-const getDetailOrderFn = async (id: string): Promise<GetOrdersDetailResponse> => {
-  const { data } = await axiosInstance.get(`/orders/detail/${id}`);
+const getAllOrderFn = async (params: GetAllOrderParams): Promise<GetAllOrderRes> => {
+  const { data } = await axiosInstance.get('/orders/all', {
+    params,
+  });
 
   return data;
 };
 
-export { createOrderFn, getOrderFn, getDetailOrderFn, confirmOrderFn, getTotalOrderFn, createSingleOrderFn };
+const getDetailOrderFn = async (orderCode: string): Promise<GetOrdersDetailResponse> => {
+  const { data } = await axiosInstance.get(`/orders/detail/${orderCode}`);
+
+  return data;
+};
+
+const getDetailOrderByIdFn = async (id: string): Promise<GetOrdersDetailResponse> => {
+  const { data } = await axiosInstance.get(`/orders/detail/id/${id}`);
+
+  return data;
+};
+
+const updateStatusOrderFn = async (payload: {
+  id: string;
+  status: OrderStatus;
+}): Promise<{ message: string; id: string }> => {
+  const { data } = await axiosInstance.patch(`/orders/${payload.id}`, { status: payload.status });
+
+  return data;
+};
+
+export {
+  getOrderFn,
+  getAllOrderFn,
+  createOrderFn,
+  confirmOrderFn,
+  getTotalOrderFn,
+  getDetailOrderFn,
+  updateStatusOrderFn,
+  createSingleOrderFn,
+  getDetailOrderByIdFn,
+};
