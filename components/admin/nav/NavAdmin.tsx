@@ -132,8 +132,8 @@ const sidebarItems = [
   {
     label: 'Bán hàng',
     items: [
-      { icon: Receipt, label: 'Đơn hàng', href: '#' },
-      { icon: Users, label: 'Khách hàng', href: '#' },
+      { icon: Receipt, label: 'Đơn hàng', href: '/admin/orders' },
+      { icon: Users, label: 'Khách hàng', href: '/admin/customers' },
     ],
   },
 ];

@@ -1,10 +1,8 @@
 'use client';
 
-import { JSX } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
-import { CircleCheck, Loader, XCircle } from 'lucide-react';
+import { formatDate } from 'date-fns';
 
 import { formatCurrency } from '@/utils/number';
 import { useGetRecentOrders } from '@/hooks/dashboard';
@@ -15,49 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableRow, TableBody, TableCell, TableHead, TableHeader, TableCaption } from '@/components/ui/table';
 
 import { RecentOrder } from '@/types/dashboard';
-import { OrderStatus, PaymentMethod } from '@/types/order';
-
-const statusMap: Record<OrderStatus, { label: string; icon: JSX.Element }> = {
-  pending: {
-    label: 'Chưa xác nhận',
-    icon: <Loader className="text-amber-500" strokeWidth={3} />,
-  },
-  confirmed: {
-    label: 'Đã xác nhận',
-    icon: <Loader className="text-blue-500" strokeWidth={3} />,
-  },
-  paid: {
-    label: 'Đã thanh toán',
-    icon: <CircleCheck className="fill-green-500 text-white" />,
-  },
-  shipped: {
-    label: 'Đang giao',
-    icon: <Loader className="text-purple-500" strokeWidth={3} />,
-  },
-  completed: {
-    label: 'Hoàn thành',
-    icon: <CircleCheck className="fill-green-600 text-white" />,
-  },
-  cancelled: {
-    label: 'Đã huỷ',
-    icon: <XCircle className="text-red-500" />,
-  },
-};
-
-const paymentMethodMap: Record<PaymentMethod, { label: string; icon: JSX.Element }> = {
-  COD: {
-    label: 'Trực tiếp',
-    icon: <Image src={'/icons/money.png'} width={32} height={32} alt="VISA Icon" />,
-  },
-  VNPAY: {
-    label: 'VNPAY',
-    icon: <Image src={'/icons/vnpay.svg'} width={44} height={40} alt="VISA Icon" />,
-  },
-  VISA: {
-    label: 'VISA',
-    icon: <Image src={'/icons/visa.png'} width={32} height={32} alt="VISA Icon" />,
-  },
-};
+import { paymentMethodMap, statusMap } from '@/constants/order';
 
 export default function RecentOrders() {
   const { data, isLoading } = useGetRecentOrders();
@@ -119,8 +75,8 @@ export default function RecentOrders() {
 
                     <TableCell className="text-right">{formatCurrency(order.totalAmount)}</TableCell>
 
-                    <TableCell className="text-right pr-6">
-                      {new Date(order.createdAt).toLocaleDateString('vi-VN')}
+                    <TableCell className="text-right pr-6"> 
+                      {formatDate(order.createdAt, 'dd/MM/yyyy')}
                     </TableCell>
                   </TableRow>
                 );

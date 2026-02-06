@@ -32,15 +32,40 @@ export type OrderItem = {
   product: OrderProduct;
 };
 
-export type Order = {
+export interface Order {
   id: string;
   orderCode: string;
   status: OrderStatus;
   totalAmount: number;
+  phone: number | null;
   paymentMethod: PaymentMethod;
   createdAt: string;
   items: OrderItem[];
-};
+}
+
+export interface GetAllOrderData extends Omit<Order, 'items'> {
+  user: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface GetAllOrderRes extends Omit<Order, 'items'> {
+  data: GetAllOrderData[];
+  meta: {
+    limit: number;
+    page: number;
+    total: number;
+  };
+}
+
+export interface GetAllOrderParams {
+  page?: number;
+  limit?: number;
+  orderCode?: string;
+  status?: string;
+  paymentMethod?: string;
+}
 
 export enum OrderStatus {
   PENDING = 'pending',
@@ -59,6 +84,9 @@ export enum PaymentMethod {
 
 export type GetOrdersResponse = Order[];
 export type GetOrdersDetailResponse = Order & {
+  user: {
+    name: string;
+  };
   note: string;
   shippingAddress: string;
 };
