@@ -1,11 +1,35 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getMeFn, updateAvatarFn, updateUserInfo } from '@/lib/api/users';
+import { getAllUserFn, getDetailUserFn, getMeFn, updateAvatarFn, updateUserInfo } from '@/lib/api/users';
+
 import { toast } from 'sonner';
+import { GetAllCustomerParams } from '@/types/users';
 
 const useGetMe = () => {
   return useQuery({
     queryKey: ['user'],
     queryFn: getMeFn,
+    staleTime: 1000 * 60 * 10,
+    refetchOnWindowFocus: false,
+    retry: 1,
+  });
+};
+
+const useGetDetailUser = (id: string) => {
+  return useQuery({
+    queryKey: ['user', 'detail', id],
+    queryFn: () => getDetailUserFn(id),
+    staleTime: 1000 * 60 * 10,
+    refetchOnWindowFocus: false,
+    retry: 1,
+  });
+};
+
+const useGetAllUser = (params: GetAllCustomerParams) => {
+  const { page, limit, email } = params;
+
+  return useQuery({
+    queryKey: ['users', page, limit, email],
+    queryFn: () => getAllUserFn({ page, limit, email }),
     staleTime: 1000 * 60 * 10,
     refetchOnWindowFocus: false,
     retry: 1,
@@ -54,4 +78,4 @@ const useUpdateUserInfo = () => {
   });
 };
 
-export { useGetMe, useUpdateAvatar, useUpdateUserInfo };
+export { useGetMe, useGetDetailUser, useGetAllUser, useUpdateAvatar, useUpdateUserInfo };

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useMemo } from 'react';
 import { Loader, ShoppingCart } from 'lucide-react';
 
 import { useCreateOrder } from '@/hooks/order';
@@ -20,7 +21,9 @@ const Page = () => {
   const { data: carts, isLoading } = useGetUserCart();
   const { mutate: createOrderMutate, isPending } = useCreateOrder();
 
-  const { uiState, setUIState, selectedIds, totalPrice, debouncedUpdate } = useCartUI(carts?.data ?? []);
+  const cartItems = useMemo(() => carts?.data ?? [], [carts?.data]);
+
+  const { uiState, setUIState, selectedIds, totalPrice, debouncedUpdate } = useCartUI(cartItems);
 
   const handleCreateOrder = () => createOrderMutate({ cartItemIds: selectedIds });
 
