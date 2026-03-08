@@ -26,6 +26,7 @@ const pages: Record<string, string> = {
   categories: 'Danh mục',
   orders: 'Đơn hàng',
   brands: 'Thương hiệu',
+  customers: 'Khách hàng',
 };
 
 const HeaderAdmin = () => {

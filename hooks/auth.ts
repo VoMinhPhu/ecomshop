@@ -18,6 +18,7 @@ import {
 
 const useLogin = () => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: loginFn,
@@ -29,7 +30,8 @@ const useLogin = () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
       queryClient.invalidateQueries({ queryKey: ['address'] });
       queryClient.invalidateQueries({ queryKey: ['cart'] });
-      queryClient.invalidateQueries({ queryKey: ['token'] });
+
+      router.refresh();
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 401) {
@@ -181,6 +183,8 @@ const useLogout = () => {
       queryClient.invalidateQueries({ queryKey: ['order'] });
       queryClient.invalidateQueries({ queryKey: ['user'] });
       queryClient.invalidateQueries({ queryKey: ['cart'] });
+
+      router.refresh();
     },
   });
 };

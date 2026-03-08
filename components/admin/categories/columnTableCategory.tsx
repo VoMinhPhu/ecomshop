@@ -1,17 +1,14 @@
 import Link from 'next/link';
 import { ColumnDef } from '@tanstack/react-table';
 
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Ellipsis, FilePen } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
-import { DataTableColumnHeader } from '@/components/common/tables/data-table-column-header';
-import { Ellipsis, FilePen, Trash2 } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+
 import { Category } from '@/types/categories';
 import DeleteCategoryBtn from './DeleteCategoryBtn';
+import { DataTableColumnHeader } from '@/components/common/tables/data-table-column-header';
 
 export const columnsTableCategory: ColumnDef<Category, any>[] = [
   {
