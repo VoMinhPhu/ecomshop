@@ -19,7 +19,7 @@ jobs:
             npm -v
             pm2 -v
 
-            cd /home/vominhphu/ecomshop
+            cd /var/www/ecomshop
             git pull origin main
             npm ci
             npm run build
