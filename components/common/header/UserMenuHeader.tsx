@@ -11,11 +11,12 @@ import useUserStore from '@/stores/userStore';
 
 import { Button } from '@/components/ui/button';
 import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';
-import { FileBox, KeyRound, LayoutDashboard, Loader, LogOut, MapPin, Package, User } from 'lucide-react';
+import { FileBox, KeyRound, LayoutDashboard, Loader, LogInIcon, LogOut, MapPin, Package, User } from 'lucide-react';
 
 import AuthPopup from '@/components/auth/AuthPopup';
 
 const UserMenuHeader = () => {
+  const [openAuth, setOpenAuth] = useState(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -55,7 +56,15 @@ const UserMenuHeader = () => {
   }
 
   if (!user) {
-    return <AuthPopup />;
+    return (
+      <>
+        <Button onClick={() => setOpenAuth(true)} variant="outline" size={'lg'}>
+          <LogInIcon />
+          Đăng nhập
+        </Button>
+        <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />
+      </>
+    );
   }
 
   return (

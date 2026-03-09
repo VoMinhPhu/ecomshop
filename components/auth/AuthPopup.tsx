@@ -1,31 +1,28 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 
-import { LogInIcon } from 'lucide-react';
 import LoginSection from './LoginSection';
 import RegisterSection from './RegisterSection';
 
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogPortal, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogPortal } from '@/components/ui/dialog';
 
-export default function AuthPopup() {
-  const [open, setOpen] = useState(false);
+type Props = {
+  open: boolean;
+  onOpenChange: React.Dispatch<SetStateAction<boolean>>;
+};
+
+export default function AuthPopup({ open, onOpenChange }: Props) {
   const [tabLogin, setTabLogin] = useState<boolean>(true);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen} modal={false}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size={'lg'}>
-          <LogInIcon />
-          Đăng nhập
-        </Button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange} modal={false}>
       <DialogPortal>
         <div className="fixed inset-0 bg-black/40 z-50" />
 
         <DialogContent>
-          {tabLogin ? <LoginSection closeDialogFn={setOpen} /> : <RegisterSection closeDialogFn={setOpen} />}
+          {tabLogin ? <LoginSection closeDialogFn={onOpenChange} /> : <RegisterSection closeDialogFn={onOpenChange} />}
           <div className="flex items-center gap-3 before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">
             <span className="text-muted-foreground text-xs">Hoặc</span>
           </div>

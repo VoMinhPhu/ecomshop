@@ -1,18 +1,21 @@
 'use client';
 
+import { useState } from 'react';
+
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
 import Lottie from 'lottie-react';
+import { Loader } from 'lucide-react';
 
 import successAnimation from '@/public/icons/success.json';
 import errorAnimation from '@/public/icons/errorAnimation.json';
 
-import AuthPopup from '../auth/AuthPopup';
 import useUserStore from '@/stores/userStore';
-import { Button } from '../ui/button';
 import { useVerifyAccount } from '@/hooks/auth';
-import { Loader } from 'lucide-react';
+
+import { Button } from '../ui/button';
+import AuthPopup from '../auth/AuthPopup';
 
 type Props = {
   verify: string;
@@ -20,6 +23,8 @@ type Props = {
 
 export default function VerifyPopup({ verify }: Props) {
   const router = useRouter();
+  const [openAuth, setOpenAuth] = useState<boolean>(false);
+
   const user = useUserStore((s) => s.user);
   const { isLoading, isSuccess, isError } = useVerifyAccount(verify);
 
@@ -50,17 +55,9 @@ export default function VerifyPopup({ verify }: Props) {
           <>
             <Lottie animationData={successAnimation} loop={false} autoPlay className="w-14 h-14 mx-auto my-3" />
             <p>Xác minh tài khoản thành công</p>
-            <label
-              className={cn(
-                'mt-6 bg-green-400 hover:bg-green-400/90 text-white cursor-pointer py-1.75 px-3 rounded-sm',
-                user && 'hidden',
-              )}
-            >
+            <Button className={cn('mt-6', user && 'hidden')} onClick={() => setOpenAuth(true)}>
               Đăng nhập ngay
-              <span className="hidden">
-                <AuthPopup />
-              </span>
-            </label>
+            </Button>
           </>
         )}
         {isError && (
@@ -74,6 +71,7 @@ export default function VerifyPopup({ verify }: Props) {
           Đóng
         </Button>
       </div>
+      <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />
     </div>
   );
 }
