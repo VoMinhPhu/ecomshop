@@ -1,9 +1,15 @@
 'use client';
 
+import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
+import AuthPopup from '@/components/auth/AuthPopup';
+
 import { useAddProductToCart } from '@/hooks/cart';
 import { useCreateSingleOrder } from '@/hooks/order';
+
 import { cn } from '@/lib/utils';
+import useUserStore from '@/stores/userStore';
 import { Loader, MinusIcon, PlusIcon, ShoppingCartIcon } from 'lucide-react';
 
 type Props = {
@@ -13,8 +19,11 @@ type Props = {
 };
 
 export default function ManageBuyProduct({ productId, quantity, setQuantity }: Props) {
+  const [openAuth, setOpenAuth] = useState<boolean>(false);
+
   const { mutate: addProductToCartMutate, isPending } = useAddProductToCart();
   const { mutate: createOrderMutate, isPending: isCreatingOrder } = useCreateSingleOrder();
+  const user = useUserStore((s) => s.user);
 
   const handleUpdateQuantity = (action: 'increase' | 'decrease') => {
     if (action === 'increase') {
@@ -63,25 +72,40 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity }: P
       </div>
 
       <div className="md:flex gap-3 items-center grid grid-cols-2 mb-6">
-        <Button
-          onClick={handleCreateSingleOrder}
-          disabled={isCreatingOrder}
-          className="h-12 text-lg lg:w-3/5 md:w-4/7 w-full"
-        >
-          <Loader className={cn('animate-spin size-5', !isCreatingOrder && 'hidden')} strokeWidth={2.5} />
+        {user ? (
+          <Button
+            onClick={handleCreateSingleOrder}
+            disabled={isCreatingOrder}
+            className="h-12 text-lg lg:w-3/5 md:w-4/7 w-full"
+          >
+            <Loader className={cn('animate-spin size-5', !isCreatingOrder && 'hidden')} strokeWidth={2.5} />
 
-          {isCreatingOrder ? 'Đang xử lý...' : 'Mua ngay'}
-        </Button>
-        <Button
-          disabled={isPending}
-          onClick={handleAddToCart}
-          className="h-12 text-md w-full md:w-auto"
-          variant="outline"
-        >
-          <ShoppingCartIcon className="size-6" />
-          {isPending ? 'Đang thêm vào giỏ' : 'Thêm vào giỏ'}
-        </Button>
+            {isCreatingOrder ? 'Đang xử lý...' : 'Mua ngay'}
+          </Button>
+        ) : (
+          <Button onClick={() => setOpenAuth(true)} className="h-12 text-lg lg:w-3/5 md:w-4/7 w-full">
+            Mua ngay
+          </Button>
+        )}
+
+        {user ? (
+          <Button
+            disabled={isPending}
+            onClick={handleAddToCart}
+            className="h-12 text-md w-full md:w-auto"
+            variant="outline"
+          >
+            <ShoppingCartIcon className="size-6" />
+            {isPending ? 'Đang thêm vào giỏ' : 'Thêm vào giỏ'}
+          </Button>
+        ) : (
+          <Button onClick={() => setOpenAuth(true)} className="h-12 text-md w-full md:w-auto" variant="outline">
+            <ShoppingCartIcon className="size-6" />
+            Thêm vào giỏ
+          </Button>
+        )}
       </div>
+      <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />
     </div>
   );
 }

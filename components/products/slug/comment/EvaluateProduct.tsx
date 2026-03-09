@@ -19,6 +19,8 @@ type Props = {
 
 export default function EvaluateProduct({ productId }: Props) {
   const [comment, setComment] = useState<boolean>(false);
+  const [openAuth, setOpenAuth] = useState<boolean>(false);
+
   const { data: ratingData, isPending: getRatingPending } = useGetRating(productId);
   const { data: comments, isPending: getCommentPending } = useGetReview(productId);
 
@@ -69,12 +71,9 @@ export default function EvaluateProduct({ productId }: Props) {
                 {!comment ? 'Thêm đánh giá của bạn' : 'Đóng'}
               </Button>
             ) : (
-              <label className="flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium shrink-0 outline-none bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 h-10 rounded-sm px-6">
+              <Button size="lg" onClick={() => setOpenAuth(true)}>
                 Thêm đánh giá của bạn
-                <span className="hidden">
-                  <AuthPopup />
-                </span>
-              </label>
+              </Button>
             )}
           </div>
         </div>
@@ -90,6 +89,7 @@ export default function EvaluateProduct({ productId }: Props) {
           </div>
         </div>
       </div>
+      <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />
     </div>
   );
 }
