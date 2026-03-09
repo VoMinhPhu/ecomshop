@@ -10,7 +10,7 @@ export const updateUserInfoSchema = z.object({
       message: 'Số điện thoại không hợp lệ',
     }),
   dateOfBirth: z
-    .string()
+    .date()
     .optional()
     .refine((val) => !val || (new Date(val) >= new Date('1900-01-01') && new Date(val) <= new Date()), {
       message: 'Ngày sinh phải nằm trong khoảng từ năm 1900 đến nay',

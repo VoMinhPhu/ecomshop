@@ -34,7 +34,7 @@ const UserInfoForm = ({ user }: Props) => {
       name: user.name,
       phone: user.phone ?? undefined,
       gender: user.gender ?? undefined,
-      dateOfBirth: user.dateOfBirth ?? undefined,
+      dateOfBirth: user.dateOfBirth ? new Date(user.dateOfBirth) : undefined,
     },
   });
 
