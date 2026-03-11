@@ -22,8 +22,8 @@ import { cn } from '@/lib/utils';
 import useUserStore from '@/stores/userStore';
 import { formatCurrency } from '@/utils/number';
 
-import { useGetAllAddress } from '@/hooks/address';
-import { useConfirmOrder, useGetDetailOrder } from '@/hooks/order';
+import { useGetAllAddress } from '@/hooks/api/address';
+import { useConfirmOrder, useGetDetailOrder } from '@/hooks/api/order';
 
 import { confirmOrderSchema, ConfirmOrderSchemaType } from '@/schemas/orders';
 

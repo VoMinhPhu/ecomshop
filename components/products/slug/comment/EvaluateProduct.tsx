@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 import useUserStore from '@/stores/userStore';
 
 import AuthPopup from '@/components/auth/AuthPopup';
-import { useGetRating, useGetReview } from '@/hooks/review';
+import { useGetRating, useGetReview } from '@/hooks/api/review';
 
 type Props = {
   productId: string;

@@ -15,7 +15,7 @@ import {
   getPaginationRowModel,
 } from '@tanstack/react-table';
 
-import { useGetAllCategories } from '@/hooks/categories';
+import { useGetAllCategories } from '@/hooks/api/categories';
 
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';

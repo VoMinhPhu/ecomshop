@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 
-import { useGetMe } from '@/hooks/users';
-import { useLogout } from '@/hooks/auth';
+import { useGetMe } from '@/hooks/api/users';
+import { useLogout } from '@/hooks/api/auth';
 import useUserStore from '@/stores/userStore';
 
 import {

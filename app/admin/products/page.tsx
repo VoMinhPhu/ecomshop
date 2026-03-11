@@ -15,7 +15,7 @@ import ToolbarTableProduct from '@/components/admin/products/list-product/Toolba
 import PanigateTableListProduct from '@/components/admin/products/list-product/PanigateTableListProduct';
 import { DataTable } from '@/components/common/tables/data-table';
 
-import { useGetAllProduct } from '@/hooks/products';
+import { useGetAllProduct } from '@/hooks/api/products';
 
 const Page = () => {
   const [selectedBrand, setSelectedBrand] = useState<string | undefined>();

@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
-import { useUpdateCategory } from '@/hooks/categories';
+import { useUpdateCategory } from '@/hooks/api/categories';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';

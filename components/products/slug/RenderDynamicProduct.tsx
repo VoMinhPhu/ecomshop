@@ -5,7 +5,7 @@ import { useState } from 'react';
 import ManageBuyProduct from './ManageBuyProduct';
 import DynamicProductInfoLoading from './DynamicProductInfoLoading';
 
-import { useGetDynamicProductInfoById } from '@/hooks/products';
+import { useGetDynamicProductInfoById } from '@/hooks/api/products';
 
 import { formatCurrency } from '@/utils/number';
 

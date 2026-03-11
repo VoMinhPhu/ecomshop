@@ -1,7 +1,7 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { useCreateBrand } from '@/hooks/brands';
+import { useCreateBrand } from '@/hooks/api/brands';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';

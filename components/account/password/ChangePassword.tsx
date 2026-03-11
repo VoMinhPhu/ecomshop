@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import PasswordInput from '@/components/auth/PasswordInput';
 
-import { useChangePassword } from '@/hooks/auth';
+import { useChangePassword } from '@/hooks/api/auth';
 
 import { cn } from '@/lib/utils';
 import { formChangePasswordSchema, FormChangePasswordType } from '@/schemas/auth';

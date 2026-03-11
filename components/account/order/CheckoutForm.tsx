@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 
-import { usePaymentIntent } from '@/hooks/payment';
+import { usePaymentIntent } from '@/hooks/api/payment';
 
 const CheckoutForm: React.FC<{ amount: number; orderCode: string }> = ({ amount, orderCode }) => {
   const stripe = useStripe();

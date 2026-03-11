@@ -10,7 +10,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { useSetAddressDefault } from '@/hooks/address';
+import { useSetAddressDefault } from '@/hooks/api/address';
 import { MapPin } from 'lucide-react';
 
 type Props = {

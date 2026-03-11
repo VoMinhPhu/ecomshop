@@ -18,7 +18,7 @@ import {
 import { Button } from '@/components/ui/button';
 
 import { useFileUpload } from '@/hooks/ui/use-file-upload';
-import { useAddNewImagesProduct } from '@/hooks/products';
+import { useAddNewImagesProduct } from '@/hooks/api/products';
 
 import { cn } from '@/lib/utils';
 import { addNewImageProductSchema, AddNewImageProductSchema } from '@/schemas/products';

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { formatDate } from 'date-fns';
 
 import { formatCurrency } from '@/utils/number';
-import { useGetRecentOrders } from '@/hooks/dashboard';
+import { useGetRecentOrders } from '@/hooks/api/dashboard';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -75,9 +75,7 @@ export default function RecentOrders() {
 
                     <TableCell className="text-right">{formatCurrency(order.totalAmount)}</TableCell>
 
-                    <TableCell className="text-right pr-6"> 
-                      {formatDate(order.createdAt, 'dd/MM/yyyy')}
-                    </TableCell>
+                    <TableCell className="text-right pr-6">{formatDate(order.createdAt, 'dd/MM/yyyy')}</TableCell>
                   </TableRow>
                 );
               })}

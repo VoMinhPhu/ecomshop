@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import debounce from 'lodash.debounce';
-import { useUpdateQuantityCartItem } from '../cart';
+import { useUpdateQuantityCartItem } from '../api/cart';
 
 import { CartItem } from '@/types/cart';
 

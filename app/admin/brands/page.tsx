@@ -14,7 +14,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
 } from '@tanstack/react-table';
-import { useGetAllBrands } from '@/hooks/brands';
+import { useGetAllBrands } from '@/hooks/api/brands';
 
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';

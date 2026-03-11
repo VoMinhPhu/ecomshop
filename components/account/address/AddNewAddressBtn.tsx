@@ -19,8 +19,8 @@ import { Separator } from '@/components/ui/separator';
 
 import SelectSearch from './SelectSearch';
 
-import { useGetProvinces } from '@/hooks/map';
-import { useAddAddress } from '@/hooks/address';
+import { useGetProvinces } from '@/hooks/api/map';
+import { useAddAddress } from '@/hooks/api/address';
 
 import { cn } from '@/lib/utils';
 

@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import AuthPopup from '@/components/auth/AuthPopup';
 
-import { useAddProductToCart } from '@/hooks/cart';
-import { useCreateSingleOrder } from '@/hooks/order';
+import { useAddProductToCart } from '@/hooks/api/cart';
+import { useCreateSingleOrder } from '@/hooks/api/order';
 
 import { cn } from '@/lib/utils';
 import useUserStore from '@/stores/userStore';

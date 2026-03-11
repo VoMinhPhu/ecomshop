@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 import { DataTableViewOptions } from '@/components/common/tables/toggle-column-visibility';
-import { useGetCategoriesAndBrandsToFilter } from '@/hooks/products';
+import { useGetCategoriesAndBrandsToFilter } from '@/hooks/api/products';
 
 interface Props<TData> {
   table: Table<TData>;
