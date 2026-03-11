@@ -6,7 +6,7 @@ import { Loader, ShoppingCart } from 'lucide-react';
 
 import { useCreateOrder } from '@/hooks/order';
 import { useGetUserCart } from '@/hooks/cart';
-import { useCartUI } from '@/hooks/useCartUI';
+import { useCartUI } from '@/hooks/ui/useCartUI';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

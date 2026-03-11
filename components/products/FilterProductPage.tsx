@@ -1,6 +1,6 @@
 'use client';
 
-import { useProductFilter } from '@/hooks/useProductFilter';
+import { useProductFilter } from '@/hooks/ui/useProductFilter';
 import { useGetNameAndSlugOfCategoriesAndBrands } from '@/hooks/products';
 
 import SortFilter from './filters/SortFilter';
