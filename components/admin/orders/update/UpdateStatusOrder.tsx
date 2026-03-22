@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 import { statusMap } from '@/constants/order';
-import { useUpdateStatusOrder } from '@/hooks/order';
+import { useUpdateStatusOrder } from '@/hooks/api/order';
 
 import { Loader2 } from 'lucide-react';
 

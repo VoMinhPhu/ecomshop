@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
 
-import { useUpdateProduct } from '@/hooks/products';
+import { useUpdateProduct } from '@/hooks/api/products';
 
 import { CategoriesAndBrandsResponse } from '@/types/categories';
 import { GetProductByIdResponse } from '@/types/products';

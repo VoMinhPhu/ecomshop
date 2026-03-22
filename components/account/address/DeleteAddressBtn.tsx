@@ -10,7 +10,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { useDeleteAddAddress } from '@/hooks/address';
+import { useDeleteAddAddress } from '@/hooks/api/address';
 import { Trash2 } from 'lucide-react';
 
 type Props = {

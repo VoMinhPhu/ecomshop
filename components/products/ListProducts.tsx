@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { ShoppingBasketIcon } from 'lucide-react';
 
-import { useGetAllProductWithFilter } from '@/hooks/products';
+import { useGetAllProductWithFilter } from '@/hooks/api/products';
 
 import { formatCurrency } from '@/utils/number';
 import ListProductLoading from './ListProductLoading';

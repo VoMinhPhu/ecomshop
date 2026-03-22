@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCreateProduct, useGetCategoriesAndBrands } from '@/hooks/products';
+import { useCreateProduct, useGetCategoriesAndBrands } from '@/hooks/api/products';
 
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';

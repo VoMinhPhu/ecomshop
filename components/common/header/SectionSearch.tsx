@@ -12,7 +12,7 @@ import { Button } from '../../ui/button';
 
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@/utils/number';
-import { useSearchProduct } from '@/hooks/products';
+import { useSearchProduct } from '@/hooks/api/products';
 
 const SectionSearch = () => {
   const [category, setCategory] = useState<boolean>(false);

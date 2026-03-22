@@ -14,7 +14,7 @@ import {
 import { GetAllOrderData } from '@/types/order';
 import { getFilter } from '@/utils/tableFilter';
 
-import { useGetAllOrder } from '@/hooks/order';
+import { useGetAllOrder } from '@/hooks/api/order';
 import { useOrderTableParams } from '@/hooks/ui/useOrderTableParams';
 
 import { DataTable } from '@/components/common/tables/data-table';

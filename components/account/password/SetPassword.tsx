@@ -1,7 +1,7 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { useSetPassword } from '@/hooks/auth';
+import { useSetPassword } from '@/hooks/api/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { KeyRound, Loader } from 'lucide-react';

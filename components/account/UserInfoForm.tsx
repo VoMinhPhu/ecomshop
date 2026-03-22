@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 import { UserInfo } from '@/types/users';
 import { updateUserInfoSchema, UpdateUserInfoType } from '@/schemas/user';
 
-import { useUpdateUserInfo } from '@/hooks/users';
+import { useUpdateUserInfo } from '@/hooks/api/users';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';

@@ -16,7 +16,7 @@ import { columnsTableCustomers } from '@/components/admin/customers/ColumnTableC
 import PaginationTableCustomers from '@/components/admin/customers/PaginationTableCustomers';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { useGetAllUser } from '@/hooks/users';
+import { useGetAllUser } from '@/hooks/api/users';
 import { getFilter } from '@/utils/tableFilter';
 import { useCustomersTableParams } from '@/hooks/ui/useCustomerTableParams';
 

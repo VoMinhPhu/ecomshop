@@ -14,7 +14,7 @@ import {
 import { Button } from '@/components/ui/button';
 
 import { cn } from '@/lib/utils';
-import { useDeleteBrand } from '@/hooks/brands';
+import { useDeleteBrand } from '@/hooks/api/brands';
 
 import { Loader, Trash2 } from 'lucide-react';
 

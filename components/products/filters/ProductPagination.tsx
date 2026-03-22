@@ -9,7 +9,7 @@ import {
   PaginationEllipsis,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { useProductFilter } from '@/hooks/useProductFilter';
+import { useProductFilter } from '@/hooks/ui/useProductFilter';
 
 interface ProductPaginationProps {
   totalPages: number;

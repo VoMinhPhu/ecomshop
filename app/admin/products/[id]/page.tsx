@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useGetCategoriesAndBrands, useGetProductById } from '@/hooks/products';
+import { useGetCategoriesAndBrands, useGetProductById } from '@/hooks/api/products';
 
 import { Separator } from '@/components/ui/separator';
 import ProductNotFound from '@/components/admin/products/ProductNotFound';

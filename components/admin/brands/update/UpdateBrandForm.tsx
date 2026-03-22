@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useUpdateBrand } from '@/hooks/brands';
+import { useUpdateBrand } from '@/hooks/api/brands';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';

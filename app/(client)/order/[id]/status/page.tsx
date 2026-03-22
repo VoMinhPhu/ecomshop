@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useParams, useSearchParams } from 'next/navigation';
 
 import { formatCurrency } from '@/utils/number';
-import { useGetDetailOrder } from '@/hooks/order';
+import { useGetDetailOrder } from '@/hooks/api/order';
 
 import { Loader, ShoppingCartIcon } from 'lucide-react';
 

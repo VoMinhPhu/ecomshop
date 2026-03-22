@@ -12,7 +12,7 @@ import {
   AlertDialogDescription,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { useRemoveCartItem } from '@/hooks/cart';
+import { useRemoveCartItem } from '@/hooks/api/cart';
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
 

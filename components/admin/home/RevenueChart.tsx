@@ -4,7 +4,7 @@ import RevenueWeek from './RevenueWeek';
 import RevenueMonth from './RevenueMonth';
 import RevenueChartLoading from './RevenueChartLoading';
 
-import { useGetOverviewChartData } from '@/hooks/dashboard';
+import { useGetOverviewChartData } from '@/hooks/api/dashboard';
 
 export default function RevenueChart() {
   const { data, isLoading } = useGetOverviewChartData();

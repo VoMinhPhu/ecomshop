@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
 
-import { useForgotPassword } from '@/hooks/auth';
+import { useForgotPassword } from '@/hooks/api/auth';
 import { formforgotPasswordSchema, FormForgotPasswordType } from '@/schemas/auth';
 
 import successAnimation from '@/public/icons/success.json';

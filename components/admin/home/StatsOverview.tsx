@@ -7,7 +7,7 @@ import { formatPercent, isUp } from '@/utils/dashboard';
 
 import StatsOverviewSkeleton from './StatsOverviewSkeleton';
 
-import { useGetOverviewCardData } from '@/hooks/dashboard';
+import { useGetOverviewCardData } from '@/hooks/api/dashboard';
 
 export default function StatsOverview() {
   const { data, isLoading } = useGetOverviewCardData();

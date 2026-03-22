@@ -10,7 +10,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 
 import { formatGender } from '@/utils/users';
 
-import { useGetDetailUser } from '@/hooks/users';
+import { useGetDetailUser } from '@/hooks/api/users';
 
 type Props = {
   customerId: string;
