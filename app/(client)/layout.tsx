@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 
+import { cookies } from 'next/headers';
 import Header from '@/components/common/header/Header';
 import Footer from '@/components/common/footer/Footer';
+import ChatProvider from '@/components/chat/ChatProvider';
 
 export const metadata: Metadata = {
   title: 'Ecomshop',
@@ -9,16 +11,20 @@ export const metadata: Metadata = {
     'Cửa hàng thương mại điện tử chuyên cung cấp sản phẩm chất lượng – thời trang, điện tử, gia dụng với giá tốt, giao hàng toàn quốc.',
 };
 
-export default function ClientLayout({
+export default async function ClientLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const isLogin = cookieStore.get('refresh_token');
+
   return (
     <>
       <Header />
       <main className="mt-38.25 md:mt-48 lg:mt-31">{children}</main>
       <Footer />
+      <ChatProvider isLogin={!!isLogin} />
     </>
   );
 }
