@@ -20,6 +20,7 @@ jobs:
             pm2 -v
 
             cd /var/www/ecomshop
+            git reset --hard HEAD
             git pull origin main
             npm ci
             npm run build
