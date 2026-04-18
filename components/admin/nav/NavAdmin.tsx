@@ -2,6 +2,17 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import {
+  Box,
+  Users,
+  Layers,
+  Blocks,
+  Ticket,
+  Receipt,
+  ChevronRight,
+  MessageCircle,
+  BrickWallShield,
+} from 'lucide-react';
 
 import {
   Sidebar,
@@ -19,7 +30,6 @@ import {
 } from '@/components/ui/sidebar';
 import UserMenuAdmin from '@/components/admin/nav/UserMenuAdmin';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Blocks, Box, Layers, Receipt, Ticket, Users, ChevronRight, BrickWallShield } from 'lucide-react';
 
 export default function NavAdmin() {
   return (
@@ -135,5 +145,9 @@ const sidebarItems = [
       { icon: Receipt, label: 'Đơn hàng', href: '/admin/orders' },
       { icon: Users, label: 'Khách hàng', href: '/admin/customers' },
     ],
+  },
+  {
+    label: 'Hỗ trợ',
+    items: [{ icon: MessageCircle, label: 'Tin nhắn', href: '/admin/chats' }],
   },
 ];

@@ -3,18 +3,19 @@ import { chatSocket } from '@/lib/socket/chat.socket';
 import { useChatStore } from '@/stores/chat.store';
 
 export const useChatCore = () => {
-  const { messages, setMessages, addMessage } = useChatStore();
+  const { messages, setMessages } = useChatStore();
 
   useEffect(() => {
-    chatSocket.connect();
-
     chatSocket.onMessage((msg: any) => {
       setMessages(msg.conversationId, (prev: any[]) => {
-        const idx = prev.findIndex((m) => m.requestId && m.requestId === msg.requestId);
+        const existById = prev.findIndex((m) => m.id === msg.id);
+        if (existById !== -1) return prev;
 
-        if (idx !== -1) {
+        // replace optimistic message theo requestId
+        const existByRequestId = prev.findIndex((m) => m.requestId && m.requestId === msg.requestId);
+        if (existByRequestId !== -1) {
           const newList = [...prev];
-          newList[idx] = { ...msg, status: 'sent' };
+          newList[existByRequestId] = { ...msg, status: 'sent' };
           return newList;
         }
 
@@ -22,14 +23,15 @@ export const useChatCore = () => {
       });
     });
 
+    chatSocket.onSeenUpdate((data: { conversationId: string }) => {
+      setMessages(data.conversationId, (prev: any[]) => prev.map((m) => (m.isSeen ? m : { ...m, isSeen: true })));
+    });
+
     return () => {
-      chatSocket.off();
-      chatSocket.disconnect();
+      chatSocket.offMessage();
+      chatSocket.offSeenUpdate();
     };
   }, []);
 
-  return {
-    messages,
-    setMessages,
-  };
+  return { messages, setMessages };
 };

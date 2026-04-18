@@ -2,59 +2,55 @@
 
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { MessageCircleMoreIcon, SendIcon, XIcon } from 'lucide-react';
+import { MessageCircleMoreIcon, XIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import useUserStore from '@/stores/userStore';
 import { useClientChat } from '@/hooks/ui/chat/useClientChat';
 
+import ChatInput from './ChatInput';
 import { Button } from '../ui/button';
-import { Textarea } from '../ui/textarea';
 import RenderMessage from './RenderMessage';
 
 export default function CustomerChatSection() {
-  const { messages, sendMessage } = useClientChat();
+  const { messages, seen } = useClientChat();
   const user = useUserStore((s) => s.user);
 
   const [chatBoxOpen, setChatBoxOpen] = useState(false);
-  const [value, setValue] = useState('');
 
   const bottomRef = useRef<HTMLDivElement | null>(null);
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const prevMessagesLength = useRef(0);
 
-  // auto scroll
+  // auto scroll chỉ khi có tin nhắn mới
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const isNewMessage = messages.length > prevMessagesLength.current;
+    prevMessagesLength.current = messages.length;
+
+    if (isNewMessage) {
+      bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [messages]);
 
-  if (!user) return null;
+  // seen khi có tin nhắn mới và chat box đang mở
+  useEffect(() => {
+    if (!chatBoxOpen) return;
 
-  // auto resize
-  const handleHeightChange = () => {
-    const el = textareaRef.current;
-    if (!el) return;
+    const hasUnseen = messages.some((m) => !m.isSeen && m.senderId !== user?.id);
 
-    el.style.height = 'auto';
-    el.style.height = el.scrollHeight + 'px';
-  };
-
-  // submit
-  const handleSend = async () => {
-    if (!value.trim()) return;
-
-    await sendMessage(value);
-
-    setValue('');
-
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
+    if (hasUnseen) {
+      seen();
     }
-  };
+  }, [messages, chatBoxOpen]);
+
+  if (!user) return null;
 
   return (
     <div>
       <div
-        onClick={() => setChatBoxOpen(true)}
+        onClick={() => {
+          setChatBoxOpen(true);
+          seen();
+        }}
         className={cn(
           'fixed bg-white size-13 z-10 border-2 shadow-sm flex items-center justify-center bottom-4 right-4 rounded-full cursor-pointer transition-all duration-100 ease-out',
           chatBoxOpen ? 'opacity-0 scale-75 pointer-events-none' : 'opacity-100 scale-100',
@@ -85,35 +81,7 @@ export default function CustomerChatSection() {
           <div ref={bottomRef} />
         </div>
 
-        <div className="p-2 pb-3 flex items-center gap-2">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSend();
-            }}
-            className="flex items-end gap-2 w-full"
-          >
-            <Textarea
-              ref={textareaRef}
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              onInput={handleHeightChange}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSend();
-                }
-              }}
-              rows={1}
-              className="rounded-md resize-none overflow-hidden min-h-[36px] max-h-[120px]"
-              placeholder="Nhập tin nhắn..."
-            />
-
-            <Button type="submit" disabled={!value.trim()}>
-              <SendIcon />
-            </Button>
-          </form>
-        </div>
+        <ChatInput />
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ export const useChat = () => {
     });
 
     return () => {
-      chatSocket.off();
+      chatSocket.offAll();
       chatSocket.disconnect();
     };
   }, []);

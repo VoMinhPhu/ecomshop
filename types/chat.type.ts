@@ -10,7 +10,14 @@ export type Message = {
   createdAt: string;
 };
 
-export type Conversation = {
+type Conversation = {
   id: string;
-  userId: string;
+  lastMessage: string;
+  unreadCount: number;
+  user: {
+    name: string;
+    avatar: string;
+  };
 };
+
+export type ConversationList = Conversation[];
