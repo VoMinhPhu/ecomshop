@@ -2,22 +2,23 @@ import { useQueryClient } from '@tanstack/react-query';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useGetConversations, useGetMessage } from '@/hooks/api/chat.hook';
-import { useChatCore } from './useChatCore';
 import { useChatStore } from '@/stores/chat.store';
 import useUserStore from '@/stores/userStore';
 
 import { chatSocket } from '@/lib/socket/chat.socket';
 
 export const useAdminChat = () => {
-  const { setMessages } = useChatCore();
   const { data: conversations = [] } = useGetConversations();
   const user = useUserStore((s) => s.user);
 
-  const activeConversationId = useChatStore((s) => s.activeConversationId);
-  const setActiveConversationId = useChatStore((s) => s.setActiveConversationId);
-  const setConversationMeta = useChatStore((s) => s.setConversationMeta);
+  const {
+    setMessages,
+    setConversationMeta,
+    activeConversationId,
+    messages: allMessages,
+    setActiveConversationId,
+  } = useChatStore();
 
-  const allMessages = useChatStore((s) => s.messages);
   const activeMessages = allMessages[activeConversationId] || [];
 
   const queryClient = useQueryClient();
@@ -72,19 +73,22 @@ export const useAdminChat = () => {
 
     setMessages(activeConversationId, (prev: any[]) => [...prev, tempMsg]);
 
-    chatSocket.sendMessage({
-      conversationId: activeConversationId,
-      content,
-      type: 'text',
-      requestId,
-    });
-
     // fallback
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setMessages(activeConversationId, (prev: any[]) =>
         prev.map((m) => (m.requestId === requestId && m.status === 'sending' ? { ...m, status: 'failed' } : m)),
       );
-    }, 5000);
+    }, 10000);
+
+    chatSocket.sendMessage(
+      {
+        conversationId: activeConversationId,
+        content,
+        type: 'text',
+        requestId,
+      },
+      () => clearTimeout(timer),
+    );
   };
 
   return {

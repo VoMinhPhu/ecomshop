@@ -9,15 +9,6 @@ const useGetConversation = () => {
   });
 };
 
-// const useGetMessage = (conversationId: string) => {
-//   return useQuery({
-//     queryKey: [conversationId, 'conversation'],
-//     queryFn: () => getMessagesFn(conversationId),
-//     enabled: !!conversationId,
-//     staleTime: 1000 * 60 * 10,
-//   });
-// };
-
 const useGetMessage = () => {
   const queryClient = useQueryClient();
 

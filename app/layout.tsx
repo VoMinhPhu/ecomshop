@@ -1,25 +1,28 @@
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
 import './globals.css';
 import ToastProvider from '@/components/providers/ToastProvider';
 import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
+import ChatProviderGlobalLoader from '@/components/providers/ChatProviderGlobalLoader';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+import { cookies } from 'next/headers';
+
+const inter = Inter({
   subsets: ['latin'],
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const isLogin = !!cookieStore.get('refresh_token');
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={inter.className}>
         <ReactQueryProvider>
-          {children} <ToastProvider />
+          {children}
+          <ToastProvider />
+          {isLogin && <ChatProviderGlobalLoader />}
         </ReactQueryProvider>
       </body>
     </html>

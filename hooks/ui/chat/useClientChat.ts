@@ -3,13 +3,13 @@
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { useChatCore } from './useChatCore';
 import useUserStore from '@/stores/userStore';
 import { chatSocket } from '@/lib/socket/chat.socket';
 import { useGetConversation, useGetMessage } from '@/hooks/api/chat.hook';
+import { useChatStore } from '@/stores/chat.store';
 
 export const useClientChat = () => {
-  const { messages, setMessages } = useChatCore();
+  const { messages, setMessages } = useChatStore();
 
   const { data: convo = {}, isLoading } = useGetConversation();
   const { getMessages } = useGetMessage();
@@ -21,7 +21,7 @@ export const useClientChat = () => {
     if (isLoading || !convo?.id) return;
 
     setConversationId(convo.id);
-
+    console.log('joining room:', convo.id);
     chatSocket.join(convo.id);
     chatSocket.seen(convo.id);
 
@@ -52,13 +52,17 @@ export const useClientChat = () => {
     };
 
     setMessages(conversationId, (prev: any[]) => [...prev, tempMsg]);
-    chatSocket.sendMessage({ conversationId, content, type: 'text', requestId });
 
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setMessages(conversationId, (prev: any[]) =>
         prev.map((m) => (m.requestId === requestId && m.status === 'sending' ? { ...m, status: 'failed' } : m)),
       );
-    }, 5000);
+    }, 12000);
+
+    chatSocket.sendMessage(
+      { conversationId, content, type: 'text', requestId },
+      () => clearTimeout(timer), // server ack → hủy fallback timeout
+    );
   };
 
   const seen = () => {

@@ -6,7 +6,7 @@ export const chatSocket = {
 
   join: (conversationId: string) => socket.emit('join', { conversationId }),
   leave: (conversationId: string) => socket.emit('leave', conversationId),
-  sendMessage: (data: any) => socket.emit('send_message', data),
+  sendMessage: (data: any, onAck?: () => void) => socket.emit('send_message', data, onAck),
   typing: (conversationId: string) => socket.emit('typing', { conversationId }),
   seen: (conversationId: string) => socket.emit('seen', conversationId),
 
