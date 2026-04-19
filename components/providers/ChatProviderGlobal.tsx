@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { chatSocket } from '@/lib/socket/chat.socket';
 import { useChatStore } from '@/stores/chat.store';
+import { toast } from 'sonner';
 
 export default function ChatProviderGlobal() {
   const queryClient = useQueryClient();
@@ -11,6 +12,30 @@ export default function ChatProviderGlobal() {
 
   useEffect(() => {
     chatSocket.connect();
+
+    chatSocket.onDisconnect((reason) => {
+      if (reason === 'io server disconnect') {
+        toast.error('Chat', {
+          description: 'Phiên kết nối đã hết hạn',
+        });
+      } else {
+        toast.error('Chat', {
+          description: 'Mất kết nối. Đang thử kết nối lại...',
+        });
+      }
+    });
+
+    chatSocket.onConnectError(() => {
+      toast.error('Chat', {
+        description: 'Không thể kết nối đến server',
+      });
+    });
+
+    chatSocket.onReconnect(() => {
+      toast.success('Chat', {
+        description: 'Đã kết nối lại',
+      });
+    });
 
     chatSocket.onMessage((msg: any) => {
       setMessages(msg.conversationId, (prev: any[]) => {
@@ -60,7 +85,7 @@ export default function ChatProviderGlobal() {
       chatSocket.offAll();
       chatSocket.disconnect();
     };
-  }, []); // ← dependency array rỗng, chạy 1 lần duy nhất
+  }, []);
 
   return null;
 }

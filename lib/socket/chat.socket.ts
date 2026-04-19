@@ -15,17 +15,29 @@ export const chatSocket = {
   onNotify: (cb: any) => socket.on('new_conversation_message', cb),
   onSeenUpdate: (cb: any) => socket.on('seen_update', cb),
 
-  // tách off riêng từng event
+  onConnect: (cb: () => void) => socket.on('connect', cb),
+  onDisconnect: (cb: (reason: string) => void) => socket.on('disconnect', cb),
+  onConnectError: (cb: (err: Error) => void) => socket.on('connect_error', cb),
+  onReconnect: (cb: () => void) => socket.on('reconnect', cb),
+
+  offConnect: () => socket.off('connect'),
+  offDisconnect: () => socket.off('disconnect'),
+  offConnectError: () => socket.off('connect_error'),
+  offReconnect: () => socket.off('reconnect'),
+
   offMessage: () => socket.off('new_message'),
   offTyping: () => socket.off('typing'),
   offNotify: () => socket.off('new_conversation_message'),
   offSeenUpdate: () => socket.off('seen_update'),
 
-  // off tất cả (dùng khi disconnect hẳn)
   offAll: () => {
     socket.off('new_message');
     socket.off('typing');
     socket.off('new_conversation_message');
     socket.off('seen_update');
+    socket.off('connect');
+    socket.off('disconnect');
+    socket.off('connect_error');
+    socket.off('reconnect');
   },
 };
