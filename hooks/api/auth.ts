@@ -180,6 +180,7 @@ const useLogout = () => {
         router.push('/');
       }, 1500);
 
+      queryClient.invalidateQueries({ queryKey: ['conversation'] });
       queryClient.invalidateQueries({ queryKey: ['order'] });
       queryClient.invalidateQueries({ queryKey: ['user'] });
       queryClient.invalidateQueries({ queryKey: ['cart'] });

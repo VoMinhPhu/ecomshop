@@ -1,51 +1,101 @@
-import { useEffect, useState } from 'react';
-import { useChatCore } from './useChatCore';
+import { useQueryClient } from '@tanstack/react-query';
+import { v4 as uuidv4 } from 'uuid';
+
+import { useGetConversations, useGetMessage } from '@/hooks/api/chat.hook';
+import { useChatStore } from '@/stores/chat.store';
+import useUserStore from '@/stores/userStore';
+
 import { chatSocket } from '@/lib/socket/chat.socket';
-import { getConversationsFn, getMessagesFn } from '@/lib/api/chat.api';
 
 export const useAdminChat = () => {
-  const { messages, setMessages } = useChatCore();
+  const { data: conversations = [] } = useGetConversations();
+  const user = useUserStore((s) => s.user);
 
-  const [conversations, setConversations] = useState<any[]>([]);
-  const [activeConversationId, setActiveConversationId] = useState('');
+  const {
+    setMessages,
+    setConversationMeta,
+    activeConversationId,
+    messages: allMessages,
+    setActiveConversationId,
+  } = useChatStore();
 
-  //Need fix to join admin_room and 1 convo
-  useEffect(() => {
-    const init = async () => {
-      const convos = await getConversationsFn('');
-      setConversations(convos);
+  const activeMessages = allMessages[activeConversationId] || [];
 
-      // join tất cả room
-      convos.forEach((c: any) => chatSocket.join(c.id));
+  const queryClient = useQueryClient();
+  const { getMessages } = useGetMessage();
 
-      // set room đầu tiên
-      if (convos.length > 0) {
-        const firstId = convos[0].id;
-        setActiveConversationId(firstId);
+  // switch conversation
+  const handleSelectConversation = async (conversationId: string) => {
+    if (activeConversationId) chatSocket.leave(activeConversationId);
 
-        const msgs = await getMessagesFn(firstId);
-        setMessages(firstId, msgs);
-      }
-    };
+    chatSocket.join(conversationId);
+    setActiveConversationId(conversationId);
 
-    init();
-  }, []);
+    chatSocket.seen(conversationId);
 
+    const convo = conversations.find((c) => c.id === conversationId);
+    if (convo) {
+      setConversationMeta(conversationId, {
+        username: convo.user.name,
+        avatar: convo.user.avatar,
+      });
+    }
+
+    if (!allMessages[conversationId]) {
+      const msgs = await getMessages(conversationId);
+      setMessages(conversationId, msgs);
+    }
+
+    queryClient.setQueryData(['conversations'], (old: any[] = []) =>
+      old.map((c) => (c.id === conversationId ? { ...c, unreadCount: 0 } : c)),
+    );
+  };
+
+  // send message
   const sendMessage = (content: string) => {
-    if (!activeConversationId) return;
+    if (!activeConversationId || !user) return;
 
-    chatSocket.sendMessage({
+    const requestId = uuidv4();
+
+    const tempMsg = {
+      id: `temp-${requestId}`,
+      requestId,
       conversationId: activeConversationId,
+      senderId: user.id,
+      senderRole: user.role,
       content,
       type: 'text',
-    });
+      metadata: null,
+      isSeen: false,
+      createdAt: new Date().toISOString(),
+      status: 'sending',
+    };
+
+    setMessages(activeConversationId, (prev: any[]) => [...prev, tempMsg]);
+
+    // fallback
+    const timer = setTimeout(() => {
+      setMessages(activeConversationId, (prev: any[]) =>
+        prev.map((m) => (m.requestId === requestId && m.status === 'sending' ? { ...m, status: 'failed' } : m)),
+      );
+    }, 10000);
+
+    chatSocket.sendMessage(
+      {
+        conversationId: activeConversationId,
+        content,
+        type: 'text',
+        requestId,
+      },
+      () => clearTimeout(timer),
+    );
   };
 
   return {
     conversations,
     activeConversationId,
-    setActiveConversationId,
-    messages: messages[activeConversationId] || [],
+    messages: activeMessages,
     sendMessage,
+    setActiveConversationId: handleSelectConversation,
   };
 };

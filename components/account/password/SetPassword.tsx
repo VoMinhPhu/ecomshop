@@ -25,7 +25,6 @@ export default function SetPassword() {
   });
 
   function onSubmit(values: FormSetPasswordType) {
-    console.log(values);
     mutate(values, {
       onSuccess: () => {
         form.reset();

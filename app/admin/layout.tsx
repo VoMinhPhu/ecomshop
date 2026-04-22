@@ -12,18 +12,16 @@ export const metadata: Metadata = {
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <AdminGuard>
-        <div className="[--header-height:calc(--spacing(14))]">
-          <SidebarProvider className="flex flex-col">
-            <HeaderAdmin />
-            <div className="flex flex-1">
-              <NavAdmin />
-              <SidebarInset>{children}</SidebarInset>
-            </div>
-          </SidebarProvider>
-        </div>
-      </AdminGuard>
-    </>
+    <AdminGuard>
+      <div className="[--header-height:calc(--spacing(14))]">
+        <SidebarProvider className="flex flex-col">
+          <HeaderAdmin />
+          <div className="flex flex-1">
+            <NavAdmin />
+            <SidebarInset>{children}</SidebarInset>
+          </div>
+        </SidebarProvider>
+      </div>
+    </AdminGuard>
   );
 }

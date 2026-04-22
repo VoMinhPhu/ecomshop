@@ -24,10 +24,10 @@ export function getBubbleStyle(isMe: boolean, position: string) {
       position === 'single'
         ? 'rounded-3xl'
         : position === 'first'
-          ? 'rounded-t-3xl rounded-bl-3xl rounded-br-xl'
+          ? 'rounded-t-3xl rounded-bl-3xl rounded-br-md'
           : position === 'middle'
-            ? 'rounded-l-3xl rounded-r-xl'
-            : 'rounded-b-3xl rounded-tl-3xl rounded-tr-xl'
+            ? 'rounded-l-3xl rounded-r-md'
+            : 'rounded-b-3xl rounded-tl-3xl rounded-tr-md'
     }`;
   }
 
@@ -35,9 +35,9 @@ export function getBubbleStyle(isMe: boolean, position: string) {
     position === 'single'
       ? 'rounded-3xl'
       : position === 'first'
-        ? 'rounded-t-3xl rounded-br-3xl rounded-bl-xl'
+        ? 'rounded-t-3xl rounded-br-3xl rounded-bl-md'
         : position === 'middle'
-          ? 'rounded-r-3xl rounded-l-xl'
-          : 'rounded-b-3xl rounded-tr-3xl rounded-tl-xl'
+          ? 'rounded-r-3xl rounded-l-md'
+          : 'rounded-b-3xl rounded-tr-3xl rounded-tl-md'
   }`;
 }

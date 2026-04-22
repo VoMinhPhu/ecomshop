@@ -27,6 +27,7 @@ const pages: Record<string, string> = {
   orders: 'Đơn hàng',
   brands: 'Thương hiệu',
   customers: 'Khách hàng',
+  chats: 'Tin nhắn',
 };
 
 const HeaderAdmin = () => {

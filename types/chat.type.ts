@@ -2,6 +2,7 @@ export type Message = {
   id: string;
   conversationId: string;
   senderId: string;
+  revoked: boolean;
   senderRole: 'user' | 'admin';
   content: string;
   type: 'text' | 'image';
@@ -10,7 +11,14 @@ export type Message = {
   createdAt: string;
 };
 
-export type Conversation = {
+type Conversation = {
   id: string;
-  userId: string;
+  lastMessage: string;
+  unreadCount: number;
+  user: {
+    name: string;
+    avatar: string;
+  };
 };
+
+export type ConversationList = Conversation[];
