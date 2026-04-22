@@ -21,8 +21,6 @@ export const useClientChat = () => {
     if (isLoading || !convo?.id) return;
 
     setConversationId(convo.id);
-    console.log('joining room:', convo.id);
-    chatSocket.join(convo.id);
     chatSocket.seen(convo.id);
 
     const load = async () => {

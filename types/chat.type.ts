@@ -2,6 +2,7 @@ export type Message = {
   id: string;
   conversationId: string;
   senderId: string;
+  revoked: boolean;
   senderRole: 'user' | 'admin';
   content: string;
   type: 'text' | 'image';

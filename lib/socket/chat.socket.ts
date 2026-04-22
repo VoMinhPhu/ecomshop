@@ -4,7 +4,7 @@ export const chatSocket = {
   connect: () => socket.connect(),
   disconnect: () => socket.disconnect(),
 
-  join: (conversationId: string) => socket.emit('join', { conversationId }),
+  join: (conversationId?: string) => socket.emit('join', { conversationId }),
   leave: (conversationId: string) => socket.emit('leave', conversationId),
   sendMessage: (data: any, onAck?: () => void) => socket.emit('send_message', data, onAck),
   typing: (conversationId: string) => socket.emit('typing', { conversationId }),
@@ -19,6 +19,9 @@ export const chatSocket = {
   onDisconnect: (cb: (reason: string) => void) => socket.on('disconnect', cb),
   onConnectError: (cb: (err: Error) => void) => socket.on('connect_error', cb),
   onReconnect: (cb: () => void) => socket.on('reconnect', cb),
+
+  onMessageRevoked: (cb: (data: { messageId: string }) => void) => socket.on('message_revoked', cb),
+  offMessageRevoked: () => socket.off('message_revoked'),
 
   offConnect: () => socket.off('connect'),
   offDisconnect: () => socket.off('disconnect'),
@@ -39,5 +42,6 @@ export const chatSocket = {
     socket.off('disconnect');
     socket.off('connect_error');
     socket.off('reconnect');
+    socket.off('message_revoked');
   },
 };

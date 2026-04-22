@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect } from 'react';
+import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
 import { chatSocket } from '@/lib/socket/chat.socket';
 import { useChatStore } from '@/stores/chat.store';
-import { toast } from 'sonner';
 
 export default function ChatProviderGlobal() {
   const queryClient = useQueryClient();
@@ -12,6 +12,8 @@ export default function ChatProviderGlobal() {
 
   useEffect(() => {
     chatSocket.connect();
+
+    chatSocket.join();
 
     chatSocket.onDisconnect((reason) => {
       if (reason === 'io server disconnect') {
@@ -55,6 +57,14 @@ export default function ChatProviderGlobal() {
 
     chatSocket.onSeenUpdate((data: { conversationId: string }) => {
       setMessages(data.conversationId, (prev: any[]) => prev.map((m) => (m.isSeen ? m : { ...m, isSeen: true })));
+    });
+
+    chatSocket.onMessageRevoked(({ messageId }) => {
+      const allMessages = useChatStore.getState().messages;
+
+      Object.keys(allMessages).forEach((conversationId) => {
+        setMessages(conversationId, (prev) => prev.map((m) => (m.id === messageId ? { ...m, revoked: true } : m)));
+      });
     });
 
     chatSocket.onNotify((data: any) => {

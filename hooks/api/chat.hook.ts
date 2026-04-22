@@ -1,5 +1,6 @@
-import { getConversationFn, getConversationsFn, getMessagesFn } from '@/lib/api/chat.api';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { getConversationFn, getConversationsFn, getMessagesFn, revokedMessagesFn } from '@/lib/api/chat.api';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 const useGetConversation = () => {
   return useQuery({
@@ -23,6 +24,25 @@ const useGetMessage = () => {
   return { getMessages };
 };
 
+const useRevokedMessage = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: revokedMessagesFn,
+    onSuccess: () => {
+      toast.success('Chat', {
+        description: 'Thu hồi tin nhắn thành công.',
+        duration: 1500,
+      });
+    },
+    onError: () => {
+      toast.error('Chat', {
+        description: 'Thu hồi tin nhắn thất bại.',
+      });
+    },
+  });
+};
+
 //For admin
 const useGetConversations = () => {
   return useQuery({
@@ -32,4 +52,4 @@ const useGetConversations = () => {
   });
 };
 
-export { useGetConversation, useGetMessage, useGetConversations };
+export { useGetConversation, useGetMessage, useGetConversations, useRevokedMessage };

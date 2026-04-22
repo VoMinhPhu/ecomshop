@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Message } from '@/types/chat.type';
 import { getBubbleStyle } from '@/utils/chat.utils';
+import OptionMessage from './OptionMessage';
 
 type Props = {
   message: Message;
@@ -36,9 +37,12 @@ export default function MessageItem({ message, isMe, position, toUser, isLastMyM
         </div>
       )}
 
-      <div className={`flex flex-col w-full ${isMe ? 'items-end' : 'items-start'}`}>
+      <div className={`flex flex-col w-full group ${isMe ? 'items-end' : 'items-start'}`}>
         {/* Bubble */}
-        <p className={getBubbleStyle(isMe, position)}>{message.content}</p>
+        <div className={`${getBubbleStyle(isMe, position)} relative`}>
+          {isMe && !message.revoked && <OptionMessage messageId={message.id} revoked={message.revoked} />}
+          {message.revoked ? <span className="italic opacity-70">Tin nhắn đã bị thu hồi</span> : message.content}
+        </div>
 
         {/* Status */}
         {isMe && isLastMyMessage && (
