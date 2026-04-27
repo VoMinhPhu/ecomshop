@@ -9,11 +9,15 @@ import useUserStore from '@/stores/userStore';
 
 import RenderMessage from '@/components/chat/RenderMessage';
 import ChatInputAdmin from './ChatInputAdmin';
+import { ArrowLeftIcon } from 'lucide-react';
+import { useChatStoreUI } from '@/stores/chat-ui.store';
+import { cn } from '@/lib/utils';
 
 export default function BoxChat() {
   const { messages, activeConversationId } = useAdminChat();
   const user = useUserStore((s) => s.user);
   const customer = useChatStore((s) => s.conversationMeta[activeConversationId]);
+  const { openConvo, setOpenConvo } = useChatStoreUI();
 
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const prevConversationId = useRef(activeConversationId);
@@ -30,9 +34,15 @@ export default function BoxChat() {
   if (!user) return null;
 
   return (
-    <div className="flex-1 p-2 bg-gray-50 rounded-r-md">
+    <div className={cn('flex-1 md:p-2 bg-gray-50 rounded-r-md', openConvo ? 'block' : 'hidden', 'md:block')}>
       <div className="border inline-flex flex-col w-full h-full rounded-md bg-white">
-        <div className="h-16 border-b-2 flex items-center gap-2">
+        <div className="h-16 border-b-2 flex items-center gap-1">
+          <div
+            onClick={setOpenConvo}
+            className="flex md:hidden items-center justify-center w-10 h-10 ml-2 hover:bg-gray-200 rounded-full"
+          >
+            <ArrowLeftIcon className="text-gray-600" />
+          </div>
           <div className="relative">
             <Image
               src={customer?.avatar || '/avatar.svg'}
@@ -49,7 +59,7 @@ export default function BoxChat() {
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-2 scroll-smooth dropdown-scrollbar max-h-[54vh]">
+        <div className="flex-1 overflow-y-auto px-2 scroll-smooth dropdown-scrollbar md:max-h-[54vh] max-h-[64vh]">
           <RenderMessage messages={messages} />
           <div ref={bottomRef} />
         </div>

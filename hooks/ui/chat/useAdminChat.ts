@@ -8,7 +8,7 @@ import useUserStore from '@/stores/userStore';
 import { chatSocket } from '@/lib/socket/chat.socket';
 
 export const useAdminChat = () => {
-  const { data: conversations = [] } = useGetConversations();
+  const { data: conversations = [], isLoading: loadingConvos } = useGetConversations();
   const user = useUserStore((s) => s.user);
 
   const {
@@ -92,6 +92,7 @@ export const useAdminChat = () => {
   };
 
   return {
+    loadingConvos,
     conversations,
     activeConversationId,
     messages: activeMessages,

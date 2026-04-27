@@ -61,7 +61,7 @@ export default function CustomerChatSection() {
 
       <div
         className={cn(
-          'fixed flex flex-col bottom-4 right-4 z-10 shadow-md border rounded-md w-90 h-115 bg-white transition-all duration-300 ease-out origin-bottom-right',
+          'fixed flex flex-col bottom-4 md:right-4 w-[calc(100%-8px)] mx-1 z-10 shadow-md border rounded-md md:w-90 h-115 bg-white transition-all duration-300 ease-out origin-bottom-right',
           chatBoxOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-6 scale-95 pointer-events-none',
         )}
       >
