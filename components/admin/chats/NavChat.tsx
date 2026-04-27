@@ -6,16 +6,20 @@ import { SearchIcon } from 'lucide-react';
 import { useAdminChat } from '@/hooks/ui/chat/useAdminChat';
 
 import { Input } from '@/components/ui/input';
+import { useChatStoreUI } from '@/stores/chat-ui.store';
+import { cn } from '@/lib/utils';
 
 export default function NavChat() {
-  const { conversations, setActiveConversationId } = useAdminChat();
+  const { conversations, setActiveConversationId, loadingConvos } = useAdminChat();
+  const { openConvo, setOpenConvo } = useChatStoreUI();
 
   const handleSelectConversation = (conversationId: string) => {
     setActiveConversationId(conversationId);
+    setOpenConvo();
   };
 
   return (
-    <div className="max-w-70 w-full border-r">
+    <div className={cn('md:max-w-70 w-full border-r', openConvo && 'hidden md:block')}>
       <p className="font-semibold text-lg ml-2 mt-2">Đoạn chat</p>
       <div className="relative m-2">
         <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4.5 text-gray-600" />
@@ -55,6 +59,12 @@ export default function NavChat() {
             )}
           </div>
         ))}
+
+        {loadingConvos && (
+          <div className="flex items-center justify-center h-full">
+            <p className="text-gray-500">Đang tải...</p>
+          </div>
+        )}
       </div>
     </div>
   );
