@@ -3,20 +3,23 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 
+import { ArrowLeftIcon } from 'lucide-react';
+
 import { useAdminChat } from '@/hooks/ui/chat/useAdminChat';
-import { useChatStore } from '@/stores/chat.store';
+
 import useUserStore from '@/stores/userStore';
+import { useChatStore } from '@/stores/chat.store';
+import { useChatStoreUI } from '@/stores/chat-ui.store';
 
 import RenderMessage from '@/components/chat/RenderMessage';
 import ChatInputAdmin from './ChatInputAdmin';
-import { ArrowLeftIcon } from 'lucide-react';
-import { useChatStoreUI } from '@/stores/chat-ui.store';
+
 import { cn } from '@/lib/utils';
 
 export default function BoxChat() {
-  const { messages, activeConversationId } = useAdminChat();
+  const { messages, activeConversationId, seen } = useAdminChat();
   const user = useUserStore((s) => s.user);
-  const customer = useChatStore((s) => s.conversationMeta[activeConversationId]);
+  const convo = useChatStore((s) => s.conversationMeta[activeConversationId]);
   const { openConvo, setOpenConvo } = useChatStoreUI();
 
   const bottomRef = useRef<HTMLDivElement | null>(null);
@@ -30,6 +33,15 @@ export default function BoxChat() {
       behavior: isConversationChanged ? 'instant' : 'smooth',
     });
   }, [messages, activeConversationId]);
+
+  useEffect(() => {
+    const hasUnseen = messages.some((m) => {
+      return m.conversationId === activeConversationId && !m.isSeen && m.senderId !== user?.id;
+    });
+    if (hasUnseen) {
+      seen(activeConversationId);
+    }
+  }, [messages]);
 
   if (!user) return null;
 
@@ -45,7 +57,7 @@ export default function BoxChat() {
           </div>
           <div className="relative">
             <Image
-              src={customer?.avatar || '/avatar.svg'}
+              src={convo?.user.avatar || '/avatar.svg'}
               alt="User name"
               width={44}
               height={44}
@@ -54,7 +66,7 @@ export default function BoxChat() {
             <span className="absolute bottom-1.75 right-1.75 w-2.75 h-2.75 bg-green-400 rounded-full"></span>
           </div>
           <div>
-            <p className="font-semibold">{customer?.username || 'Chọn khách hàng để bắt đầu trò chuyện'}</p>
+            <p className="font-semibold">{convo?.user.username || 'Chọn khách hàng để bắt đầu trò chuyện'}</p>
             <p className="text-sm text-gray-500">Trạng thái hoạt động</p>
           </div>
         </div>

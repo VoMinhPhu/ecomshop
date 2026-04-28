@@ -2,8 +2,14 @@ import { create } from 'zustand';
 import { Message } from '../types/chat.type';
 
 type ConversationMeta = {
-  username: string;
-  avatar: string;
+  id: string;
+  lastMessage: string | null;
+  lastMessageAt: string | null;
+  unreadCount: number;
+  user: {
+    username: string;
+    avatar: string | null;
+  };
 };
 
 type ChatState = {
@@ -11,6 +17,10 @@ type ChatState = {
   activeConversationId: string;
   conversationMeta: Record<string, ConversationMeta>;
   setActiveConversationId: (id: string) => void;
+  updateLastMessage: (
+    conversationId: string,
+    data: { lastMessage: string; lastMessageAt: string; unreadCount: number },
+  ) => void;
   setConversationMeta: (conversationId: string, meta: ConversationMeta) => void;
   addMessage: (conversationId: string, msg: Message) => void;
   setMessages: (conversationId: string, updater: Message[] | ((prev: Message[]) => Message[])) => void;
@@ -19,6 +29,7 @@ type ChatState = {
 export const useChatStore = create<ChatState>((set) => ({
   messages: {},
   conversationMeta: {},
+
   setConversationMeta: (conversationId, meta) =>
     set((state) => ({
       conversationMeta: {
@@ -26,7 +37,21 @@ export const useChatStore = create<ChatState>((set) => ({
         [conversationId]: meta,
       },
     })),
+
+  updateLastMessage: (conversationId, data) =>
+    set((state) => ({
+      conversationMeta: {
+        ...state.conversationMeta,
+        [conversationId]: {
+          ...state.conversationMeta[conversationId],
+          lastMessage: data.lastMessage,
+          lastMessageAt: data.lastMessageAt,
+          unreadCount: data.unreadCount,
+        },
+      },
+    })),
   activeConversationId: '',
+
   setMessages: (conversationId, updater) =>
     set((state) => {
       const prev = state.messages[conversationId] || [];

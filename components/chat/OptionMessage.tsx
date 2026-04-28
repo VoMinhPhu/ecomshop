@@ -15,7 +15,6 @@ type Props = {
 export default function OptionMessage({ messageId, revoked }: Props) {
   const { mutate, isPending } = useRevokedMessage();
   const handleRemoveMessage = () => {
-    console.log('Remove message with id:', messageId);
     mutate(messageId);
   };
 

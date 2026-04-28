@@ -14,6 +14,7 @@ export type Message = {
 type Conversation = {
   id: string;
   lastMessage: string;
+  lastMessageAt: string;
   unreadCount: number;
   user: {
     name: string;

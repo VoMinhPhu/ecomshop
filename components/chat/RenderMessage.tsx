@@ -17,6 +17,7 @@ export default function RenderMessage({ messages }: Props) {
 
   const activeConversationId = useChatStore((s) => s.activeConversationId);
   const toUser = useChatStore((s) => s.conversationMeta[activeConversationId]);
+
   if (!user) return null;
 
   const lastMyMessageIndex = messages.reduce((last, m, i) => (m.senderId === user.id ? i : last), -1);
@@ -30,7 +31,7 @@ export default function RenderMessage({ messages }: Props) {
           isMe={m.senderId === user.id}
           isLastMyMessage={index === lastMyMessageIndex}
           position={getMessagePosition(messages, index)}
-          toUser={toUser}
+          toUser={toUser?.user}
         />
       ))}
     </div>

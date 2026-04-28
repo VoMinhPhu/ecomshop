@@ -1,8 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+
 import { Message } from '@/types/chat.type';
 import { getBubbleStyle } from '@/utils/chat.utils';
+
 import OptionMessage from './OptionMessage';
 
 type Props = {
@@ -12,7 +14,7 @@ type Props = {
   isLastMyMessage: boolean;
   toUser?: {
     username: string;
-    avatar: string;
+    avatar: string | null;
   };
 };
 
