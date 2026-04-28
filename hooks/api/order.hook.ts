@@ -7,12 +7,13 @@ import {
   createOrderFn,
   getAllOrderFn,
   confirmOrderFn,
+  cancelOrderFn,
   getTotalOrderFn,
   getDetailOrderFn,
   createSingleOrderFn,
   updateStatusOrderFn,
   getDetailOrderByIdFn,
-} from '@/lib/api/order';
+} from '@/lib/api/order.api';
 import { paymentWithVnpayFn } from '@/lib/api/payment';
 
 import { GetAllOrderParams, PaymentMethod } from '@/types/order';
@@ -152,11 +153,35 @@ const useUpdateStatusOrder = () => {
   });
 };
 
+const useCancelOrder = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: cancelOrderFn,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
+
+      toast.success('Hủy đơn hàng', {
+        description: 'Hủy đơn hàng thành công.',
+        duration: 1500,
+      });
+    },
+
+    onError: () => {
+      toast.error('Hủy đơn hàng', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 1500,
+      });
+    },
+  });
+};
+
 export {
   useGetOrder,
   useGetAllOrder,
   useCreateOrder,
   useConfirmOrder,
+  useCancelOrder,
   useGetTotalOrder,
   useGetDetailOrder,
   useUpdateStatusOrder,

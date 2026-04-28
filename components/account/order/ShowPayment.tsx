@@ -3,7 +3,7 @@
 import { cn } from '@/lib/utils';
 import Lottie from 'lottie-react';
 import { formatCurrency } from '@/utils/number';
-import { useGetTotalOrder } from '@/hooks/api/order';
+import { useGetTotalOrder } from '@/hooks/api/order.hook';
 
 import { PaymentMethod } from '@/types/order';
 

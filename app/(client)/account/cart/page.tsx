@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { Loader, ShoppingCart } from 'lucide-react';
 
-import { useCreateOrder } from '@/hooks/api/order';
+import { useCreateOrder } from '@/hooks/api/order.hook';
 import { useGetUserCart } from '@/hooks/api/cart';
 import { useCartUI } from '@/hooks/ui/useCartUI';
 

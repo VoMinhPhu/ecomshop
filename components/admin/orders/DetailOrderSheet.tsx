@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { Loader2, ScrollTextIcon } from 'lucide-react';
 
-import { useGetDetailOrderById } from '@/hooks/api/order';
+import { useGetDetailOrderById } from '@/hooks/api/order.hook';
 
 import { formatDate } from 'date-fns';
 import { formatCurrency } from '@/utils/number';

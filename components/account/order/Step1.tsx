@@ -23,7 +23,7 @@ import useUserStore from '@/stores/userStore';
 import { formatCurrency } from '@/utils/number';
 
 import { useGetAllAddress } from '@/hooks/api/address';
-import { useConfirmOrder, useGetDetailOrder } from '@/hooks/api/order';
+import { useConfirmOrder, useGetDetailOrder } from '@/hooks/api/order.hook';
 
 import { confirmOrderSchema, ConfirmOrderSchemaType } from '@/schemas/orders';
 

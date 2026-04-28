@@ -63,6 +63,12 @@ const getDetailOrderByIdFn = async (id: string): Promise<GetOrdersDetailResponse
   return data;
 };
 
+const cancelOrderFn = async (id: string): Promise<{ message: string }> => {
+  const { data } = await axiosInstance.delete(`/orders/${id}`);
+
+  return data;
+};
+
 const updateStatusOrderFn = async (payload: {
   id: string;
   status: OrderStatus;
@@ -77,6 +83,7 @@ export {
   getAllOrderFn,
   createOrderFn,
   confirmOrderFn,
+  cancelOrderFn,
   getTotalOrderFn,
   getDetailOrderFn,
   updateStatusOrderFn,
