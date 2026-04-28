@@ -6,7 +6,7 @@ import RenderOrder from '@/components/account/order/RenderOrder';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { useGetOrder } from '@/hooks/api/order';
+import { useGetOrder } from '@/hooks/api/order.hook';
 import { OrderStatus } from '@/types/order';
 
 export default function Page() {

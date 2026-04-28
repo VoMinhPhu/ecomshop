@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import AuthPopup from '@/components/auth/AuthPopup';
 
 import { useAddProductToCart } from '@/hooks/api/cart';
-import { useCreateSingleOrder } from '@/hooks/api/order';
+import { useCreateSingleOrder } from '@/hooks/api/order.hook';
 
 import { cn } from '@/lib/utils';
 import useUserStore from '@/stores/userStore';
