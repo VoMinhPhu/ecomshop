@@ -2,13 +2,16 @@
 
 import { useEffect } from 'react';
 import { toast } from 'sonner';
-import { useQueryClient } from '@tanstack/react-query';
-import { chatSocket } from '@/lib/socket/chat.socket';
+
+import { Message } from '@/types/chat.type';
+
 import { useChatStore } from '@/stores/chat.store';
 
+import { chatSocket } from '@/lib/socket/chat.socket';
+
 export default function ChatProviderGlobal() {
-  const queryClient = useQueryClient();
   const setMessages = useChatStore((s) => s.setMessages);
+  const updateLastMessage = useChatStore((s) => s.updateLastMessage);
 
   useEffect(() => {
     chatSocket.connect();
@@ -53,6 +56,12 @@ export default function ChatProviderGlobal() {
 
         return [...prev, { ...msg, status: 'sent' }];
       });
+
+      updateLastMessage(msg.conversationId, {
+        lastMessage: msg.content,
+        lastMessageAt: msg.createAt,
+        unreadCount: msg.unreadCount,
+      });
     });
 
     chatSocket.onSeenUpdate((data: { conversationId: string }) => {
@@ -67,22 +76,25 @@ export default function ChatProviderGlobal() {
       });
     });
 
-    chatSocket.onNotify((data: any) => {
-      queryClient.setQueryData(['conversations'], (old: any[] = []) => {
-        const idx = old.findIndex((c) => c.id === data.conversationId);
-        if (idx === -1) {
-          queryClient.invalidateQueries({ queryKey: ['conversations'] });
-          return old;
-        }
-        const updated = [...old];
-        const item = {
-          ...updated[idx],
+    chatSocket.onNotify((data: { conversationId: string; message: Message }) => {
+      const conversationMeta = useChatStore.getState().conversationMeta;
+      const activeConversationId = useChatStore.getState().activeConversationId;
+
+      if (data.conversationId === activeConversationId) {
+        updateLastMessage(data.conversationId, {
           lastMessage: data.message.content,
-          unreadCount: updated[idx].unreadCount + 1,
-        };
-        updated.splice(idx, 1);
-        return [item, ...updated];
-      });
+          lastMessageAt: data.message.createdAt,
+          unreadCount: 0,
+        });
+      } else {
+        updateLastMessage(data.conversationId, {
+          lastMessage: data.message.content,
+          lastMessageAt: data.message.createdAt,
+          unreadCount: conversationMeta[data.conversationId]
+            ? conversationMeta[data.conversationId].unreadCount + 1
+            : 1,
+        });
+      }
 
       setMessages(data.conversationId, (prev: any[]) => {
         const exist = prev.find((m) => m.id === data.message.id);

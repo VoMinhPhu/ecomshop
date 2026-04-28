@@ -5,13 +5,19 @@ import { SearchIcon } from 'lucide-react';
 
 import { useAdminChat } from '@/hooks/ui/chat/useAdminChat';
 
-import { Input } from '@/components/ui/input';
 import { useChatStoreUI } from '@/stores/chat-ui.store';
+
+import { Input } from '@/components/ui/input';
+
 import { cn } from '@/lib/utils';
 
 export default function NavChat() {
-  const { conversations, setActiveConversationId, loadingConvos } = useAdminChat();
+  const { conversationMeta, setActiveConversationId, loadingConvos } = useAdminChat();
   const { openConvo, setOpenConvo } = useChatStoreUI();
+
+  const sortedConversations = Object.values(conversationMeta).sort(
+    (a, b) => new Date(b.lastMessageAt || 0).getTime() - new Date(a.lastMessageAt || 0).getTime(),
+  );
 
   const handleSelectConversation = (conversationId: string) => {
     setActiveConversationId(conversationId);
@@ -34,7 +40,7 @@ export default function NavChat() {
       </div>
 
       <div className="mx-2 flex flex-col gap-2 h-[57vh] dropdown-scrollbar pr-1">
-        {conversations.map((c) => (
+        {sortedConversations.map((c) => (
           <div
             onClick={() => handleSelectConversation(c.id)}
             key={c.id}
@@ -51,7 +57,7 @@ export default function NavChat() {
               <span className="absolute bottom-0.25 right-0.25 w-2.75 h-2.75 bg-green-400 rounded-full"></span>
             </div>
             <div className="flex flex-col w-full justify-start gap-0 pt-2">
-              <p className="font-semibold">{c.user.name}</p>
+              <p className="font-semibold">{c.user.username}</p>
               <p className="text-sm text-gray-700 truncate max-w-46">{c.lastMessage}</p>
             </div>
             {c.unreadCount > 0 && (
