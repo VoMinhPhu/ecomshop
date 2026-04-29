@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { CalendarIcon, CreditCardIcon, DotIcon, PackageIcon, PhoneIcon } from 'lucide-react';
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -9,7 +8,7 @@ import { Order, OrderStatus } from '@/types/order';
 import { formatCurrency } from '@/utils/number';
 import { formatStatusOrder, getStatusColor } from '@/utils/order';
 
-import CancelOrderBtn from './CancelOrderBtn';
+import ActionForOrder from './ActionForOrder';
 
 export default function OrderDetailDialog({
   order,
@@ -102,17 +101,12 @@ export default function OrderDetailDialog({
         </div>
 
         {/* Action for PENDING */}
-        {order.status === OrderStatus.PENDING && (
-          <div className="flex gap-2 mt-2">
-            <CancelOrderBtn id={order.id} />
-            <Link
-              href={`/order/${order.orderCode}`}
-              className="flex items-center justify-center gap-1 w-full py-2.5 rounded-md bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors"
-            >
-              Xem & xác nhận đơn hàng
-            </Link>
-          </div>
-        )}
+        <ActionForOrder
+          orderId={order.id}
+          orderStatus={order.status}
+          orderCode={order.orderCode}
+          orderPaymentMethod={order.paymentMethod}
+        />
       </DialogContent>
     </Dialog>
   );
