@@ -159,7 +159,7 @@ const useCancelOrder = () => {
   return useMutation({
     mutationFn: cancelOrderFn,
     onSuccess: async () => {
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
+      queryClient.invalidateQueries({ queryKey: ['order'] });
 
       toast.success('Hủy đơn hàng', {
         description: 'Hủy đơn hàng thành công.',
