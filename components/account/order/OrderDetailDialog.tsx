@@ -106,6 +106,7 @@ export default function OrderDetailDialog({
           orderStatus={order.status}
           orderCode={order.orderCode}
           orderPaymentMethod={order.paymentMethod}
+          onClose={onClose}
         />
       </DialogContent>
     </Dialog>

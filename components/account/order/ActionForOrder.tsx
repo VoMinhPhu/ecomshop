@@ -9,9 +9,10 @@ type Props = {
   orderCode: string;
   orderStatus: OrderStatus;
   orderPaymentMethod: PaymentMethod;
+  onClose: () => void;
 };
 
-export default function ActionForOrder({ orderId, orderCode, orderStatus, orderPaymentMethod }: Props) {
+export default function ActionForOrder({ onClose, orderId, orderCode, orderStatus, orderPaymentMethod }: Props) {
   let actionLabel: string | null = null;
 
   if (orderStatus === OrderStatus.PENDING) {
@@ -24,7 +25,7 @@ export default function ActionForOrder({ orderId, orderCode, orderStatus, orderP
 
   return (
     <div className="flex gap-2 mt-2">
-      <CancelOrderBtn id={orderId} />
+      <CancelOrderBtn id={orderId} onClose={onClose} />
       <Link
         href={`/order/${orderCode}`}
         className="flex items-center justify-center gap-1 w-full py-2.5 rounded-md bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors"
