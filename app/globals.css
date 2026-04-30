@@ -158,3 +158,7 @@ body::-webkit-scrollbar-thumb {
   overflow-y: auto;
   scrollbar-width: thin; /* Firefox */
 }
+
+#nprogress .spinner {
+  display: none !important;
+}
