@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Loader } from 'lucide-react';
 
 import {
@@ -17,77 +17,34 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
+import { cn } from '@/lib/utils';
+import { useAddNewAddressForm } from '@/hooks/ui/address/useAddNewAddressForm';
 import SelectSearch from './SelectSearch';
 
-import { useGetProvinces } from '@/hooks/api/map.hook';
-import { useAddAddress } from '@/hooks/api/address.hook';
-
-import { cn } from '@/lib/utils';
-
-import { Province, Ward } from '@/types/map.type';
-
 const AddNewAddressBtn = () => {
-  const [wards, setWards] = useState<Ward[]>([]);
-  const [provinces, setProvinces] = useState<Province[]>([]);
-  const [validAddress, setValidAddress] = useState<boolean>(true);
+  const [open, setOpen] = useState(false);
 
-  const [street, setStreet] = useState('');
-  const [wardCode, setWardCode] = useState('');
-  const [provinceCode, setProvinceCode] = useState('');
+  const {
+    wards,
+    street,
+    isValid,
+    wardCode,
+    provinces,
+    isPending,
+    provinceCode,
+    handleReset,
+    handleSubmit,
+    handleSetStreet,
+    handleSetWardCode,
+    handleSetProvinceCode,
+  } = useAddNewAddressForm(() => setOpen(false));
 
-  const { data } = useGetProvinces();
-  const { mutate: addAddressMutate, isPending } = useAddAddress();
-
-  useEffect(() => {
-    if (data) setProvinces(data);
-  }, [data?.length]);
-
-  useEffect(() => {
-    if (!provinceCode) return;
-
-    const loadWards = async () => {
-      const pRes = await fetch(`https://provinces.open-api.vn/api/v2/p/${provinceCode}?depth=2`);
-      const province = await pRes.json();
-
-      setWards(province.wards);
-
-      setWardCode('');
-    };
-
-    loadWards();
-  }, [provinceCode]);
-
-  const handleSubmit = () => {
-    if (!provinceCode || !wardCode || !street.trim()) {
-      setValidAddress(false);
-      return;
-    }
-
-    const ward = wards.find((w) => w.code.toString() === wardCode)?.name;
-    const province = provinces.find((p) => p.code.toString() === provinceCode)?.name;
-
-    if (!province || !ward) return;
-
-    const address = `${street.trim()}, ${ward}, ${province} `;
-    setValidAddress(true);
-    addAddressMutate({ address });
-    setProvinceCode('');
-    setWardCode('');
-    setStreet('');
-  };
-
-  const handleCancel = () => {
-    setValidAddress(true);
-    setProvinceCode('');
-    setWardCode('');
-    setStreet('');
-  };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen} modal={false}>
       <DialogTrigger asChild>
         <Button>Thêm địa chỉ mới</Button>
       </DialogTrigger>
-
+      <div className={cn('inset-0 fixed hidden bg-black/40 z-50', open && 'block')} />
       <DialogContent className="lg:min-w-250">
         <DialogHeader>
           <DialogTitle>Thêm địa chỉ mới</DialogTitle>
@@ -95,44 +52,34 @@ const AddNewAddressBtn = () => {
           <Separator className="mb-1 mt-2" />
         </DialogHeader>
 
-        <p className={cn('text-red-400 text-sm', validAddress && 'hidden')}>Cung cấp đầy đủ thông tin</p>
+        <p className={cn('text-red-400 text-sm', isValid && 'hidden')}>Cung cấp đầy đủ thông tin</p>
 
         <div className="grid grid-cols-2 gap-3">
-          <div>
-            <SelectSearch
-              placehoder="Chọn Tỉnh/ Thành phố"
-              title="Chọn Tỉnh/ Thành phố"
-              data={provinces.map((w) => ({
-                label: w.name,
-                value: w.code.toString(),
-              }))}
-              value={provinceCode as string}
-              setValue={setProvinceCode}
-            />
-          </div>
+          <SelectSearch
+            title="Chọn Tỉnh/ Thành phố"
+            placehoder="Chọn Tỉnh/ Thành phố"
+            data={provinces.map((p) => ({ label: p.name, value: p.code.toString() }))}
+            value={provinceCode}
+            setValue={handleSetProvinceCode}
+          />
 
-          <div>
-            <SelectSearch
-              placehoder="Chọn Phường/ Xã"
-              title="Chọn Phường/ Xã"
-              data={wards.map((w) => ({
-                label: w.name,
-                value: w.code.toString(),
-              }))}
-              value={wardCode as string}
-              setValue={setWardCode}
-            />
-          </div>
+          <SelectSearch
+            title="Chọn Phường/ Xã"
+            placehoder="Chọn Phường/ Xã"
+            data={wards.map((w) => ({ label: w.name, value: w.code.toString() }))}
+            value={wardCode}
+            setValue={handleSetWardCode}
+          />
 
           <div className="col-span-2">
             <p className="mb-1 font-semibold text-sm">Số nhà/ tên đường</p>
-            <Input value={street} onChange={(e) => setStreet(e.target.value)} placeholder="Số nhà, tên đường" />
+            <Input value={street} onChange={(e) => handleSetStreet(e.target.value)} placeholder="Số nhà, tên đường" />
           </div>
         </div>
 
         <DialogFooter className="mt-6">
           <DialogClose asChild>
-            <Button variant="outline" onClick={handleCancel}>
+            <Button variant="outline" onClick={handleReset}>
               Hủy
             </Button>
           </DialogClose>
