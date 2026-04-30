@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { useGetOrder } from '@/hooks/api/order.hook';
-import { OrderStatus } from '@/types/order';
+import { OrderStatus } from '@/types/order.type';
 
 export default function Page() {
   const { data, isLoading } = useGetOrder();

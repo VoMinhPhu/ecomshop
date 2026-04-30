@@ -1,4 +1,4 @@
-import { getProvinces, getWards } from '@/lib/api/map';
+import { getProvinces, getWards } from '@/lib/api/map.api';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetProvinces = () => {

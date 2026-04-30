@@ -2,12 +2,12 @@
 
 import { TrendingDownIcon, TrendingUpIcon } from 'lucide-react';
 
-import { formatCurrency } from '@/utils/number';
-import { formatPercent, isUp } from '@/utils/dashboard';
+import { formatCurrency } from '@/utils/number.utils';
+import { formatPercent, isUp } from '@/utils/dashboard.utils';
 
 import StatsOverviewSkeleton from './StatsOverviewSkeleton';
 
-import { useGetOverviewCardData } from '@/hooks/api/dashboard';
+import { useGetOverviewCardData } from '@/hooks/api/dashboard.hook';
 
 export default function StatsOverview() {
   const { data, isLoading } = useGetOverviewCardData();

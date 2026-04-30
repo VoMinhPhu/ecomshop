@@ -5,7 +5,7 @@ import { ImageIcon, Loader, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 import { useFileUpload } from '@/hooks/ui/use-file-upload';
-import { useUpdateImageProduct } from '@/hooks/api/products';
+import { useUpdateImageProduct } from '@/hooks/api/products.hook';
 import DeleteImageBtn from './DeleteImageBtn';
 
 type Props = {

@@ -8,9 +8,9 @@ import { UserIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
-import { formatGender } from '@/utils/users';
+import { formatGender } from '@/utils/users.utils';
 
-import { useGetDetailUser } from '@/hooks/api/users';
+import { useGetDetailUser } from '@/hooks/api/users.hook';
 
 type Props = {
   customerId: string;

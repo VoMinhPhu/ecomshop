@@ -1,13 +1,13 @@
 import QueryString from 'qs';
 import axiosInstance from '@/lib/axiosInstance';
 
-import { CategoriesAndBrandsResponse } from '@/types/categories';
+import { CategoriesAndBrandsResponse } from '@/types/categories.type';
 import {
   ProductFilterParams,
   SearchProductResponse,
   GetProductsWithFiltersResponse,
   GetDynamicProductInsoBySlugResponse,
-} from '@/types/products';
+} from '@/types/products.type';
 
 const getDynamicProductInsoByIdFn = async (slug: string): Promise<GetDynamicProductInsoBySlugResponse> => {
   const res = await axiosInstance.get(`/product/dynamic/${slug}`);

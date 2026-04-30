@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import ProductCard from '../common/ProductCard';
-import { getTopSell } from '@/lib/server/product';
+import { getTopSell } from '@/lib/server/product.server';
 
 export default async function TopSell() {
   const products = await getTopSell();

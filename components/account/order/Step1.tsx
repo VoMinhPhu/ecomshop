@@ -20,12 +20,12 @@ import AddNewAddressBtn from '../address/AddNewAddressBtn';
 
 import { cn } from '@/lib/utils';
 import useUserStore from '@/stores/userStore';
-import { formatCurrency } from '@/utils/number';
+import { formatCurrency } from '@/utils/number.utils';
 
-import { useGetAllAddress } from '@/hooks/api/address';
+import { useGetAllAddress } from '@/hooks/api/address.hook';
 import { useConfirmOrder, useGetDetailOrder } from '@/hooks/api/order.hook';
 
-import { confirmOrderSchema, ConfirmOrderSchemaType } from '@/schemas/orders';
+import { confirmOrderSchema, ConfirmOrderSchemaType } from '@/schemas/orders.schema';
 
 type Props = {
   id: string;

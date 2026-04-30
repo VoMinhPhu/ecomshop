@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { formatCurrency } from '@/utils/number';
+import { formatCurrency } from '@/utils/number.utils';
 
-import { ProductOnHomePageResponse } from '@/types/products';
+import { ProductOnHomePageResponse } from '@/types/products.type';
 
 type Props = {
   product: ProductOnHomePageResponse;

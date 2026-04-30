@@ -6,7 +6,7 @@ import { Ellipsis, FilePen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
-import { Category } from '@/types/categories';
+import { Category } from '@/types/categories.type';
 import DeleteCategoryBtn from './DeleteCategoryBtn';
 import { DataTableColumnHeader } from '@/components/common/tables/data-table-column-header';
 

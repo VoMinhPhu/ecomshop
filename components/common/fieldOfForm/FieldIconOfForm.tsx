@@ -3,7 +3,7 @@ import { useState, useCallback, useEffect } from 'react';
 
 import { cn } from '@/lib/utils';
 import Cropper, { type Area } from 'react-easy-crop';
-import { dataURLtoBlob, getCroppedImg } from '@/utils/images';
+import { dataURLtoBlob, getCroppedImg } from '@/utils/images.utils';
 
 import { X } from 'lucide-react';
 import { Label } from '@/components/ui/label';

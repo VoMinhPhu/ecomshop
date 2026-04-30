@@ -5,13 +5,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
-import { useCreateCategory } from '@/hooks/api/categories';
+import { useCreateCategory } from '@/hooks/api/categories.hook';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
 import IconImageField from '@/components/common/fieldOfForm/FieldIconOfForm';
-import { createCategorySchema, CreateCategorySchema } from '@/schemas/categories';
+import { createCategorySchema, CreateCategorySchema } from '@/schemas/categories.schema';
 
 const CreateCategoyForm = () => {
   const { mutate: createCategoryMutate, isPending } = useCreateCategory();

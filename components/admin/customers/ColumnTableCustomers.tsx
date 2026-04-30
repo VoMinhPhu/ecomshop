@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import { ColumnDef } from '@tanstack/react-table';
 
-import { formatGender } from '@/utils/users';
+import { formatGender } from '@/utils/users.utils';
 
 import { DataTableColumnHeader } from '@/components/common/tables/data-table-column-header';
 
 import ActionTableCustomer from './ActionTableCustomers';
 
-import { UserListItem } from '@/types/users';
+import { UserListItem } from '@/types/users.type';
 
 export const columnsTableCustomers: ColumnDef<UserListItem>[] = [
   {

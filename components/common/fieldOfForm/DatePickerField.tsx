@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 
-import { convertDate } from '@/utils/date';
+import { convertDate } from '@/utils/date.utils';
 
 import { ChevronDownIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';

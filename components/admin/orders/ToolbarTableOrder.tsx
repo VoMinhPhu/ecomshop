@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { DataTableViewOptions } from '@/components/common/tables/toggle-column-visibility';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-import { OrderStatus, PaymentMethod } from '@/types/order';
+import { OrderStatus, PaymentMethod } from '@/types/order.type';
 import { statusMap, paymentMethodMap } from '@/constants/order';
 
 interface ToolbarTableOrderProps<TData> {

@@ -15,11 +15,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import SelectSearch from './SelectSearch';
 import { Separator } from '@/components/ui/separator';
-import { useUpdateAddress } from '@/hooks/api/address';
+import { useUpdateAddress } from '@/hooks/api/address.hook';
 import { cn } from '@/lib/utils';
 import { FilePen, Loader } from 'lucide-react';
-import { useGetProvinces } from '@/hooks/api/map';
-import { Province, Ward } from '@/types/map';
+import { useGetProvinces } from '@/hooks/api/map.hook';
+import { Province, Ward } from '@/types/map.type';
 
 type Props = {
   id: string;

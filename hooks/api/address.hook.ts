@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addAddress, deleteAddAddress, getAllAddress, setAddressDefault, updateAddress } from '@/lib/api/address';
+import { addAddress, deleteAddAddress, getAllAddress, setAddressDefault, updateAddress } from '@/lib/api/address.api';
 import { toast } from 'sonner';
 
 const useGetAllAddress = () => {

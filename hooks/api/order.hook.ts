@@ -14,9 +14,9 @@ import {
   updateStatusOrderFn,
   getDetailOrderByIdFn,
 } from '@/lib/api/order.api';
-import { paymentWithVnpayFn } from '@/lib/api/payment';
+import { paymentWithVnpayFn } from '@/lib/api/payment.api';
 
-import { GetAllOrderParams, PaymentMethod } from '@/types/order';
+import { GetAllOrderParams, PaymentMethod } from '@/types/order.type';
 
 const useGetOrder = () => {
   return useQuery({

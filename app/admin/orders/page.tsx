@@ -11,8 +11,8 @@ import {
   ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import { GetAllOrderData } from '@/types/order';
-import { getFilter } from '@/utils/tableFilter';
+import { GetAllOrderData } from '@/types/order.type';
+import { getFilter } from '@/utils/tableFilter.utils';
 
 import { useGetAllOrder } from '@/hooks/api/order.hook';
 import { useOrderTableParams } from '@/hooks/ui/useOrderTableParams';

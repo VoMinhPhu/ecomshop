@@ -8,9 +8,9 @@ import { LoaderIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { useUpdateAvatar } from '@/hooks/api/users';
+import { useUpdateAvatar } from '@/hooks/api/users.hook';
 import Cropper, { type Area } from 'react-easy-crop';
-import { dataURLtoBlob, getCroppedImg } from '@/utils/images';
+import { dataURLtoBlob, getCroppedImg } from '@/utils/images.utils';
 
 const CropAvatar = ({
   imageSrc,

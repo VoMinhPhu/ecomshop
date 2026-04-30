@@ -5,9 +5,9 @@ import { useState } from 'react';
 import ManageBuyProduct from './ManageBuyProduct';
 import DynamicProductInfoLoading from './DynamicProductInfoLoading';
 
-import { useGetDynamicProductInfoById } from '@/hooks/api/products';
+import { useGetDynamicProductInfoById } from '@/hooks/api/products.hook';
 
-import { formatCurrency } from '@/utils/number';
+import { formatCurrency } from '@/utils/number.utils';
 
 type Props = {
   productId: string;

@@ -19,12 +19,12 @@ import { Separator } from '@/components/ui/separator';
 
 import SelectSearch from './SelectSearch';
 
-import { useGetProvinces } from '@/hooks/api/map';
-import { useAddAddress } from '@/hooks/api/address';
+import { useGetProvinces } from '@/hooks/api/map.hook';
+import { useAddAddress } from '@/hooks/api/address.hook';
 
 import { cn } from '@/lib/utils';
 
-import { Province, Ward } from '@/types/map';
+import { Province, Ward } from '@/types/map.type';
 
 const AddNewAddressBtn = () => {
   const [wards, setWards] = useState<Ward[]>([]);

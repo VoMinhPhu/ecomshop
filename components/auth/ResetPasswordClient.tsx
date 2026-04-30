@@ -15,8 +15,8 @@ import { Form, FormField } from '@/components/ui/form';
 import PasswordInput from '@/components/auth/PasswordInput';
 import InputField from '@/components/common/fieldOfForm/InputField';
 
-import { useResetPassword } from '@/hooks/api/auth';
-import { formResetPasswordSchema, FormResetPasswordType } from '@/schemas/auth';
+import { useResetPassword } from '@/hooks/api/auth.hook';
+import { formResetPasswordSchema, FormResetPasswordType } from '@/schemas/auth.schema';
 
 import { cn } from '@/lib/utils';
 

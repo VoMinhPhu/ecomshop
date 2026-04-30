@@ -15,7 +15,7 @@ import {
   getPaginationRowModel,
 } from '@tanstack/react-table';
 
-import { useGetAllCategories } from '@/hooks/api/categories';
+import { useGetAllCategories } from '@/hooks/api/categories.hook';
 
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -25,7 +25,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 import ToolbarTableCategory from '@/components/admin/categories/ToolbarTableCategory';
 import PaginationTableCategory from '@/components/admin/categories/PaginationTableCategory';
-import { Category } from '@/types/categories';
+import { Category } from '@/types/categories.type';
 
 const Page = () => {
   const { data: categories, isLoading } = useGetAllCategories();

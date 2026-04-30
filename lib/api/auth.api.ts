@@ -1,6 +1,6 @@
-import { LoginPayload, RegisterPayload, ResetPasswordPayload } from '@/types/auth';
+import { LoginPayload, RegisterPayload, ResetPasswordPayload } from '@/types/auth.type';
 import axiosInstance from '../axiosInstance';
-import { FormChangePasswordType, FormForgotPasswordType, FormSetPasswordType } from '@/schemas/auth';
+import { FormChangePasswordType, FormForgotPasswordType, FormSetPasswordType } from '@/schemas/auth.schema';
 
 const loginFn = async (paload: LoginPayload) => {
   const { data } = await axiosInstance.post('/auth/login', paload, {

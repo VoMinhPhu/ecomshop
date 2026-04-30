@@ -10,7 +10,7 @@ import {
   AlertDialogDescription,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { useDeleteImageProduct } from '@/hooks/api/products';
+import { useDeleteImageProduct } from '@/hooks/api/products.hook';
 
 import { cn } from '@/lib/utils';
 

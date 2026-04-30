@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getAllUserFn, getDetailUserFn, getMeFn, updateAvatarFn, updateUserInfo } from '@/lib/api/users';
+import { getAllUserFn, getDetailUserFn, getMeFn, updateAvatarFn, updateUserInfo } from '@/lib/api/users.api';
 
 import { toast } from 'sonner';
-import { GetAllCustomerParams } from '@/types/users';
+import { GetAllCustomerParams } from '@/types/users.type';
 
 const useGetMe = () => {
   return useQuery({

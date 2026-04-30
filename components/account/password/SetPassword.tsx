@@ -1,7 +1,7 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { useSetPassword } from '@/hooks/api/auth';
+import { useSetPassword } from '@/hooks/api/auth.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { KeyRound, Loader } from 'lucide-react';
@@ -11,7 +11,7 @@ import { Form, FormField } from '@/components/ui/form';
 import PasswordInput from '@/components/auth/PasswordInput';
 
 import { cn } from '@/lib/utils';
-import { formSetPasswordSchema, FormSetPasswordType } from '@/schemas/auth';
+import { formSetPasswordSchema, FormSetPasswordType } from '@/schemas/auth.schema';
 
 export default function SetPassword() {
   const { mutate, isPending } = useSetPassword();

@@ -8,10 +8,10 @@ import { Loader } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
-import { UserInfo } from '@/types/users';
-import { updateUserInfoSchema, UpdateUserInfoType } from '@/schemas/user';
+import { UserInfo } from '@/types/users.type';
+import { updateUserInfoSchema, UpdateUserInfoType } from '@/schemas/user.schema';
 
-import { useUpdateUserInfo } from '@/hooks/api/users';
+import { useUpdateUserInfo } from '@/hooks/api/users.hook';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';

@@ -6,10 +6,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
 
-import { useUpdateProduct } from '@/hooks/api/products';
+import { useUpdateProduct } from '@/hooks/api/products.hook';
 
-import { CategoriesAndBrandsResponse } from '@/types/categories';
-import { GetProductByIdResponse } from '@/types/products';
+import { CategoriesAndBrandsResponse } from '@/types/categories.type';
+import { GetProductByIdResponse } from '@/types/products.type';
 
 import MangageImage from './ManageImages';
 import { Button } from '@/components/ui/button';
@@ -18,7 +18,7 @@ import InputField from '@/components/common/fieldOfForm/InputField';
 import SelectField from '@/components/common/fieldOfForm/SelectField';
 import MarkdownField from '@/components/admin/products/MarkdownField';
 import SelectHaveSearchField from '@/components/common/fieldOfForm/SelectHaveSearchField';
-import { updateProductSchema, UpdateProductSchema } from '@/schemas/products';
+import { updateProductSchema, UpdateProductSchema } from '@/schemas/products.schema';
 
 type Props = {
   categoriesAndBrands: CategoriesAndBrandsResponse<'id'>;

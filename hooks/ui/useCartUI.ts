@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import debounce from 'lodash.debounce';
-import { useUpdateQuantityCartItem } from '../api/cart';
+import { useUpdateQuantityCartItem } from '../api/cart.hook';
 
-import { CartItem } from '@/types/cart';
+import { CartItem } from '@/types/cart.type';
 
 export type CartUIState = {
   quantity: number;

@@ -5,7 +5,7 @@ import NewProducts from '@/components/home/NewProducts';
 import VerifyPopup from '@/components/home/VerifyPopup';
 import DiscountProducts from '@/components/home/DiscountProducts';
 
-import { getAllCategories } from '@/lib/server/product';
+import { getAllCategories } from '@/lib/server/product.server';
 
 export default async function Home({ searchParams }: { searchParams: { verify?: string } }) {
   const verify = (await searchParams).verify;

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import ProductCard from '../common/ProductCard';
-import { getNewProduct } from '@/lib/server/product';
+import { getNewProduct } from '@/lib/server/product.server';
 
 export default async function NewProducts() {
   const products = await getNewProduct();

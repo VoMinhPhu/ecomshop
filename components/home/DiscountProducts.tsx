@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getDiscountProducts } from '@/lib/server/product';
+import { getDiscountProducts } from '@/lib/server/product.server';
 
 import DiscountProductCard from './DiscountProductCard';
 

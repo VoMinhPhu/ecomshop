@@ -1,4 +1,4 @@
-import { Address } from '@/types/address';
+import { Address } from '@/types/address.type';
 import { Ellipsis } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } from '@/components/ui/dropdown-menu';
 

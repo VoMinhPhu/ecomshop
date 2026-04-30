@@ -6,7 +6,7 @@ import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from 'recharts';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { RevenueByDay } from '@/types/dashboard';
+import { RevenueByDay } from '@/types/dashboard.type';
 
 const chartConfig = {
   revenue: {

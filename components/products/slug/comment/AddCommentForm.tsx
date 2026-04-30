@@ -10,9 +10,9 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormField } from '@/components/ui/form';
 
-import { useAddComment } from '@/hooks/api/review';
+import { useAddComment } from '@/hooks/api/review.hook';
 
-import { addCommentSchema, AddCommentType } from '@/schemas/review';
+import { addCommentSchema, AddCommentType } from '@/schemas/review.schema';
 
 import { cn } from '@/lib/utils';
 

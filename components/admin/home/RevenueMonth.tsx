@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
-import { RevenueByDay } from '@/types/dashboard';
+import { RevenueByDay } from '@/types/dashboard.type';
 
 const chartConfig = {
   revenue: {

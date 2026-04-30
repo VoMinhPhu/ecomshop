@@ -1,4 +1,4 @@
-import { OrderStatus } from '@/types/order';
+import { OrderStatus } from '@/types/order.type';
 
 const formatStatusOrder = (status: OrderStatus): string => {
   switch (status) {

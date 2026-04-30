@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Category } from '@/types/categories';
+import { Category } from '@/types/categories.type';
 
 type Props = {
   categories: Category[];

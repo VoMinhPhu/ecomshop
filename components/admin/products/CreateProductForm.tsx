@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCreateProduct, useGetCategoriesAndBrands } from '@/hooks/api/products';
+import { useCreateProduct, useGetCategoriesAndBrands } from '@/hooks/api/products.hook';
 
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
@@ -17,7 +17,7 @@ import SelectHaveSearchField from '@/components/common/fieldOfForm/SelectHaveSea
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 
-import { createProductSchema, CreateProductSchema } from '@/schemas/products';
+import { createProductSchema, CreateProductSchema } from '@/schemas/products.schema';
 
 const CreateProductForm = () => {
   const { data } = useGetCategoriesAndBrands();

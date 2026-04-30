@@ -12,7 +12,7 @@ import successAnimation from '@/public/icons/success.json';
 import errorAnimation from '@/public/icons/errorAnimation.json';
 
 import useUserStore from '@/stores/userStore';
-import { useVerifyAccount } from '@/hooks/api/auth';
+import { useVerifyAccount } from '@/hooks/api/auth.hook';
 
 import { Button } from '../ui/button';
 import AuthPopup from '../auth/AuthPopup';

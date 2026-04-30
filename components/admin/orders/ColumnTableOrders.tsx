@@ -1,7 +1,7 @@
-import { GetAllOrderData } from '@/types/order';
+import { GetAllOrderData } from '@/types/order.type';
 import { ColumnDef } from '@tanstack/react-table';
 
-import { formatCurrency } from '@/utils/number';
+import { formatCurrency } from '@/utils/number.utils';
 import { statusMap, paymentMethodMap } from '@/constants/order';
 
 import { Badge } from '@/components/ui/badge';
