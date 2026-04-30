@@ -14,7 +14,7 @@ export type Reply = {
 export type Review = {
   id: string;
   user: {
-    id: number;
+    id: string;
     name: string;
     avatar: string;
   };

@@ -6,11 +6,15 @@ import { cn } from '@/lib/utils';
 import { Star } from 'lucide-react';
 import { Review } from '@/types/review';
 import AddReplyForm from './AddReplyForm';
+import OptionComment from './OptionComment';
+import useUserStore from '@/stores/userStore';
 
 export default function CommentItem({ item, level = 0 }: { item: Review; level?: number }) {
+  const user = useUserStore((s) => s.user);
+
   return (
     <div className={`my-2`} style={{ marginLeft: level * 40 }}>
-      <div className="flex gap-2 items-start">
+      <div className="flex gap-2 items-start group">
         <Image
           width={32}
           height={32}
@@ -19,7 +23,7 @@ export default function CommentItem({ item, level = 0 }: { item: Review; level?:
           className={cn('rounded-full border', item.role === 'admin' && 'border-red-500')}
         />
         <div className="flex-1">
-          <p className="font-semibold text-sm flex items-center gap-2">
+          <p className="font-semibold text-sm flex items-center gap-2 w-fit">
             {item.user.name}
             {item.role === 'admin' && <span className="text-xs text-blue-600">Admin</span>}
           </p>
@@ -35,6 +39,15 @@ export default function CommentItem({ item, level = 0 }: { item: Review; level?:
 
           <AddReplyForm name={item.user.name} commentId={item.id} level={level} />
         </div>
+        {user?.id === item.user.id || user?.role === 'admin' ? (
+          <OptionComment
+            commentId={item.id}
+            comment={item.comment}
+            rating={item.rating}
+            userId={item.user.id}
+            curentUserId={user.id}
+          />
+        ) : null}
       </div>
       {item.replies?.map((r: any) => (
         <CommentItem key={r.id} item={r} level={level + 1} />

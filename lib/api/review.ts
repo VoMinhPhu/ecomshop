@@ -1,6 +1,6 @@
 import { RatingSummary, ReplyCommentResponse, Review } from '@/types/review';
 import axiosInstance from '../axiosInstance';
-import { AddCommentType, ReplyCommentType } from '@/schemas/review';
+import { AddCommentType, ReplyCommentType, UpdateCommentType } from '@/schemas/review';
 
 const getRatingFn = async (productId: string): Promise<RatingSummary> => {
   const { data } = await axiosInstance.get(`/review/rating/${productId}`);
@@ -26,4 +26,18 @@ const replyCommentFn = async (payload: ReplyCommentType): Promise<ReplyCommentRe
   return data;
 };
 
-export { addCommentFn, replyCommentFn, getRatingFn, getReviewFn };
+const updateCommentFn = async (
+  payload: UpdateCommentType,
+): Promise<{ message: string; id: string; productId: string }> => {
+  const { data } = await axiosInstance.patch(`/review/comment/${payload.id}`, payload);
+
+  return data;
+};
+
+const deleteCommentFn = async (id: string): Promise<{ message: string; id: string; productId: string }> => {
+  const { data } = await axiosInstance.delete(`/review/comment/${id}`);
+
+  return data;
+};
+
+export { addCommentFn, replyCommentFn, getRatingFn, getReviewFn, updateCommentFn, deleteCommentFn };

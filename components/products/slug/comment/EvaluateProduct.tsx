@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 import useUserStore from '@/stores/userStore';
 
 import AuthPopup from '@/components/auth/AuthPopup';
-import { useGetRating, useGetReview } from '@/hooks/api/review';
+import { useGetRating, useGetReview } from '@/hooks/api/review.hook';
 
 type Props = {
   productId: string;
@@ -52,7 +52,7 @@ export default function EvaluateProduct({ productId }: Props) {
           <div>
             {ratingData?.ratings.map((r) => (
               <div key={r.star} className="flex gap-2 items-center">
-                <span className="flex items-center gap-1">
+                <span className="flex items-center gap-1 min-w-7 justify-end">
                   {r.star}
                   <Star className="size-3 fill-zinc-800 text-zinc-700" />
                 </span>
