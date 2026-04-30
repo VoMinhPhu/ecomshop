@@ -128,15 +128,15 @@ const Step1 = ({ id }: Props) => {
               name="shippingAddress"
               render={({ field }) => (
                 <FormItem className="gap-0">
-                  <p className="font-semibold mb-1 flex gap-2">
+                  <div className="font-semibold mb-1 flex gap-2">
                     Địa chỉ nhận hàng{' '}
                     <Label className="text-primary text-sm border-l-[2px] px-2 cursor-pointer">
                       Thêm điạ chỉ mới
-                      <span className="hidden">
+                      <div className="hidden">
                         <AddNewAddressBtn />
-                      </span>
+                      </div>
                     </Label>
-                  </p>
+                  </div>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger className="w-full">
