@@ -1,11 +1,11 @@
 import Image from 'next/image';
 
-import { formatCurrency } from '@/utils/number';
+import { formatCurrency } from '@/utils/number.utils';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import ManageQuantityBtn from './ManageQuantityBtn';
 
-import { CartItem, CartUIState } from '@/types/cart';
+import { CartItem, CartUIState } from '@/types/cart.type';
 
 type CartItemProps = {
   ui: CartUIState;

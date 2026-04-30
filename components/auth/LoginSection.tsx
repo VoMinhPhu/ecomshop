@@ -17,8 +17,8 @@ import PasswordInput from './PasswordInput';
 import InputField from '../common/fieldOfForm/InputField';
 
 import { cn } from '@/lib/utils';
-import { useLogin } from '@/hooks/api/auth';
-import { formLoginSchema, FormLoginType } from '@/schemas/auth';
+import { useLogin } from '@/hooks/api/auth.hook';
+import { formLoginSchema, FormLoginType } from '@/schemas/auth.schema';
 
 type Props = {
   closeDialogFn: React.Dispatch<SetStateAction<boolean>>;

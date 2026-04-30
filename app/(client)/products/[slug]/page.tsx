@@ -6,7 +6,7 @@ import RenderImages from '@/components/products/slug/RenderImages';
 import EvaluateProduct from '@/components/products/slug/comment/EvaluateProduct';
 import RenderDynamicProduct from '@/components/products/slug/RenderDynamicProduct';
 
-import { getStaticProductInfo } from '@/lib/server/product';
+import { getStaticProductInfo } from '@/lib/server/product.server';
 
 type PageProps = {
   params: Promise<{ slug: string }>;

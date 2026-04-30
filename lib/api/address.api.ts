@@ -1,4 +1,4 @@
-import { Address } from '@/types/address';
+import { Address } from '@/types/address.type';
 import axiosInstance from '../axiosInstance';
 
 const getAllAddress = async (): Promise<Address[]> => {

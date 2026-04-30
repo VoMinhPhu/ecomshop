@@ -1,5 +1,5 @@
 import axiosInstance from '../axiosInstance';
-import { CreateBrandSchema, UpdateBrandSchema } from '@/schemas/brands';
+import { CreateBrandSchema, UpdateBrandSchema } from '@/schemas/brands.schema';
 
 const getAllBrandsFn = async (): Promise<Brand[]> => {
   const { data } = await axiosInstance.get('/brands/all');

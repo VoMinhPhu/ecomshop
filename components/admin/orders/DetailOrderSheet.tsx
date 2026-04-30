@@ -7,8 +7,8 @@ import { Loader2, ScrollTextIcon } from 'lucide-react';
 import { useGetDetailOrderById } from '@/hooks/api/order.hook';
 
 import { formatDate } from 'date-fns';
-import { formatCurrency } from '@/utils/number';
-import { formatStatusOrder, getStatusColor } from '@/utils/order';
+import { formatCurrency } from '@/utils/number.utils';
+import { formatStatusOrder, getStatusColor } from '@/utils/order.utils';
 
 import { Button } from '@/components/ui/button';
 import UpdateStatusOrder from './update/UpdateStatusOrder';

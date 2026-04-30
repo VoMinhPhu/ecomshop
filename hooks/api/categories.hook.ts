@@ -8,9 +8,9 @@ import {
   getAllCategories,
   getCategoryById,
   updateCategory,
-} from '@/lib/api/categories';
+} from '@/lib/api/categories.api';
 
-import { Category } from '@/types/categories';
+import { Category } from '@/types/categories.type';
 
 const useGetAllCategories = () => {
   return useQuery<Category[]>({

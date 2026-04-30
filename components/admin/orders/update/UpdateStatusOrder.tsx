@@ -1,6 +1,6 @@
 'use client';
 
-import { OrderStatus } from '@/types/order';
+import { OrderStatus } from '@/types/order.type';
 
 import {
   DropdownMenu,

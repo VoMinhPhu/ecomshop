@@ -20,13 +20,13 @@ import {
   getProductWithFilterFn,
   getDynamicProductInsoByIdFn,
   getNameAndSlugOfCategoriesAndBrandsFn,
-} from '@/lib/api/products';
+} from '@/lib/api/products.api';
 
 import {
   GetProductByIdResponse,
   UseGetAllProductWithFilterParams,
   GetDynamicProductInsoBySlugResponse,
-} from '@/types/products';
+} from '@/types/products.type';
 
 const useGetCategoriesAndBrands = () => {
   return useQuery({

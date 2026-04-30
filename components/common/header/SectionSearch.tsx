@@ -11,8 +11,8 @@ import { Input } from '../../ui/input';
 import { Button } from '../../ui/button';
 
 import { cn } from '@/lib/utils';
-import { formatCurrency } from '@/utils/number';
-import { useSearchProduct } from '@/hooks/api/products';
+import { formatCurrency } from '@/utils/number.utils';
+import { useSearchProduct } from '@/hooks/api/products.hook';
 
 const SectionSearch = () => {
   const [category, setCategory] = useState<boolean>(false);

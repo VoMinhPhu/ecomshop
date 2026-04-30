@@ -1,6 +1,6 @@
-import { RatingSummary, ReplyCommentResponse, Review } from '@/types/review';
+import { RatingSummary, ReplyCommentResponse, Review } from '@/types/review.type';
 import axiosInstance from '../axiosInstance';
-import { AddCommentType, ReplyCommentType, UpdateCommentType } from '@/schemas/review';
+import { AddCommentType, ReplyCommentType, UpdateCommentType } from '@/schemas/review.schema';
 
 const getRatingFn = async (productId: string): Promise<RatingSummary> => {
   const { data } = await axiosInstance.get(`/review/rating/${productId}`);

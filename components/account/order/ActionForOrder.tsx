@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import CancelOrderBtn from './CancelOrderBtn';
-import { OrderStatus, PaymentMethod } from '@/types/order';
+import { OrderStatus, PaymentMethod } from '@/types/order.type';
 
 type Props = {
   orderId: string;

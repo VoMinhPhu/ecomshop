@@ -1,5 +1,5 @@
-import { Category } from '@/types/categories';
-import { GetProductBySlugResponse, NewProductsResponseType, TopSellResponseType } from '@/types/products';
+import { Category } from '@/types/categories.type';
+import { GetProductBySlugResponse, NewProductsResponseType, TopSellResponseType } from '@/types/products.type';
 
 export async function getTopSell(): Promise<TopSellResponseType> {
   try {

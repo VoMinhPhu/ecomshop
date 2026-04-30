@@ -1,4 +1,4 @@
-import { OrderStatus, PaymentMethod } from './order';
+import { OrderStatus, PaymentMethod } from './order.type';
 
 //Card
 type MetricCompare = {

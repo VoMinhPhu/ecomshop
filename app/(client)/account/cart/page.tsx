@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { Loader, ShoppingCart } from 'lucide-react';
 
 import { useCreateOrder } from '@/hooks/api/order.hook';
-import { useGetUserCart } from '@/hooks/api/cart';
+import { useGetUserCart } from '@/hooks/api/cart.hook';
 import { useCartUI } from '@/hooks/ui/useCartUI';
 
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,7 @@ import RenderCartItem from '@/components/account/cart/RenderCartItem';
 import RemoveCartItemBtn from '@/components/account/cart/RemoveCartItemBtn';
 
 import { cn } from '@/lib/utils';
-import { formatCurrency } from '@/utils/number';
+import { formatCurrency } from '@/utils/number.utils';
 
 const Page = () => {
   const { data: carts, isLoading } = useGetUserCart();

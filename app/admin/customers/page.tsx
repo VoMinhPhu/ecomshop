@@ -16,11 +16,11 @@ import { columnsTableCustomers } from '@/components/admin/customers/ColumnTableC
 import PaginationTableCustomers from '@/components/admin/customers/PaginationTableCustomers';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { useGetAllUser } from '@/hooks/api/users';
-import { getFilter } from '@/utils/tableFilter';
+import { useGetAllUser } from '@/hooks/api/users.hook';
+import { getFilter } from '@/utils/tableFilter.utils';
 import { useCustomersTableParams } from '@/hooks/ui/useCustomerTableParams';
 
-import { UserListItem } from '@/types/users';
+import { UserListItem } from '@/types/users.type';
 
 export default function page() {
   const [sorting, setSorting] = useState<SortingState>([]);

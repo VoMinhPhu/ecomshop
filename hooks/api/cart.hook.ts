@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { toast } from 'sonner';
-import { addProductToCart, getUserCartFn, removeCartItemsFn, updateQuantityCartItemFn } from '@/lib/api/cart';
+import { addProductToCart, getUserCartFn, removeCartItemsFn, updateQuantityCartItemFn } from '@/lib/api/cart.api';
 
 const useGetUserCart = () => {
   return useQuery({

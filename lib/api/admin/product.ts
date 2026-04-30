@@ -6,9 +6,9 @@ import {
   ChangeThumbnailSchema,
   AddNewImageProductSchema,
   UpdateImageProductSchema,
-} from '@/schemas/products';
-import { CategoriesAndBrandsResponse } from '@/types/categories';
-import { FilterProducts, GetAllProductResponseType, GetProductByIdResponse } from '@/types/products';
+} from '@/schemas/products.schema';
+import { CategoriesAndBrandsResponse } from '@/types/categories.type';
+import { FilterProducts, GetAllProductResponseType, GetProductByIdResponse } from '@/types/products.type';
 
 const getCategoriesAndBrandsFn = async (): Promise<CategoriesAndBrandsResponse<'id'>> => {
   const { data } = await axiosInstance.get('/category/categories-brands');

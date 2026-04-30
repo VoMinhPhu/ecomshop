@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useUpdateBrand } from '@/hooks/api/brands';
+import { useUpdateBrand } from '@/hooks/api/brands.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
 import IconImageField from '@/components/common/fieldOfForm/FieldIconOfForm';
-import { updateBrandSchema, UpdateBrandSchema } from '@/schemas/brands';
+import { updateBrandSchema, UpdateBrandSchema } from '@/schemas/brands.schema';
 
 type Props = {
   data: Brand;

@@ -1,4 +1,4 @@
-import { Province, Ward } from '@/types/map';
+import { Province, Ward } from '@/types/map.type';
 
 export const getProvinces = async (): Promise<Province[]> => {
   const res = await fetch('https://provinces.open-api.vn/api/v2/p/');

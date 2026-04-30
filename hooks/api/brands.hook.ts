@@ -2,9 +2,9 @@ import { toast } from 'sonner';
 import { AxiosError } from 'axios';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createBrandFn, deleteBrandFn, getAllBrandsFn, getBrandByIdFn, updateBrandFn } from '@/lib/api/brands';
+import { createBrandFn, deleteBrandFn, getAllBrandsFn, getBrandByIdFn, updateBrandFn } from '@/lib/api/brands.api';
 
-import { Category } from '@/types/categories';
+import { Category } from '@/types/categories.type';
 
 const useGetAllBrands = () => {
   return useQuery<Category[]>({

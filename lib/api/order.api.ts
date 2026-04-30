@@ -8,7 +8,7 @@ import {
   GetAllOrderParams,
   CreateSingleOrderType,
   GetOrdersDetailResponse,
-} from '@/types/order';
+} from '@/types/order.type';
 import axiosInstance from '../axiosInstance';
 
 const createOrderFn = async (payload: CreateOrderType): Promise<{ orderCode: string; id: string }> => {

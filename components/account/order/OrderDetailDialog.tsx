@@ -3,10 +3,10 @@ import { CalendarIcon, CreditCardIcon, DotIcon, PackageIcon, PhoneIcon } from 'l
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
-import { Order, OrderStatus } from '@/types/order';
+import { Order, OrderStatus } from '@/types/order.type';
 
-import { formatCurrency } from '@/utils/number';
-import { formatStatusOrder, getStatusColor } from '@/utils/order';
+import { formatCurrency } from '@/utils/number.utils';
+import { formatStatusOrder, getStatusColor } from '@/utils/order.utils';
 
 import ActionForOrder from './ActionForOrder';
 

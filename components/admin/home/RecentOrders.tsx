@@ -4,15 +4,15 @@ import Link from 'next/link';
 
 import { formatDate } from 'date-fns';
 
-import { formatCurrency } from '@/utils/number';
-import { useGetRecentOrders } from '@/hooks/api/dashboard';
+import { formatCurrency } from '@/utils/number.utils';
+import { useGetRecentOrders } from '@/hooks/api/dashboard.hook';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableRow, TableBody, TableCell, TableHead, TableHeader, TableCaption } from '@/components/ui/table';
 
-import { RecentOrder } from '@/types/dashboard';
+import { RecentOrder } from '@/types/dashboard.type';
 import { paymentMethodMap, statusMap } from '@/constants/order';
 
 export default function RecentOrders() {

@@ -6,14 +6,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
-import { useUpdateCategory } from '@/hooks/api/categories';
+import { useUpdateCategory } from '@/hooks/api/categories.hook';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import InputField from '@/components/common/fieldOfForm/InputField';
 import IconImageField from '@/components/common/fieldOfForm/FieldIconOfForm';
-import { updateCategorySchema, UpdateCategorySchema } from '@/schemas/categories';
-import { Category } from '@/types/categories';
+import { updateCategorySchema, UpdateCategorySchema } from '@/schemas/categories.schema';
+import { Category } from '@/types/categories.type';
 
 type Props = {
   data: Category;

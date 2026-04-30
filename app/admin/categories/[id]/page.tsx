@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 
-import { useGetCategoryById } from '@/hooks/api/categories';
+import { useGetCategoryById } from '@/hooks/api/categories.hook';
 
 import ProductNotFound from '@/components/admin/products/ProductNotFound';
 import UpdateCategoryForm from '@/components/admin/categories/update/UpdateCategoryForm';

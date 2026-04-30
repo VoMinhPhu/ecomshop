@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 
-import { useGetBrandById } from '@/hooks/api/brands';
+import { useGetBrandById } from '@/hooks/api/brands.hook';
 
 import ProductNotFound from '@/components/admin/products/ProductNotFound';
 import UpdateBrandForm from '@/components/admin/brands/update/UpdateBrandForm';

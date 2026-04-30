@@ -8,8 +8,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Loader, LogIn } from 'lucide-react';
 
-import { useRegister } from '@/hooks/api/auth';
-import { FormRegisterType, formRegiterSchema } from '@/schemas/auth';
+import { useRegister } from '@/hooks/api/auth.hook';
+import { FormRegisterType, formRegiterSchema } from '@/schemas/auth.schema';
 import { cn } from '@/lib/utils';
 
 import { Button } from '../ui/button';

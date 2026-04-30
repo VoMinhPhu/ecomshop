@@ -12,7 +12,7 @@ import { Form, FormField } from '@/components/ui/form';
 
 import { useAddComment } from '@/hooks/api/review.hook';
 
-import { addCommentSchema, AddCommentType } from '@/schemas/review';
+import { addCommentSchema, AddCommentType } from '@/schemas/review.schema';
 
 import { cn } from '@/lib/utils';
 

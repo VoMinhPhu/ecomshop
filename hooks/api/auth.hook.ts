@@ -14,7 +14,7 @@ import {
   verifyAccountFn,
   changePasswordFn,
   forgotPasswordFn,
-} from '@/lib/api/auth';
+} from '@/lib/api/auth.api';
 
 const useLogin = () => {
   const queryClient = useQueryClient();
@@ -37,13 +37,13 @@ const useLogin = () => {
       if (error.response?.status === 401) {
         toast.error('Đăng nhập', {
           description: 'Tài khoản hoặc mật khẩu không chính xác.',
-          duration: 2500,
+          duration: 2000,
         });
         return;
       }
       toast.error('Đăng nhập', {
         description: 'Đã có lỗi xảy ra, vui lòng thử lại.',
-        duration: 3500,
+        duration: 2500,
       });
     },
   });
@@ -173,7 +173,7 @@ const useLogout = () => {
     onSuccess: () => {
       toast.success('Đăng xuất', {
         description: 'Đăng xuất thành công.',
-        duration: 3000,
+        duration: 1800,
       });
       setTimeout(() => {
         clearUser();

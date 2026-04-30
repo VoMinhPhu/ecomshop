@@ -1,4 +1,4 @@
-import { paymentIntentFn } from '@/lib/api/payment';
+import { paymentIntentFn } from '@/lib/api/payment.api';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 

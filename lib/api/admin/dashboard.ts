@@ -1,5 +1,5 @@
 import axiosInstance from '@/lib/axiosInstance';
-import { DashboardOverviewResponse, RecentOrdersResponse, RevenueChartResponse } from '@/types/dashboard';
+import { DashboardOverviewResponse, RecentOrdersResponse, RevenueChartResponse } from '@/types/dashboard.type';
 
 const getOverviewCardDataFn = async (): Promise<DashboardOverviewResponse> => {
   const { data } = await axiosInstance.get('/admin/dashboard');

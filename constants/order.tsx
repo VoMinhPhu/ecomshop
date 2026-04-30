@@ -1,6 +1,6 @@
 import { JSX } from 'react';
 import Image from 'next/image';
-import { OrderStatus, PaymentMethod } from '@/types/order';
+import { OrderStatus, PaymentMethod } from '@/types/order.type';
 import { CircleCheck, Loader, XCircle } from 'lucide-react';
 
 export const statusMap: Record<OrderStatus, { label: string; icon: JSX.Element }> = {

@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Dot } from 'lucide-react';
 
-import { Order, OrderStatus } from '@/types/order';
-import { formatCurrency } from '@/utils/number';
-import { formatStatusOrder, getStatusColor } from '@/utils/order';
+import { Order, OrderStatus } from '@/types/order.type';
+import { formatCurrency } from '@/utils/number.utils';
+import { formatStatusOrder, getStatusColor } from '@/utils/order.utils';
 
 import OrderDetailDialog from './OrderDetailDialog';
 type Props = {

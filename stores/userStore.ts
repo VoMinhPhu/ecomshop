@@ -1,4 +1,4 @@
-import { UserInfo, UserState } from '@/types/users';
+import { UserInfo, UserState } from '@/types/users.type';
 import { create } from 'zustand';
 
 const useUserStore = create<UserState>((set) => ({

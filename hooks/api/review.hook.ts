@@ -8,7 +8,7 @@ import {
   getReviewFn,
   replyCommentFn,
   updateCommentFn,
-} from '@/lib/api/review';
+} from '@/lib/api/review.api';
 
 const useGetRating = (productId: string) => {
   return useQuery({

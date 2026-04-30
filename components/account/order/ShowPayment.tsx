@@ -2,10 +2,10 @@
 
 import { cn } from '@/lib/utils';
 import Lottie from 'lottie-react';
-import { formatCurrency } from '@/utils/number';
+import { formatCurrency } from '@/utils/number.utils';
 import { useGetTotalOrder } from '@/hooks/api/order.hook';
 
-import { PaymentMethod } from '@/types/order';
+import { PaymentMethod } from '@/types/order.type';
 
 import { StripeCheckout } from './CheckoutForm';
 

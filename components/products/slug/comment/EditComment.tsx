@@ -20,7 +20,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Form, FormField } from '@/components/ui/form';
 
 import { useEditComment } from '@/hooks/api/review.hook';
-import { updateCommentSchema, UpdateCommentType } from '@/schemas/review';
+import { updateCommentSchema, UpdateCommentType } from '@/schemas/review.schema';
 import { cn } from '@/lib/utils';
 
 type Props = {
