@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function ProductsLayout({ children }: { children: React.ReactNode }) {
-  return <div className="bg-zinc-100 pt-5 pb-10 min-h-[calc(100vh-400px)]">{children}</div>;
+  return <div className="bg-zinc-100 md:pt-3 pt-1.5 pb-10 min-h-[calc(100vh-400px)]">{children}</div>;
 }
