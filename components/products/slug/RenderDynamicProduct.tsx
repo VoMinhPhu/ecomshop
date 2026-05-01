@@ -47,7 +47,7 @@ export default function RenderDynamicProduct({ productId }: Props) {
         </h3>
       </div>
 
-      <ManageBuyProduct productId={productId} quantity={quantity} setQuantity={setQuantity} />
+      <ManageBuyProduct productId={productId} quantity={quantity} setQuantity={setQuantity} stock={dataDynamic.stock} />
     </>
   );
 }

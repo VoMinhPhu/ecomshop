@@ -14,11 +14,12 @@ import { Loader, MinusIcon, PlusIcon, ShoppingCartIcon } from 'lucide-react';
 
 type Props = {
   productId: string;
+  stock: number;
   quantity: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function ManageBuyProduct({ productId, quantity, setQuantity }: Props) {
+export default function ManageBuyProduct({ productId, quantity, setQuantity, stock }: Props) {
   const [openAuth, setOpenAuth] = useState<boolean>(false);
 
   const { mutate: addProductToCartMutate, isPending } = useAddProductToCart();
@@ -26,8 +27,10 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity }: P
   const user = useUserStore((s) => s.user);
 
   const handleUpdateQuantity = (action: 'increase' | 'decrease') => {
-    if (action === 'increase') {
-      setQuantity((prev) => prev + 1);
+    if (action === 'increase' ) {
+      if (quantity < stock) { 
+        setQuantity((prev) => prev + 1);
+      }
     } else {
       setQuantity((prev) => (prev === 1 ? 1 : prev - 1));
     }
@@ -48,8 +51,8 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity }: P
   };
 
   return (
-    <div className="md:absolute fixed bg-white rounded-br-sm z-10 bottom-0 px-8 w-full left-0 pb-4">
-      <div className="mb-6 flex items-center">
+    <div className="md:absolute fixed bg-white border-t-[0.5] rounded-br-sm z-10 bottom-0 md:px-8 px-3 w-full left-0 md:pb-4 pb-1">
+      <div className="mb-6 flex items-center md:justify-start justify-between">
         <div className="mr-10">Số Lượng:</div>
         <div className="flex items-center justify-start gap-2 mt-3">
           <button
@@ -63,8 +66,9 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity }: P
           <span className="px-16 h-10 flex items-center border rounded-sm text-center">{quantity}</span>
 
           <button
+            disabled={quantity === stock}
             onClick={() => handleUpdateQuantity('increase')}
-            className="flex items-center justify-center border h-10 w-10 rounded-sm"
+            className='flex items-center justify-center border h-10 w-10 rounded-sm disabled:opacity-50'
           >
             <PlusIcon className="size-4.5" />
           </button>
