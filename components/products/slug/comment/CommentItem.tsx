@@ -4,10 +4,12 @@ import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
 import { Star } from 'lucide-react';
+import useUserStore from '@/stores/userStore';
+
 import { Review } from '@/types/review.type';
+
 import AddReplyForm from './AddReplyForm';
 import OptionComment from './OptionComment';
-import useUserStore from '@/stores/userStore';
 
 export default function CommentItem({ item, level = 0 }: { item: Review; level?: number }) {
   const user = useUserStore((s) => s.user);
@@ -45,6 +47,7 @@ export default function CommentItem({ item, level = 0 }: { item: Review; level?:
             comment={item.comment}
             rating={item.rating}
             userId={item.user.id}
+            userRole={user.role}
             curentUserId={user.id}
           />
         ) : null}
