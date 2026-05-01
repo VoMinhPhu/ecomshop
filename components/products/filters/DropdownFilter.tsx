@@ -30,7 +30,11 @@ const DropdownFilter = ({ items, selectedItems, onToggle, onClear }: Props) => {
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="md:max-w-96 max-w-sm px-4 py-3 md:ml-2" align="end">
+      <DropdownMenuContent
+        className="md:max-w-96 w-[calc(100vw)] md:w-auto px-4 py-3 md:ml-2"
+        align="center"
+        sideOffset={8}
+      >
         <div className="flex flex-wrap gap-2 max-h-56 scrollbar-hide overflow-y-scroll">
           {items.map((item) => (
             <span
