@@ -14,6 +14,7 @@ import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { FileBox, KeyRound, LayoutDashboard, Loader, LogInIcon, LogOut, MapPin, Package, User } from 'lucide-react';
 
 import AuthPopup from '@/components/auth/AuthPopup';
+import { UserRole } from '@/types/users.type';
 
 const UserMenuHeader = () => {
   const [openAuth, setOpenAuth] = useState(false);
@@ -101,7 +102,7 @@ const UserMenuHeader = () => {
               href="/admin"
               className={cn(
                 'flex items-center w-full py-1 hover:text-primary text-[15px]',
-                user.role !== 'admin' && 'hidden',
+                user.role !== UserRole.ADMIN && 'hidden',
               )}
             >
               <LayoutDashboard size={18} className="mr-2" strokeWidth={1.75} />

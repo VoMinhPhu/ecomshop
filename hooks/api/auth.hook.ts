@@ -41,6 +41,13 @@ const useLogin = () => {
         });
         return;
       }
+      if (error.response?.status === 403) {
+        toast.error('Đăng nhập', {
+          description: 'Tài khoản của bạn đã bị cấm sử dụng.',
+          duration: 2000,
+        });
+        return;
+      }
       toast.error('Đăng nhập', {
         description: 'Đã có lỗi xảy ra, vui lòng thử lại.',
         duration: 2500,

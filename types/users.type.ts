@@ -2,14 +2,25 @@ export interface UserInfo {
   id: string;
   email: string;
   avatar: string | null;
-  status: string;
+  status: AccountStatus;
   name: string;
   phone: string | null;
-  role: string;
+  role: UserRole;
   gender: null | 'male' | 'female';
   dateOfBirth: string | null;
   isVerified: boolean;
   hasPassword: boolean;
+}
+
+export enum UserRole {
+  ADMIN = 'admin',
+  USER = 'user',
+}
+
+export enum AccountStatus {
+  ACTIVE = 'active',
+  UNACTIVE = 'unactive',
+  BANNED = 'banned',
 }
 
 export interface UserState {
@@ -22,6 +33,7 @@ export interface UserListItem {
   id: string;
   name: string;
   email: string;
+  status: AccountStatus;
   phone: string | null;
   avatar: string | null;
   gender: null | 'male' | 'female';

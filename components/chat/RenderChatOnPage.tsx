@@ -1,5 +1,7 @@
 'use client';
 
+import { UserRole } from '@/types/users.type';
+
 import useUserStore from '@/stores/userStore';
 
 import AdminChat from './AdminChat';
@@ -10,7 +12,7 @@ export default function RenderChatOnPage() {
 
   if (!userRole) return null;
 
-  if (userRole === 'admin') {
+  if (userRole === UserRole.ADMIN) {
     return <AdminChat />;
   }
 

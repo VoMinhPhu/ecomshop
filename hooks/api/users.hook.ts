@@ -1,8 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getAllUserFn, getDetailUserFn, getMeFn, updateAvatarFn, updateUserInfo } from '@/lib/api/users.api';
+import {
+  getMeFn,
+  getAllUserFn,
+  updateAvatarFn,
+  updateUserInfo,
+  getDetailUserFn,
+  updateAccountStatusFn,
+} from '@/lib/api/users.api';
 
 import { toast } from 'sonner';
-import { GetAllCustomerParams } from '@/types/users.type';
+import { AccountStatus, GetAllCustomerParams } from '@/types/users.type';
 
 const useGetMe = () => {
   return useQuery({
@@ -78,4 +85,34 @@ const useUpdateUserInfo = () => {
   });
 };
 
-export { useGetMe, useGetDetailUser, useGetAllUser, useUpdateAvatar, useUpdateUserInfo };
+const useUpdateAccountStatus = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateAccountStatusFn,
+    onSuccess: (data) => {
+      if (data.accountStatus === AccountStatus.ACTIVE) {
+        toast.success('Kích hoạt tài khoản', {
+          description: 'Kích hoạt tài khoản thành công.',
+          duration: 2500,
+        });
+      } else if (data.accountStatus === AccountStatus.BANNED) {
+        toast.success('Cấm tài khoản', {
+          description: 'Cấm tài khoản thành công.',
+          duration: 2500,
+        });
+      }
+
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+      queryClient.invalidateQueries({ queryKey: ['user', 'detail', data.userId] });
+    },
+    onError: () => {
+      toast.error('Cập nhật thông tin', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2500,
+      });
+    },
+  });
+};
+
+export { useGetMe, useGetDetailUser, useGetAllUser, useUpdateAvatar, useUpdateUserInfo, useUpdateAccountStatus };
