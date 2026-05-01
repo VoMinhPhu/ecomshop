@@ -23,7 +23,7 @@ const DropdownFilter = ({ items, selectedItems, onToggle, onClear }: Props) => {
   if (!items.length) return null;
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="rounded-full">
           <Filter size={12} className="text-zinc-500" />

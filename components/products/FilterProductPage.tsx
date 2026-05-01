@@ -58,7 +58,7 @@ const FilterProductPage = ({ data }: Props) => {
         </div>
         <div className="w-60 flex items-start md:justify-end justify-start mt-2 md:mt-0">
           <div className="flex gap-2 items-center justify-end">
-            <p className="text-sm">Sắp xếp theo:</p>
+            <p className="text-sm w-24">Sắp xếp theo:</p>
             <SortFilter value={filter.sort} onChange={filter.setSort} />
           </div>
         </div>
