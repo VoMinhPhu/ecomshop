@@ -25,6 +25,12 @@ export const updateCommentSchema = z.object({
     .refine((v) => Number.isInteger(Number(v)) && Number(v) >= 0, 'Số sao không hợp lệ'),
 });
 
+export const updateReplySchema = z.object({
+  id: z.string().min(1, 'ID là bắt buộc'),
+  comment: z.string().trim().min(1, 'Đánh giá sản phẩm'),
+});
+
 export type AddCommentType = z.infer<typeof addCommentSchema>;
+export type UpdateReplyType = z.infer<typeof updateReplySchema>;
 export type ReplyCommentType = z.infer<typeof replyCommentSchema>;
 export type UpdateCommentType = z.infer<typeof updateCommentSchema>;

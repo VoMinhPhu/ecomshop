@@ -2,11 +2,13 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import {
-  addCommentFn,
-  deleteCommentFn,
   getRatingFn,
   getReviewFn,
+  addCommentFn,
+  updateReplyFn,
+  deleteReplyFn,
   replyCommentFn,
+  deleteCommentFn,
   updateCommentFn,
 } from '@/lib/api/review.api';
 
@@ -89,6 +91,28 @@ const useEditComment = () => {
   });
 };
 
+const useEditReply = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateReplyFn,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['comment', data.productId] });
+
+      toast.success('Chỉnh sửa phản hồi', {
+        description: 'Chỉnh sửa phản hồi thành công',
+        duration: 1500,
+      });
+    },
+    onError: () => {
+      toast.error('Chỉnh sửa phản hồi', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2000,
+      });
+    },
+  });
+};
+
 const useDeleteComment = () => {
   const queryClient = useQueryClient();
 
@@ -112,4 +136,35 @@ const useDeleteComment = () => {
   });
 };
 
-export { useGetRating, useGetReview, useAddComment, useReplyComment, useEditComment, useDeleteComment };
+const useDeleteReply = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteReplyFn,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['comment', data.productId] });
+
+      toast.success('Xóa phản hồi', {
+        description: 'Xóa phản hồi thành công',
+        duration: 1500,
+      });
+    },
+    onError: () => {
+      toast.error('Xóa phản hồi', {
+        description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
+        duration: 2000,
+      });
+    },
+  });
+};
+
+export {
+  useEditReply,
+  useGetRating,
+  useGetReview,
+  useAddComment,
+  useDeleteReply,
+  useEditComment,
+  useReplyComment,
+  useDeleteComment,
+};
