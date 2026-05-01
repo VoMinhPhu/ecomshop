@@ -1,21 +1,20 @@
 'use client';
 
 import { useProductFilter } from '@/hooks/ui/useProductFilter';
-import { useGetNameAndSlugOfCategoriesAndBrands } from '@/hooks/api/products.hook';
+import { CategoriesAndBrandsResponse } from '@/types/categories.type';
 
 import SortFilter from './filters/SortFilter';
 import BrandFilter from './filters/BrandFilter';
 import PriceFilter from './filters/PriceFilter';
 import ActiveFilters from './filters/ActiveFilters';
 import CategoryFilter from './filters/CategoryFilter';
-import FilterProductLoading from './FilterProductLoading';
 
-const FilterProductPage = () => {
+interface Props {
+  data: CategoriesAndBrandsResponse<'slug'>;
+}
+
+const FilterProductPage = ({ data }: Props) => {
   const filter = useProductFilter();
-  const { data, isLoading } = useGetNameAndSlugOfCategoriesAndBrands();
-
-  if (isLoading) return <FilterProductLoading />;
-  if (!data) return null;
 
   return (
     <div className="bg-white pt-3 pb-6 px-2 border rounded-sm">
@@ -29,7 +28,6 @@ const FilterProductPage = () => {
           }
           onClear={() => filter.setBrands([])}
         />
-
         <CategoryFilter
           className="col-span-2"
           categories={data.categories}
@@ -46,7 +44,7 @@ const FilterProductPage = () => {
       <PriceFilter {...filter} />
       <div className="md:flex">
         <div className="flex-1 flex flex-wrap">
-          <p className="mr-2 text-sm">Bộ lọc hiên tại:</p>
+          <p className="mr-2 text-sm">Bộ lọc hiện tại:</p>
           <ActiveFilters
             {...filter}
             data={data}
@@ -60,7 +58,7 @@ const FilterProductPage = () => {
         </div>
         <div className="w-60 flex items-start md:justify-end justify-start mt-2 md:mt-0">
           <div className="flex gap-2 items-center justify-end">
-            <p className="text-sm">Sắp xếp theo:</p>
+            <p className="text-sm w-24">Sắp xếp theo:</p>
             <SortFilter value={filter.sort} onChange={filter.setSort} />
           </div>
         </div>

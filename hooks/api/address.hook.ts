@@ -35,14 +35,14 @@ const useSetAddressDefault = () => {
   return useMutation({
     mutationFn: setAddressDefault,
     onSuccess: () => {
-      toast.success('Thêm địa chỉ mặc định', {
-        description: 'Thêm địa chỉ mặc định thành công.',
+      toast.success('Đặt địa chỉ mặc định', {
+        description: 'Đặt địa chỉ mặc định thành công.',
         duration: 2500,
       });
       queryClient.invalidateQueries({ queryKey: ['address'] });
     },
     onError: () => {
-      toast.error('Thêm địa chỉ mặc định', {
+      toast.error('Đặt địa chỉ mặc định', {
         description: 'Có lỗi xảy ra, vui lòng thử lại sau.',
         duration: 2500,
       });

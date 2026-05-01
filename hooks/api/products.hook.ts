@@ -6,6 +6,7 @@ import {
   createProductFn,
   updateProductFn,
   getAllProductFn,
+  deleteProductFn,
   getProductByIdFn,
   changeThumbnailFn,
   updateImageProductFn,
@@ -13,33 +14,15 @@ import {
   addNewImagesProductFn,
   getCategoriesAndBrandsFn,
   getCategoriesAndBrandsToFilterFn,
-  deleteProductFn,
 } from '@/lib/api/admin/product';
-import {
-  searchProductFn,
-  getProductWithFilterFn,
-  getDynamicProductInsoByIdFn,
-  getNameAndSlugOfCategoriesAndBrandsFn,
-} from '@/lib/api/products.api';
+import { searchProductFn, getDynamicProductInsoByIdFn } from '@/lib/api/products.api';
 
-import {
-  GetProductByIdResponse,
-  UseGetAllProductWithFilterParams,
-  GetDynamicProductInsoBySlugResponse,
-} from '@/types/products.type';
+import { GetProductByIdResponse, GetDynamicProductInsoBySlugResponse } from '@/types/products.type';
 
 const useGetCategoriesAndBrands = () => {
   return useQuery({
     queryKey: ['category', 'brand'],
     queryFn: getCategoriesAndBrandsFn,
-    staleTime: 1000 * 60 * 30,
-  });
-};
-
-const useGetNameAndSlugOfCategoriesAndBrands = () => {
-  return useQuery({
-    queryKey: ['category', 'brand', 'slug'],
-    queryFn: getNameAndSlugOfCategoriesAndBrandsFn,
     staleTime: 1000 * 60 * 30,
   });
 };
@@ -269,33 +252,6 @@ const useSearchProduct = (query: string) => {
   });
 };
 
-const useGetAllProductWithFilter = ({
-  sort,
-  page,
-  limit,
-  brand,
-  search,
-  category,
-  minPrice,
-  maxPrice,
-}: UseGetAllProductWithFilterParams) => {
-  return useQuery({
-    queryKey: ['products', page, limit, search, brand, category, minPrice, maxPrice, sort],
-    queryFn: () =>
-      getProductWithFilterFn({
-        page,
-        sort,
-        limit,
-        brand,
-        search,
-        category,
-        minPrice,
-        maxPrice,
-      }),
-    staleTime: 1000 * 60 * 30,
-  });
-};
-
 const useGetProductById = (id?: string) => {
   return useQuery<GetProductByIdResponse>({
     queryKey: ['products', id],
@@ -326,8 +282,6 @@ export {
   useDeleteImageProduct,
   useAddNewImagesProduct,
   useGetCategoriesAndBrands,
-  useGetAllProductWithFilter,
   useGetDynamicProductInfoById,
   useGetCategoriesAndBrandsToFilter,
-  useGetNameAndSlugOfCategoriesAndBrands,
 };
