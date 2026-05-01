@@ -1,6 +1,6 @@
-import { GetAllCustomerParams, GetDetailUser, UserInfo, UserListResponse } from '@/types/users.type';
+import { AccountStatus, GetAllCustomerParams, GetDetailUser, UserInfo, UserListResponse } from '@/types/users.type';
 import axiosInstance from '../axiosInstance';
-import { UpdateUserInfoType } from '@/schemas/user.schema';
+import { UpdateAccountStatus, UpdateUserInfoType } from '@/schemas/user.schema';
 
 const getMeFn = async (): Promise<UserInfo> => {
   const { data } = await axiosInstance.get('/users/me');
@@ -34,4 +34,11 @@ const updateUserInfo = async (data: UpdateUserInfoType) => {
   return res.data;
 };
 
-export { getMeFn, getDetailUserFn, getAllUserFn, updateAvatarFn, updateUserInfo };
+const updateAccountStatusFn = async (
+  data: UpdateAccountStatus,
+): Promise<{ message: string; accountStatus: AccountStatus; userId: string }> => {
+  const res = await axiosInstance.patch('/users/account', data);
+  return res.data;
+};
+
+export { getMeFn, getDetailUserFn, getAllUserFn, updateAvatarFn, updateUserInfo, updateAccountStatusFn };

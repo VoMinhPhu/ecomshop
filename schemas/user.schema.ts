@@ -17,4 +17,10 @@ export const updateUserInfoSchema = z.object({
     }),
 });
 
+export const updateAccountStatusSchema = z.object({
+  id: z.string().min(1, 'ID là bắt buộc'),
+  status: z.enum(['active', 'unactive', 'banned']),
+});
+
 export type UpdateUserInfoType = z.infer<typeof updateUserInfoSchema>;
+export type UpdateAccountStatus = z.infer<typeof updateAccountStatusSchema>;

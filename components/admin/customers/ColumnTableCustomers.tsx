@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import { ColumnDef } from '@tanstack/react-table';
 
+import { UserListItem } from '@/types/users.type';
+
 import { formatGender } from '@/utils/users.utils';
 
 import { DataTableColumnHeader } from '@/components/common/tables/data-table-column-header';
 
 import ActionTableCustomer from './ActionTableCustomers';
-
-import { UserListItem } from '@/types/users.type';
 
 export const columnsTableCustomers: ColumnDef<UserListItem>[] = [
   {
@@ -65,7 +65,7 @@ export const columnsTableCustomers: ColumnDef<UserListItem>[] = [
 
   {
     id: 'actions',
-    cell: ({ row }) => <ActionTableCustomer userId={row.original.id} />,
+    cell: ({ row }) => <ActionTableCustomer userId={row.original.id} status={row.original.status} />,
     enableHiding: false,
   },
 ];

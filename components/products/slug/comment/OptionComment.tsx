@@ -1,5 +1,7 @@
 'use client';
 
+import { UserRole } from '@/types/users.type';
+
 import { EllipsisVerticalIcon } from 'lucide-react';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -10,17 +12,18 @@ import DeleteReply from './DeleteReply';
 import DeleteComment from './DeleteComment';
 
 type Props = {
-  commentId: string;
-  comment: string;
   rating?: number;
-  curentUserId?: string;
   userId?: string;
-  userRole: string;
+  comment: string;
+  commentId: string;
+  userRole: UserRole;
+  curentUserId?: string;
 };
 
 export default function OptionComment({ commentId, comment, rating, userId, curentUserId, userRole }: Props) {
   const isOwner = userId === curentUserId;
-  const isAdmin = userRole === 'admin';
+  const isAdmin = userRole === UserRole.ADMIN;
+
   return (
     <div className="opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
       <DropdownMenu modal={false}>
