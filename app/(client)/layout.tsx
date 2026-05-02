@@ -6,6 +6,8 @@ import Footer from '@/components/common/footer/Footer';
 import ChatProvider from '@/components/chat/ChatProvider';
 import NavBottomOnMobile from '@/components/common/nav/NavBottomOnMobile';
 
+import { getAllCategories } from '@/lib/server/product.server';
+
 export const metadata: Metadata = {
   title: 'Ecomshop',
   description:
@@ -19,13 +21,14 @@ export default async function ClientLayout({
 }>) {
   const cookieStore = await cookies();
   const isLogin = cookieStore.get('refresh_token');
+  const categories = await getAllCategories();
 
   return (
     <>
       <Header />
       <main className="md:mt-36 lg:mt-20">{children}</main>
       <Footer />
-      <NavBottomOnMobile />
+      <NavBottomOnMobile categories={categories} />
       <ChatProvider isLogin={!!isLogin} />
     </>
   );
