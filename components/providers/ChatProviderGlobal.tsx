@@ -40,6 +40,13 @@ export default function ChatProviderGlobal() {
       toast.success('Chat', {
         description: 'Đã kết nối lại',
       });
+
+      chatSocket.join();
+
+      const activeConversationId = useChatStore.getState().activeConversationId;
+      if (activeConversationId) {
+        chatSocket.join(activeConversationId);
+      }
     });
 
     chatSocket.onMessage((msg: any) => {
