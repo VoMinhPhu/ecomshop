@@ -2,7 +2,7 @@
 
 import { UserRole } from '@/types/users.type';
 
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 
 import AdminChat from './AdminChat';
 import CustomerChatSection from './CustomerChatSection';

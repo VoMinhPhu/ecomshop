@@ -19,13 +19,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import AddNewAddressBtn from '../address/AddNewAddressBtn';
 
 import { cn } from '@/lib/utils';
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import { formatCurrency } from '@/utils/number.utils';
 
 import { useGetAllAddress } from '@/hooks/api/address.hook';
 import { useConfirmOrder, useGetDetailOrder } from '@/hooks/api/order.hook';
 
-import { confirmOrderSchema, ConfirmOrderSchemaType } from '@/schemas/orders.schema';
+import { confirmOrderSchema, ConfirmOrderSchemaType } from '@/schemas/order.schema';
 
 type Props = {
   id: string;

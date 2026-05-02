@@ -2,7 +2,7 @@ import { GetAllOrderData } from '@/types/order.type';
 import { ColumnDef } from '@tanstack/react-table';
 
 import { formatCurrency } from '@/utils/number.utils';
-import { statusMap, paymentMethodMap } from '@/constants/order';
+import { statusMap, paymentMethodMap } from '@/constants/order.constants';
 
 import { Badge } from '@/components/ui/badge';
 import ActionOrderTable from './ActionOrderTable';

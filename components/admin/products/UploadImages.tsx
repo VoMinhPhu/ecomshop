@@ -8,7 +8,7 @@ import { AlertCircleIcon, BrushCleaning, ImageIcon, UploadIcon, XIcon } from 'lu
 import { Button } from '@/components/ui/button';
 import { FormLabel } from '@/components/ui/form';
 
-import { useFileUpload } from '@/hooks/ui/use-file-upload';
+import { useFileUpload } from '@/hooks/ui/useFileUpload';
 
 type UploadImagesFieldProps<TFieldValues extends FieldValues, TName extends Path<TFieldValues>> = {
   field: ControllerRenderProps<TFieldValues, TName>;

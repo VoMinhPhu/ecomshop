@@ -9,7 +9,7 @@ import { useAddProductToCart } from '@/hooks/api/cart.hook';
 import { useCreateSingleOrder } from '@/hooks/api/order.hook';
 
 import { cn } from '@/lib/utils';
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import { Loader, LoaderIcon, MinusIcon, PlusIcon, ShoppingCartIcon } from 'lucide-react';
 
 type Props = {

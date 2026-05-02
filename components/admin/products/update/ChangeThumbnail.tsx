@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 import { useChangeThumbnail } from '@/hooks/api/products.hook';
-import { useFileUpload } from '@/hooks/ui/use-file-upload';
+import { useFileUpload } from '@/hooks/ui/useFileUpload';
 
 import { CircleUserRoundIcon, ImageIcon, Loader } from 'lucide-react';
 

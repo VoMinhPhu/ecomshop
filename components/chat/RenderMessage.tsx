@@ -5,7 +5,7 @@ import { getMessagePosition } from '@/utils/chat.utils';
 
 import MessageItem from './MessageItem';
 
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import { useChatStore } from '@/stores/chat.store';
 
 type Props = {

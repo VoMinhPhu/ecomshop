@@ -17,7 +17,7 @@ import PaginationTableCustomers from '@/components/admin/customers/PaginationTab
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { useGetAllUser } from '@/hooks/api/users.hook';
-import { getFilter } from '@/utils/tableFilter.utils';
+import { getFilter } from '@/utils/table-filter.utils';
 import { useCustomersTableParams } from '@/hooks/ui/useCustomerTableParams';
 
 import { UserListItem } from '@/types/users.type';

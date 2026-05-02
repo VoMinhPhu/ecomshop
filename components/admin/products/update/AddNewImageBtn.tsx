@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 
-import { useFileUpload } from '@/hooks/ui/use-file-upload';
+import { useFileUpload } from '@/hooks/ui/useFileUpload';
 import { useAddNewImagesProduct } from '@/hooks/api/products.hook';
 
 import { cn } from '@/lib/utils';

@@ -11,7 +11,7 @@ import { DataTableViewOptions } from '@/components/common/tables/toggle-column-v
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 import { OrderStatus, PaymentMethod } from '@/types/order.type';
-import { statusMap, paymentMethodMap } from '@/constants/order';
+import { statusMap, paymentMethodMap } from '@/constants/order.constants';
 
 interface ToolbarTableOrderProps<TData> {
   table: Table<TData>;

@@ -8,7 +8,7 @@ import AddCommentForm from './AddCommentForm';
 import { Button } from '@/components/ui/button';
 
 import { cn } from '@/lib/utils';
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 
 import AuthPopup from '@/components/auth/AuthPopup';
 import { useGetRating, useGetReview } from '@/hooks/api/review.hook';

@@ -13,7 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableRow, TableBody, TableCell, TableHead, TableHeader, TableCaption } from '@/components/ui/table';
 
 import { RecentOrder } from '@/types/dashboard.type';
-import { paymentMethodMap, statusMap } from '@/constants/order';
+import { paymentMethodMap, statusMap } from '@/constants/order.constants';
 
 export default function RecentOrders() {
   const { data, isLoading } = useGetRecentOrders();

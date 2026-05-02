@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import {
   loginFn,
   logoutFn,

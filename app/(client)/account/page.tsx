@@ -1,6 +1,6 @@
 'use client';
 
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 
 import { Card } from '@/components/ui/card';
 import UserInfoForm from '@/components/account/UserInfoForm';

@@ -1,6 +1,6 @@
 import { AccountStatus, GetAllCustomerParams, GetDetailUser, UserInfo, UserListResponse } from '@/types/users.type';
 import axiosInstance from '../axiosInstance';
-import { UpdateAccountStatus, UpdateUserInfoType } from '@/schemas/user.schema';
+import { UpdateAccountStatus, UpdateUserInfoType } from '@/schemas/users.schema';
 
 const getMeFn = async (): Promise<UserInfo> => {
   const { data } = await axiosInstance.get('/users/me');

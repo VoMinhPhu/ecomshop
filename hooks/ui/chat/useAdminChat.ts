@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useGetConversations, useGetMessage } from '@/hooks/api/chat.hook';
 
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import { useChatStore } from '@/stores/chat.store';
 
 import { chatSocket } from '@/lib/socket/chat.socket';

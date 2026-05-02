@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useGetMe } from '@/hooks/api/users.hook';
 import { useLogout } from '@/hooks/api/auth.hook';
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 
 import { Button } from '@/components/ui/button';
 import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';

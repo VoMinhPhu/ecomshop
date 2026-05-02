@@ -1,7 +1,7 @@
 'use client';
 
 import { Card } from '@/components/ui/card';
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import SetPassword from '@/components/account/password/SetPassword';
 import ChangePassword from '@/components/account/password/ChangePassword';
 

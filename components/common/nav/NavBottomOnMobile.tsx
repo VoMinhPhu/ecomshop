@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { HomeIcon, LayersIcon, Package2Icon, ShoppingCartIcon, UserIcon } from 'lucide-react';
 
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import { Category } from '@/types/categories.type';
 
 import AuthPopup from '@/components/auth/AuthPopup';

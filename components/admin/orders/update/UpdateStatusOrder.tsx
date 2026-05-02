@@ -10,7 +10,7 @@ import {
   DropdownMenuRadioGroup,
 } from '@/components/ui/dropdown-menu';
 
-import { statusMap } from '@/constants/order';
+import { statusMap } from '@/constants/order.constants';
 import { useUpdateStatusOrder } from '@/hooks/api/order.hook';
 
 import { Loader2 } from 'lucide-react';

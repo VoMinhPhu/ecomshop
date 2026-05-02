@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { FileBox, KeyRound, MapPin, Package, User } from 'lucide-react';

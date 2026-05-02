@@ -12,7 +12,7 @@ import {
 } from '@tanstack/react-table';
 
 import { GetAllOrderData } from '@/types/order.type';
-import { getFilter } from '@/utils/tableFilter.utils';
+import { getFilter } from '@/utils/table-filter.utils';
 
 import { useGetAllOrder } from '@/hooks/api/order.hook';
 import { useOrderTableParams } from '@/hooks/ui/useOrderTableParams';
