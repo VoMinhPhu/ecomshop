@@ -10,7 +10,7 @@ import { useCreateSingleOrder } from '@/hooks/api/order.hook';
 
 import { cn } from '@/lib/utils';
 import useUserStore from '@/stores/userStore';
-import { Loader, MinusIcon, PlusIcon, ShoppingCartIcon } from 'lucide-react';
+import { Loader, LoaderIcon, MinusIcon, PlusIcon, ShoppingCartIcon } from 'lucide-react';
 
 type Props = {
   productId: string;
@@ -27,8 +27,8 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity, sto
   const user = useUserStore((s) => s.user);
 
   const handleUpdateQuantity = (action: 'increase' | 'decrease') => {
-    if (action === 'increase' ) {
-      if (quantity < stock) { 
+    if (action === 'increase') {
+      if (quantity < stock) {
         setQuantity((prev) => prev + 1);
       }
     } else {
@@ -68,7 +68,7 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity, sto
           <button
             disabled={quantity === stock}
             onClick={() => handleUpdateQuantity('increase')}
-            className='flex items-center justify-center border h-10 w-10 rounded-sm disabled:opacity-50'
+            className="flex items-center justify-center border h-10 w-10 rounded-sm disabled:opacity-50"
           >
             <PlusIcon className="size-4.5" />
           </button>
@@ -79,7 +79,7 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity, sto
         {user ? (
           <Button
             onClick={handleCreateSingleOrder}
-            disabled={isCreatingOrder}
+            disabled={isCreatingOrder || stock === 0}
             className="h-12 text-lg lg:w-3/5 md:w-4/7 w-full"
           >
             <Loader className={cn('animate-spin size-5', !isCreatingOrder && 'hidden')} strokeWidth={2.5} />
@@ -99,8 +99,8 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity, sto
             className="h-12 text-md w-full md:w-auto"
             variant="outline"
           >
-            <ShoppingCartIcon className="size-6" />
-            {isPending ? 'Đang thêm vào giỏ' : 'Thêm vào giỏ'}
+            {isPending ? <LoaderIcon className="animate-spin size-5" /> : <ShoppingCartIcon className="size-6" />}
+            Thêm vào giỏ
           </Button>
         ) : (
           <Button onClick={() => setOpenAuth(true)} className="h-12 text-md w-full md:w-auto" variant="outline">
