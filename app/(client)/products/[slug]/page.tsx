@@ -28,8 +28,8 @@ export default async function Page({ params }: PageProps) {
       </div>
       <div className="lg:max-w-300 bg-white mx-auto md:grid grid-cols-2 rounded-sm">
         <RenderImages images={data.images} name={data.name} />
-        <div className="flex-1 pt-6 px-8 pb-4 relative">
-          <h1 className="font-semibold text-xl h-14 line-clamp-2">{data.name}</h1>
+        <div className="flex-1 pt-6 md:px-8 px-3 pb-4 relative">
+          <h1 className="font-semibold text-xl max-h-14 line-clamp-2">{data.name}</h1>
           <h2>
             Thương hiệu: <span className="text-blue-500">{data.brand.name}</span>
           </h2>

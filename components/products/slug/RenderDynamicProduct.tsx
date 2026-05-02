@@ -38,7 +38,7 @@ export default function RenderDynamicProduct({ productId }: Props) {
           </span>
         </p>
       )}
-      <div className="mt-6 text-zinc-400">
+      <div className="md:mt-6 mt-2 text-zinc-400">
         <h3>
           Số lượng: <span>{dataDynamic.stock}</span>
         </h3>

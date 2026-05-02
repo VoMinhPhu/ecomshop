@@ -51,8 +51,8 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity, sto
   };
 
   return (
-    <div className="md:absolute fixed bg-white border-t-[0.5] rounded-br-sm z-10 bottom-0 md:px-8 px-3 w-full left-0 md:pb-4 pb-1">
-      <div className="mb-6 flex items-center md:justify-start justify-between">
+    <div className="md:absolute bottom-8.5 md:px-8 w-full md:pb-4 pb-1 mt-1">
+      <div className="md:mb-6 mb-2.5 flex items-center md:justify-start justify-between">
         <div className="mr-10">Số Lượng:</div>
         <div className="flex items-center justify-start gap-2 mt-3">
           <button

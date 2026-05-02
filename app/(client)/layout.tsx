@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import Header from '@/components/common/header/Header';
 import Footer from '@/components/common/footer/Footer';
 import ChatProvider from '@/components/chat/ChatProvider';
+import NavBottomOnMobile from '@/components/common/nav/NavBottomOnMobile';
 
 export const metadata: Metadata = {
   title: 'Ecomshop',
@@ -24,6 +25,7 @@ export default async function ClientLayout({
       <Header />
       <main className="md:mt-36 lg:mt-20">{children}</main>
       <Footer />
+      <NavBottomOnMobile />
       <ChatProvider isLogin={!!isLogin} />
     </>
   );
