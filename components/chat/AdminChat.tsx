@@ -17,7 +17,7 @@ export default function AdminChat() {
   return (
     <Dialog modal={false}>
       <DialogTrigger asChild>
-        <div className="fixed bg-white size-13 z-10 border-2 shadow-sm flex items-center justify-center bottom-4 right-4 rounded-full cursor-pointer transition-all duration-100 ease-out">
+        <div className="fixed bg-white size-13 z-10 border-2 shadow-sm flex items-center justify-center md:bottom-4 bottom-8 right-4 rounded-full cursor-pointer transition-all duration-100 ease-out">
           <MessageCircleMoreIcon size={32} color="green" />
         </div>
       </DialogTrigger>

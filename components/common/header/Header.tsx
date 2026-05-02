@@ -3,12 +3,11 @@ import Image from 'next/image';
 
 import CartSection from './CartSection';
 import UserMenuHeader from './UserMenuHeader';
-// import SubHeader from '@/components/common/header/SubHeader';
 import SectionSearch from '@/components/common/header/SectionSearch';
 
 const Header = () => {
   return (
-    <header className="fixed top-0 z-50 w-full bg-emerald-500 border-b flex flex-col items-center justify-center">
+    <header className="md:fixed top-0 z-50 w-full bg-emerald-500 border-b flex flex-col items-center justify-center">
       <div className="max-w-300 px-2 w-full min-h-19 flex items-center">
         <Link href={'/'}>
           <Image
@@ -32,9 +31,6 @@ const Header = () => {
       <div aria-label="Tìm kiếm sản phẩm" className="w-full px-2 md:pb-2 lg:hidden">
         <SectionSearch />
       </div>
-      {/* <nav aria-label="Sub navigation" className="w-full">
-        <SubHeader />
-      </nav> */}
     </header>
   );
 };
