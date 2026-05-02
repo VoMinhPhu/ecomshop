@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MessageCircleMoreIcon, XIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import { useClientChat } from '@/hooks/ui/chat/useClientChat';
 
 import ChatInput from './ChatInput';

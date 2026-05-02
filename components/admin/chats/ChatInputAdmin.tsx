@@ -6,7 +6,7 @@ import { ImageIcon, SendIcon } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { useAdminChat } from '@/hooks/ui/chat/useAdminChat';
 
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 
 export default function ChatInputAdmin() {
   const { messages, activeConversationId, sendMessage } = useAdminChat();

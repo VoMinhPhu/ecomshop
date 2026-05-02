@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
 import { Star } from 'lucide-react';
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 
 import { Review } from '@/types/review.type';
 

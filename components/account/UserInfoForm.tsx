@@ -9,7 +9,7 @@ import { Loader } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 import { UserInfo } from '@/types/users.type';
-import { updateUserInfoSchema, UpdateUserInfoType } from '@/schemas/user.schema';
+import { updateUserInfoSchema, UpdateUserInfoType } from '@/schemas/users.schema';
 
 import { useUpdateUserInfo } from '@/hooks/api/users.hook';
 

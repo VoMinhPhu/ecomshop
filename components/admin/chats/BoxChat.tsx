@@ -7,7 +7,7 @@ import { ArrowLeftIcon } from 'lucide-react';
 
 import { useAdminChat } from '@/hooks/ui/chat/useAdminChat';
 
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import { useChatStore } from '@/stores/chat.store';
 import { useChatStoreUI } from '@/stores/chat-ui.store';
 

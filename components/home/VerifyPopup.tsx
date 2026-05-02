@@ -11,7 +11,7 @@ import { Loader } from 'lucide-react';
 import successAnimation from '@/public/icons/success.json';
 import errorAnimation from '@/public/icons/errorAnimation.json';
 
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import { useVerifyAccount } from '@/hooks/api/auth.hook';
 
 import { Button } from '../ui/button';

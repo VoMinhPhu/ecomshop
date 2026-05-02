@@ -10,7 +10,7 @@ import { Loader2Icon, SendHorizonalIcon } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormField } from '@/components/ui/form';
 
-import useUserStore from '@/stores/userStore';
+import useUserStore from '@/stores/user.store';
 import { useReplyComment } from '@/hooks/api/review.hook';
 import { cn } from '@/lib/utils';
 
