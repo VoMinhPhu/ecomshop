@@ -3,7 +3,6 @@ import Image from 'next/image';
 
 import CartSection from './CartSection';
 import UserMenuHeader from './UserMenuHeader';
-// import SubHeader from '@/components/common/header/SubHeader';
 import SectionSearch from '@/components/common/header/SectionSearch';
 
 const Header = () => {
@@ -32,9 +31,6 @@ const Header = () => {
       <div aria-label="Tìm kiếm sản phẩm" className="w-full px-2 md:pb-2 lg:hidden">
         <SectionSearch />
       </div>
-      {/* <nav aria-label="Sub navigation" className="w-full">
-        <SubHeader />
-      </nav> */}
     </header>
   );
 };
