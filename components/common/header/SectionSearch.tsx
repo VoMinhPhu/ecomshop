@@ -29,7 +29,6 @@ const TYPE_ANIMATION_SEQUENCE = [
 ];
 
 const SectionSearch = () => {
-  // const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [visibleKeywords, setVisibleKeywords] = useState<string[]>([]);
@@ -73,15 +72,8 @@ const SectionSearch = () => {
         {isFocused && <SearchDropdown query={debouncedQuery} />}
       </div>
 
-      <div className="text-white text-[13px] flex items-center mt-1">
+      <div className="text-white text-[13px] flex items-center mt-1 pb-1.5">
         <SearchKeywords keywords={visibleKeywords} onSelect={handleKeywordSelect} />
-
-        <div className="ml-auto md:hidden">
-          <Button variant="ghost">
-            {/* <Button onClick={() => setIsCategoryOpen((prev) => !prev)} variant="ghost"> */}
-            <MenuIcon className="size-5" />
-          </Button>
-        </div>
       </div>
     </div>
   );

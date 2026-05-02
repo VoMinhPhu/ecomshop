@@ -22,7 +22,7 @@ export default async function ClientLayout({
   return (
     <>
       <Header />
-      <main className="mt-38.25 md:mt-36 lg:mt-20">{children}</main>
+      <main className="md:mt-36 lg:mt-20">{children}</main>
       <Footer />
       <ChatProvider isLogin={!!isLogin} />
     </>

@@ -7,7 +7,7 @@ import SectionSearch from '@/components/common/header/SectionSearch';
 
 const Header = () => {
   return (
-    <header className="fixed top-0 z-50 w-full bg-emerald-500 border-b flex flex-col items-center justify-center">
+    <header className="md:fixed top-0 z-50 w-full bg-emerald-500 border-b flex flex-col items-center justify-center">
       <div className="max-w-300 px-2 w-full min-h-19 flex items-center">
         <Link href={'/'}>
           <Image
