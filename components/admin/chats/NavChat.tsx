@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { SearchIcon } from 'lucide-react';
 
@@ -15,9 +16,11 @@ export default function NavChat() {
   const { conversationMeta, setActiveConversationId, loadingConvos } = useAdminChat();
   const { openConvo, setOpenConvo } = useChatStoreUI();
 
-  const sortedConversations = Object.values(conversationMeta).sort(
-    (a, b) => new Date(b.lastMessageAt || 0).getTime() - new Date(a.lastMessageAt || 0).getTime(),
-  );
+  const [filter, setFilter] = useState<'all' | 'unread'>('all');
+
+  const sortedConversations = Object.values(conversationMeta)
+    .sort((a, b) => new Date(b.lastMessageAt || 0).getTime() - new Date(a.lastMessageAt || 0).getTime())
+    .filter((c) => filter === 'all' || c.unreadCount > 0);
 
   const handleSelectConversation = (conversationId: string) => {
     setActiveConversationId(conversationId);
@@ -33,10 +36,24 @@ export default function NavChat() {
       </div>
 
       <div className="flex gap-2 px-2 mb-2">
-        <button className="text-sm hover:bg-gray-100 rounded-lg px-2 py-0.5 cursor-pointer bg-gray-100 font-semibold">
+        <button
+          onClick={() => setFilter('all')}
+          className={cn(
+            'text-sm hover:bg-gray-100 rounded-lg px-2 py-0.5 cursor-pointer',
+            filter === 'all' && 'bg-gray-100 font-semibold',
+          )}
+        >
           Tất cả
         </button>
-        <button className="text-sm hover:bg-gray-100 rounded-lg px-2 py-0.5 cursor-pointer">Chưa đọc</button>
+        <button
+          onClick={() => setFilter('unread')}
+          className={cn(
+            'text-sm hover:bg-gray-100 rounded-lg px-2 py-0.5 cursor-pointer',
+            filter === 'unread' && 'bg-gray-100 font-semibold',
+          )}
+        >
+          Chưa đọc
+        </button>
       </div>
 
       <div className="mx-2 flex flex-col gap-2 h-[57vh] dropdown-scrollbar pr-1">
@@ -65,6 +82,11 @@ export default function NavChat() {
             )}
           </div>
         ))}
+        {sortedConversations.length === 0 && !loadingConvos && (
+          <div className="flex items-center justify-center h-full">
+            <p className="text-gray-500">Không có đoạn chat nào</p>
+          </div>
+        )}
 
         {loadingConvos && (
           <div className="flex items-center justify-center h-full">

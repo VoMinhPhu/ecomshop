@@ -25,19 +25,37 @@ export const useAdminChat = () => {
 
   useEffect(() => {
     if (loadingConvos) return;
-    conversations.map((c) => {
-      setConversationMeta(c.id, {
-        id: c.id,
-        lastMessage: c.lastMessage,
-        lastMessageAt: c.lastMessageAt,
-        unreadCount: c.unreadCount,
-        user: {
-          username: c.user.name,
-          avatar: c.user.avatar,
-        },
-      });
+    
+    const currentMeta = useChatStore.getState().conversationMeta;
+
+    conversations.forEach((c) => {
+      const existing = currentMeta[c.id];
+      const apiTime = c.lastMessageAt ? new Date(c.lastMessageAt).getTime() : 0;
+      const stateTime = existing?.lastMessageAt ? new Date(existing.lastMessageAt).getTime() : 0;
+
+      if (!existing || apiTime >= stateTime) {
+        setConversationMeta(c.id, {
+          id: c.id,
+          lastMessage: c.lastMessage,
+          lastMessageAt: c.lastMessageAt,
+          unreadCount: c.unreadCount,
+          user: {
+            username: c.user.name,
+            avatar: c.user.avatar,
+          },
+        });
+      } else {
+        setConversationMeta(c.id, {
+          ...existing,
+          id: c.id,
+          user: {
+            username: c.user.name,
+            avatar: c.user.avatar,
+          },
+        });
+      }
     });
-  }, [loadingConvos]);
+  }, [loadingConvos, conversations, setConversationMeta]);
 
   const activeMessages = allMessages[activeConversationId] || [];
 
