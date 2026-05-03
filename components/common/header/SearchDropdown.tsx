@@ -7,9 +7,10 @@ import { useSearchProduct } from '@/hooks/api/products.hook';
 
 interface SearchDropdownProps {
   query: string;
+  onClose: () => void;
 }
 
-const SearchDropdown = ({ query }: SearchDropdownProps) => {
+const SearchDropdown = ({ query, onClose }: SearchDropdownProps) => {
   const { data: results, isLoading } = useSearchProduct(query);
 
   if (query.trim() === '') return null;
@@ -23,8 +24,8 @@ const SearchDropdown = ({ query }: SearchDropdownProps) => {
       )}
 
       {!isLoading && results?.length
-        ? results.map((p) => (
-            <Link key={p.slug} href={`/products/${p.slug}`}>
+          ? results.map((p) => (
+              <Link key={p.slug} href={`/products/${p.slug}`} onClick={onClose}>
               <div className="flex items-start p-2 hover:bg-zinc-100 overflow-hidden">
                 <Image src={p.thumbnail} width={55} height={55} alt={p.name} className="flex-shrink-0 size-[55px]" />
                 <div className="flex flex-col ml-2 min-w-0 flex-1">

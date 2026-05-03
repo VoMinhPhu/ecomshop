@@ -33,6 +33,7 @@ const SectionSearch = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [visibleKeywords, setVisibleKeywords] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const debouncedQuery = useDebounce(query);
 
@@ -41,13 +42,26 @@ const SectionSearch = () => {
     setVisibleKeywords(random);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsFocused(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const handleKeywordSelect = (keyword: string) => {
     setQuery(keyword);
     inputRef.current?.focus();
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
       <div className="relative lg:w-130">
         <Input
           ref={inputRef}
@@ -56,7 +70,6 @@ const SectionSearch = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
         />
 
         {!query && !isFocused && (
@@ -69,7 +82,7 @@ const SectionSearch = () => {
           <SearchIcon />
         </Button>
 
-        {isFocused && <SearchDropdown query={debouncedQuery} />}
+        {isFocused && <SearchDropdown query={debouncedQuery} onClose={() => setIsFocused(false)} />}
       </div>
 
       <div className="text-white text-[13px] flex items-center mt-1 pb-1.5">
