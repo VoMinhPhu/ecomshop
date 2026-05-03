@@ -12,7 +12,7 @@ type Props = {
 
 const ManageAddress = ({ data }: Props) => {
   return (
-    <div className="w-20 flex items-center justify-center">
+    <div className="w-20 flex items-center md:justify-center justify-end">
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <button className="p-2 rounded-md hover:border">

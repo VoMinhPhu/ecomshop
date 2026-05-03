@@ -47,7 +47,7 @@ const UserInfoForm = ({ user }: Props) => {
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 px-2 md:px-0">
         <div>
           <FormLabel className="mb-2">Email</FormLabel>
           <Input placeholder={user?.email ?? 'email@gmail.com'} disabled />

@@ -24,7 +24,7 @@ const ListProducts = ({ data, totalPages }: Props) => {
     );
 
   return (
-    <div className="mt-3 grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-2 lg:px-0 px-2">
+    <div className="mt-3 grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 md:gap-2 gap-1 lg:px-0 px-1">
       {data.data.map((d) => (
         <Link
           href={`/products/${d.slug}`}

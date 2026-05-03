@@ -10,7 +10,7 @@ const Footer = () => {
     <footer>
       <FooterCarousel />
       <div>
-        <div className="max-w-300 mx-auto px-2 md:pb-10 pb-45 grid lg:grid-cols-5 md:grid-cols-3">
+        <div className="max-w-300 mx-auto px-2 md:pb-10 pb-16 grid lg:grid-cols-5 md:grid-cols-3">
           <div>
             <h3 className="font-semibold text-xl mb-2 mt-4 md:mt-2 lg:mt-0">Cửa hàng</h3>
             <div className="text-sm flex flex-col gap-1.5 pl-5 md:pl-2">

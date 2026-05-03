@@ -24,7 +24,7 @@ const NavAccount = () => {
 
   return (
     <Card className="border-r-2 mt-4 py-3 gap-0">
-      <CardHeader className="flex gap-2 px-4">
+      <CardHeader className="flex gap-2 md:px-4 px-2">
         <Image
           src={user?.avatar ?? '/avatar.svg'}
           width={48}
@@ -40,7 +40,7 @@ const NavAccount = () => {
         </div>
       </CardHeader>
       <Separator className="mt-3" />
-      <CardContent className="py-1 md:pl-5">
+      <CardContent className="py-1 md:pl-5 px-4">
         <Link
           href={'/account'}
           className={cn(
