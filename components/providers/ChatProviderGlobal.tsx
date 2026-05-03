@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { Message } from '@/types/chat.type';
@@ -10,6 +11,7 @@ import { useChatStore } from '@/stores/chat.store';
 import { chatSocket } from '@/lib/socket/chat.socket';
 
 export default function ChatProviderGlobal() {
+  const queryClient = useQueryClient();
   const setMessages = useChatStore((s) => s.setMessages);
   const updateLastMessage = useChatStore((s) => s.updateLastMessage);
 
@@ -66,7 +68,7 @@ export default function ChatProviderGlobal() {
 
       updateLastMessage(msg.conversationId, {
         lastMessage: msg.content,
-        lastMessageAt: msg.createAt,
+        lastMessageAt: msg.createdAt,
         unreadCount: msg.unreadCount,
       });
     });
@@ -108,6 +110,13 @@ export default function ChatProviderGlobal() {
         if (exist) return prev;
         return [...prev, { ...data.message, status: 'sent' }];
       });
+
+      const isNewConversation =
+        !conversationMeta[data.conversationId] || !conversationMeta[data.conversationId].user?.username;
+
+      if (isNewConversation) {
+        queryClient.invalidateQueries({ queryKey: ['conversations'] });
+      }
     });
 
     return () => {
