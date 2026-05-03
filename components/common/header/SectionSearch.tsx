@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { MenuIcon, SearchIcon } from 'lucide-react';
+import { MenuIcon, SearchIcon, XIcon } from 'lucide-react';
 import { TypeAnimation } from 'react-type-animation';
 
 import { Input } from '@/components/ui/input';
@@ -77,6 +77,13 @@ const SectionSearch = () => {
             <TypeAnimation sequence={TYPE_ANIMATION_SEQUENCE} wrapper="span" speed={50} repeat={Infinity} />
           </div>
         )}
+
+        <span>
+          <XIcon
+            className={`absolute size-3 md:size-4 text-red-400 top-1/2 right-16 -translate-y-1/2 cursor-pointer ${query ? 'block' : 'hidden'}`}
+            onClick={() => setQuery('')}
+          />
+        </span>
 
         <Button className="absolute top-0 right-0 w-15 rounded-r-sm rounded-l-none">
           <SearchIcon />
