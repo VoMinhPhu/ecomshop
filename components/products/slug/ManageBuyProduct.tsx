@@ -53,22 +53,22 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity, sto
   return (
     <div className="md:absolute bottom-8.5 md:px-8 w-full md:pb-4 pb-1 mt-1">
       <div className="md:mb-6 mb-2.5 flex items-center md:justify-start justify-between">
-        <div className="mr-10">Số Lượng:</div>
+        <span className="mr-10">Số Lượng:</span>
         <div className="flex items-center justify-start gap-2 mt-3">
           <button
             onClick={() => handleUpdateQuantity('decrease')}
             disabled={quantity === 1}
-            className="flex items-center justify-center border h-10 w-10 rounded-sm disabled:opacity-50"
+            className="flex items-center justify-center border md:h-10 h-8.5 w-10 rounded-sm disabled:opacity-50"
           >
             <MinusIcon className="size-4.5" />
           </button>
 
-          <span className="px-16 h-10 flex items-center border rounded-sm text-center">{quantity}</span>
+          <span className="px-16 md:h-10 h-8.5 flex items-center border rounded-sm text-center">{quantity}</span>
 
           <button
             disabled={quantity === stock}
             onClick={() => handleUpdateQuantity('increase')}
-            className="flex items-center justify-center border h-10 w-10 rounded-sm disabled:opacity-50"
+            className="flex items-center justify-center border md:h-10 h-8.5 w-10 rounded-sm disabled:opacity-50"
           >
             <PlusIcon className="size-4.5" />
           </button>
@@ -80,14 +80,17 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity, sto
           <Button
             onClick={handleCreateSingleOrder}
             disabled={isCreatingOrder || stock === 0}
-            className="h-12 text-lg lg:w-3/5 md:w-4/7 w-full"
+            className="md:h-12 h-10 md:text-lg text-md lg:w-3/5 md:w-4/7 w-full"
           >
             <Loader className={cn('animate-spin size-5', !isCreatingOrder && 'hidden')} strokeWidth={2.5} />
 
             {isCreatingOrder ? 'Đang xử lý...' : 'Mua ngay'}
           </Button>
         ) : (
-          <Button onClick={() => setOpenAuth(true)} className="h-12 text-lg lg:w-3/5 md:w-4/7 w-full">
+          <Button
+            onClick={() => setOpenAuth(true)}
+            className="md:h-12 h-10 md:text-lg text-md lg:w-3/5 md:w-4/7 w-full"
+          >
             Mua ngay
           </Button>
         )}
@@ -96,15 +99,15 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity, sto
           <Button
             disabled={isPending}
             onClick={handleAddToCart}
-            className="h-12 text-md w-full md:w-auto"
+            className="md:h-12 h-10 text-md w-full md:w-auto"
             variant="outline"
           >
             {isPending ? <LoaderIcon className="animate-spin size-5" /> : <ShoppingCartIcon className="size-6" />}
             Thêm vào giỏ
           </Button>
         ) : (
-          <Button onClick={() => setOpenAuth(true)} className="h-12 text-md w-full md:w-auto" variant="outline">
-            <ShoppingCartIcon className="size-6" />
+          <Button onClick={() => setOpenAuth(true)} className="md:h-12 h-10 text-md w-full md:w-auto" variant="outline">
+            <ShoppingCartIcon className="md:size-6 size-5" />
             Thêm vào giỏ
           </Button>
         )}
