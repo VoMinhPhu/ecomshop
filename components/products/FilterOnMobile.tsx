@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { X } from 'lucide-react';
 import { CategoriesAndBrandsResponse } from '@/types/categories.type';
 import { useProductFilter } from '@/hooks/ui/useProductFilter';
+import { useBottomNavVisible } from '@/hooks/ui/useBottomNavVisible';
 
 import BrandFilter from './filters/BrandFilter';
 import CategoryFilter from './filters/CategoryFilter';
@@ -28,6 +29,8 @@ export default function FilterOnMobile({ data, isOpen, onClose, filter }: Props)
     };
   }, [isOpen]);
 
+  const navVisible = useBottomNavVisible();
+
   const activeCount =
     filter.brands.length +
     filter.categories.length +
@@ -44,8 +47,8 @@ export default function FilterOnMobile({ data, isOpen, onClose, filter }: Props)
       />
 
       <div
-        className={`fixed bottom-0 left-0 right-0 bg-white rounded-t-md z-50 flex flex-col
-          transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]
+        className={`fixed ${navVisible ? 'bottom-12' : 'bottom-0'} left-0 right-0 bg-white rounded-t-md z-50 flex flex-col
+          transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]
           ${isOpen ? 'translate-y-0' : 'translate-y-full'}
         `}
         style={{ maxHeight: '85dvh' }}

@@ -6,6 +6,7 @@ import { HomeIcon, LayersIcon, Package2Icon, ShoppingCartIcon, UserIcon } from '
 
 import useUserStore from '@/stores/user.store';
 import { Category } from '@/types/categories.type';
+import { useBottomNavVisible } from '@/hooks/ui/useBottomNavVisible';
 
 import AuthPopup from '@/components/auth/AuthPopup';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -19,26 +20,14 @@ type Props = {
 export default function NavBottomOnMobile({ categories = [] }: Props) {
   const [openAuth, setOpenAuth] = useState(false);
   const [openCategories, setOpenCategories] = useState(false);
-  const [visible, setVisible] = useState(true);
+  const visible = useBottomNavVisible();
 
-  const lastScrollY = useRef(0);
   const user = useUserStore((s) => s.user);
 
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      if (currentY > lastScrollY.current && currentY > 50) {
-        setVisible(false); // kéo xuống
-      } else {
-        setVisible(true); // kéo lên
-      }
-      lastScrollY.current = currentY;
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   if (!isMounted) return null;
