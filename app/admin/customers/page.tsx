@@ -87,13 +87,13 @@ export default function page() {
   });
 
   return (
-    <Card className="m-4">
-      <CardHeader>
+    <Card className="md:m-4 m-2">
+      <CardHeader className="md:px-6 px-2">
         <CardTitle>Quản lý khách hàng</CardTitle>
         <CardDescription>Quản lý tất cả các khách hàng trong hệ thống</CardDescription>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="md:px-6 px-2">
         <ToolbarTableCustomers table={table} />
         <div className="grid grid-cols-1">
           <DataTable isLoading={isFetching} table={table} />

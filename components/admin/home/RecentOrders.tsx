@@ -21,8 +21,8 @@ export default function RecentOrders() {
   if (isLoading) return null;
 
   return (
-    <Card>
-      <CardHeader className="flex items-center justify-between">
+    <Card className="md:py-6 py-3">
+      <CardHeader className="flex items-center justify-between md:px-6 px-2">
         <div>
           <CardTitle>Đơn hàng gần đây</CardTitle>
           <CardDescription className="mt-1.5">5 đơn hàng được tạo gần nhất</CardDescription>
@@ -32,7 +32,7 @@ export default function RecentOrders() {
         </Link>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="md:px-6 px-2">
         <div className="border rounded-lg overflow-hidden">
           <Table>
             <TableCaption className="mb-6">Danh sách đơn hàng mới nhất</TableCaption>

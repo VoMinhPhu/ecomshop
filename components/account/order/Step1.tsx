@@ -71,7 +71,7 @@ const Step1 = ({ id }: Props) => {
 
   if (isLoading || addressLoading)
     return (
-      <div className="p-10 pt-0">
+      <div className="md:p-10 p-4 pt-0">
         <p className="font-semibold">THÔNG TIN ĐƠN HÀNG</p>
         <div className="flex flex-col gap-2 items-center justify-center py-10">
           <Loader className="animate-spin text-primary size-8" />
@@ -81,7 +81,7 @@ const Step1 = ({ id }: Props) => {
     );
   if (!data)
     return (
-      <div className="p-10 pt-0">
+      <div className="md:p-10 p-4 pt-0">
         <p className="font-semibold">THÔNG TIN ĐƠN HÀNG</p>
         <div className="flex flex-col gap-2 items-center justify-center py-10">
           <PackageOpenIcon className="size-20 text-zinc-400" strokeWidth={1.35} />
@@ -91,7 +91,7 @@ const Step1 = ({ id }: Props) => {
     );
 
   return (
-    <div className="px-10 pb-16">
+    <div className="md:px-10 px-4 pb-16">
       <p className="font-semibold">THÔNG TIN ĐƠN HÀNG</p>
       <div className="mt-2">
         <p className="font-semibold">
@@ -129,7 +129,7 @@ const Step1 = ({ id }: Props) => {
               render={({ field }) => (
                 <FormItem className="gap-0">
                   <div className="font-semibold mb-1 flex gap-2">
-                    Địa chỉ nhận hàng{' '}
+                    Địa chỉ nhận hàng
                     <Label className="text-primary text-sm border-l-[2px] px-2 cursor-pointer">
                       Thêm điạ chỉ mới
                       <div className="hidden">
@@ -139,12 +139,12 @@ const Step1 = ({ id }: Props) => {
                   </div>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full max-w-[calc(100vw-32px)] [&>span]:!block [&>span]:truncate text-left">
                         <SelectValue placeholder="Chọn địa chỉ nhận hàng" />
                       </SelectTrigger>
                     </FormControl>
 
-                    <SelectContent>
+                    <SelectContent className="max-w-[calc(100vw-32px)]">
                       {address?.map((item) => (
                         <SelectItem key={item.id} value={item.address}>
                           {item.address} {item.default && <span className="text-zinc-400 text-sm">(Mặc định)</span>}

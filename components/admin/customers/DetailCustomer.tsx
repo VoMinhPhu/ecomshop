@@ -68,8 +68,8 @@ export default function DetailCustomer({ customerId }: Props) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-lg p-0 rounded-lg gap-0">
-        <DialogHeader className="flex-row pt-8 px-5 gap-4">
+      <DialogContent className="max-w-[calc(100%-4px)] p-0 rounded-lg gap-0">
+        <DialogHeader className="flex-row pt-8 md:px-5 px-2 gap-4">
           <div className="flex items-center w-30 h-30">
             <Image
               src={data.avatar || '/avatar.svg'}
@@ -106,7 +106,7 @@ export default function DetailCustomer({ customerId }: Props) {
           </div>
         </DialogHeader>
 
-        <div className="px-6 pb-6">
+        <div className="md:px-6 px-2 pb-6">
           <Separator className="my-4" />
 
           <div className="space-y-0.5">

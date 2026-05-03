@@ -34,7 +34,7 @@ export default function DetailOrderDialog({ orderCode, id }: Props) {
           Chi tiết
         </Button>
       </DialogTrigger>
-      <DialogContent className="md:min-w-200 min-w-full gap-0 max-h-[90vh]">
+      <DialogContent className="md:min-w-200 min-w-[calc(100%-4px)] gap-0 max-h-[90vh] md:p-6 p-3">
         <DialogHeader>
           <DialogTitle>Chi tiết đơn hàng</DialogTitle>
           <DialogDescription>Mã đơn hàng: {orderCode}</DialogDescription>
