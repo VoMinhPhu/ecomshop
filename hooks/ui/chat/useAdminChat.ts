@@ -38,6 +38,7 @@ export const useAdminChat = () => {
           id: c.id,
           lastMessage: c.lastMessage,
           lastMessageAt: c.lastMessageAt,
+          revoked: c.revoked,
           unreadCount: c.unreadCount,
           user: {
             username: c.user.name,
@@ -79,6 +80,7 @@ export const useAdminChat = () => {
         id: convo.id,
         lastMessage: convo.lastMessage,
         lastMessageAt: convo.lastMessageAt,
+        revoked: convo.revoked,
         unreadCount: convo.unreadCount,
         user: {
           username: convo.user.username,

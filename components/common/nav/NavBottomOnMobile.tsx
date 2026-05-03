@@ -24,7 +24,10 @@ export default function NavBottomOnMobile({ categories = [] }: Props) {
   const lastScrollY = useRef(0);
   const user = useUserStore((s) => s.user);
 
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
+    setIsMounted(true);
     const handleScroll = () => {
       const currentY = window.scrollY;
       if (currentY > lastScrollY.current && currentY > 50) {
@@ -37,6 +40,8 @@ export default function NavBottomOnMobile({ categories = [] }: Props) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  if (!isMounted) return null;
 
   return (
     <>

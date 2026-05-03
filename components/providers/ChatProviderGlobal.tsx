@@ -70,6 +70,7 @@ export default function ChatProviderGlobal() {
         lastMessage: msg.content,
         lastMessageAt: msg.createdAt,
         unreadCount: msg.unreadCount,
+        revoked: false,
       });
     });
 
@@ -78,10 +79,26 @@ export default function ChatProviderGlobal() {
     });
 
     chatSocket.onMessageRevoked(({ messageId }) => {
-      const allMessages = useChatStore.getState().messages;
+      const store = useChatStore.getState();
+      const allMessages = store.messages;
 
       Object.keys(allMessages).forEach((conversationId) => {
-        setMessages(conversationId, (prev) => prev.map((m) => (m.id === messageId ? { ...m, revoked: true } : m)));
+        const prev = allMessages[conversationId] || [];
+        const isLastMessage = prev.length > 0 && prev[prev.length - 1].id === messageId;
+
+        setMessages(conversationId, (p) => p.map((m) => (m.id === messageId ? { ...m, revoked: true } : m)));
+
+        if (isLastMessage) {
+          const meta = store.conversationMeta[conversationId];
+          if (meta) {
+            updateLastMessage(conversationId, {
+              lastMessage: meta.lastMessage || '',
+              lastMessageAt: meta.lastMessageAt || new Date().toISOString(),
+              unreadCount: meta.unreadCount,
+              revoked: true,
+            });
+          }
+        }
       });
     });
 
@@ -94,6 +111,7 @@ export default function ChatProviderGlobal() {
           lastMessage: data.message.content,
           lastMessageAt: data.message.createdAt,
           unreadCount: 0,
+          revoked: false,
         });
       } else {
         updateLastMessage(data.conversationId, {
@@ -102,6 +120,7 @@ export default function ChatProviderGlobal() {
           unreadCount: conversationMeta[data.conversationId]
             ? conversationMeta[data.conversationId].unreadCount + 1
             : 1,
+          revoked: false,
         });
       }
 

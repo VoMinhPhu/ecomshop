@@ -5,6 +5,7 @@ type ConversationMeta = {
   id: string;
   lastMessage: string | null;
   lastMessageAt: string | null;
+  revoked: boolean;
   unreadCount: number;
   user: {
     username: string;
@@ -19,7 +20,7 @@ type ChatState = {
   setActiveConversationId: (id: string) => void;
   updateLastMessage: (
     conversationId: string,
-    data: { lastMessage: string; lastMessageAt: string; unreadCount: number },
+    data: { lastMessage: string; lastMessageAt: string; unreadCount: number; revoked?: boolean },
   ) => void;
   setConversationMeta: (conversationId: string, meta: ConversationMeta) => void;
   addMessage: (conversationId: string, msg: Message) => void;
@@ -47,6 +48,7 @@ export const useChatStore = create<ChatState>((set) => ({
           lastMessage: data.lastMessage,
           lastMessageAt: data.lastMessageAt,
           unreadCount: data.unreadCount,
+          ...(data.revoked !== undefined && { revoked: data.revoked }),
         },
       },
     })),
