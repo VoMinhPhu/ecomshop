@@ -24,7 +24,7 @@ export default function OrderDetailDialog({
   return (
     <Dialog open={open} onOpenChange={onClose} modal={false}>
       {open && <div className="fixed top-0 inset-0 bg-black/50 z-50" onClick={onClose} />}
-      <DialogContent className="max-w-2xl max-h-[90vh] dropdown-scrollbar">
+      <DialogContent className="md:max-w-2xl max-w-[calc(100%-8px)] max-h-[90vh] dropdown-scrollbar md:p-6 p-3">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <PackageIcon className="w-5 h-5 text-primary" />
