@@ -28,7 +28,7 @@ export default function ActionForOrder({ onClose, orderId, orderCode, orderStatu
       <CancelOrderBtn id={orderId} onClose={onClose} />
       <Link
         href={`/order/${orderCode}`}
-        className="flex items-center justify-center gap-1 w-full py-2.5 rounded-md bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors"
+        className="flex items-center justify-center text-center gap-1 w-full py-2.5 rounded-md bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors"
       >
         {actionLabel}
       </Link>

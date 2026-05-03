@@ -27,7 +27,7 @@ const page = () => {
   return (
     <div className="bg-zinc-100 pb-10 pt-4">
       <div className="max-w-298 mx-auto bg-white rounded-xs">
-        <div className="py-6 px-10">
+        <div className="py-6 md:px-10 px-2">
           <StepperOrder step={3} />
         </div>
 
@@ -40,14 +40,14 @@ const page = () => {
 
         {data && (
           <>
-            <div className="lg:max-w-lg md:max-w-md max-w-sm mx-auto py-6">
+            <div className="lg:max-w-lg md:max-w-md max-w-sm mx-auto pb-6 pt-3 md:pt-6">
               <p className="text-center font-semibold text-2xl">
                 {payment === 'true' ? 'Thanh toán thành công' : 'Đặt hàng thành công'}
               </p>
               <Lottie animationData={successAnimation} loop={false} autoPlay className="w-20 h-20 mx-auto my-3" />
             </div>
 
-            <div className="px-20 pb-10">
+            <div className="md:px-20 px-2 pb-10">
               <p className="font-semibold">
                 THÔNG TIN ĐƠN HÀNG
                 <span className="ml-2 font-normal text-zinc-400">

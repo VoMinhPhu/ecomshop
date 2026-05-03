@@ -16,7 +16,7 @@ export default function StatsOverview() {
   if (!data) return null;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-4 gap-3">
       <div className="rounded-lg p-4 border shadow bg-gradient-to-b from-white via-white to-green-50">
         <div>
           <div className="flex items-center justify-between">

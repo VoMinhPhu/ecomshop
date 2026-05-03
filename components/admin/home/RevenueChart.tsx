@@ -14,7 +14,7 @@ export default function RevenueChart() {
   if (!data) return null;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-4 mt-5">
+    <div className="grid grid-cols-1 lg:grid-cols-3 md:gap-y-4 gap-y-3 lg:gap-4 mt-5">
       <RevenueMonth data={data.last30Days} />
       <RevenueWeek data={data.last7Days} />
     </div>

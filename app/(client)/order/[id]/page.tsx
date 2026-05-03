@@ -15,7 +15,7 @@ const Page = async ({ params }: PageProps) => {
   return (
     <div className="bg-zinc-100 pb-10 pt-4">
       <div className="max-w-298 mx-auto bg-white">
-        <div className="py-6 px-10">
+        <div className="py-6 md:px-10 px-2">
           <StepperOrder step={1} />
         </div>
         <div>

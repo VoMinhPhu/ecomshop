@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { MenuIcon, SearchIcon } from 'lucide-react';
+import { MenuIcon, SearchIcon, XIcon } from 'lucide-react';
 import { TypeAnimation } from 'react-type-animation';
 
 import { Input } from '@/components/ui/input';
@@ -33,6 +33,7 @@ const SectionSearch = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [visibleKeywords, setVisibleKeywords] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const debouncedQuery = useDebounce(query);
 
@@ -41,13 +42,26 @@ const SectionSearch = () => {
     setVisibleKeywords(random);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsFocused(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const handleKeywordSelect = (keyword: string) => {
     setQuery(keyword);
     inputRef.current?.focus();
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
       <div className="relative lg:w-130">
         <Input
           ref={inputRef}
@@ -56,7 +70,6 @@ const SectionSearch = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
         />
 
         {!query && !isFocused && (
@@ -65,11 +78,18 @@ const SectionSearch = () => {
           </div>
         )}
 
+        <span>
+          <XIcon
+            className={`absolute size-3 md:size-4 text-red-400 top-1/2 right-16 -translate-y-1/2 cursor-pointer ${query ? 'block' : 'hidden'}`}
+            onClick={() => setQuery('')}
+          />
+        </span>
+
         <Button className="absolute top-0 right-0 w-15 rounded-r-sm rounded-l-none">
           <SearchIcon />
         </Button>
 
-        {isFocused && <SearchDropdown query={debouncedQuery} />}
+        {isFocused && <SearchDropdown query={debouncedQuery} onClose={() => setIsFocused(false)} />}
       </div>
 
       <div className="text-white text-[13px] flex items-center mt-1 pb-1.5">
