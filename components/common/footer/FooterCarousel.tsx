@@ -25,7 +25,7 @@ const footers = [
 ];
 const FooterCarousel = () => {
   return (
-    <div className="mt-20 my-5 bg-stone-100 py-8">
+    <div className="md:mt-20 mt-10 my-5 bg-stone-100 py-8">
       <Carousel
         opts={{
           dragFree: true,
