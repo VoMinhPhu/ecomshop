@@ -25,7 +25,7 @@ export default function Page() {
   if (isLoading)
     return (
       <Card className="mt-4 lg:ml-4 gap-0">
-        <CardHeader>
+        <CardHeader className="md:px-6 px-2">
           <CardTitle>ĐƠN HÀNG</CardTitle>
         </CardHeader>
         <CardContent>
@@ -41,39 +41,39 @@ export default function Page() {
 
   return (
     <Card className="mt-4 lg:ml-4 gap-0">
-      <CardHeader>
+      <CardHeader className="md:px-6 px-3">
         <CardTitle>ĐƠN HÀNG</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="md:px-6 px-3">
         <div className="mt-2">
           <Tabs defaultValue="tab-1">
-            <TabsList className="relative h-auto w-full gap-0.5 bg-transparent p-0 before:absolute before:inset-x-0 before:bottom-0 before:h-px before:bg-border">
+            <TabsList className="relative h-auto w-full justify-start overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] gap-0.5 bg-transparent p-0 before:absolute before:inset-x-0 before:bottom-0 before:h-px before:bg-border">
               <TabsTrigger
-                className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow"
+                className="overflow-hidden rounded-b-none border-x border-t data-[state=active]:bg-muted data-[state=active]:text-primary py-2 min-w-fit data-[state=active]:z-10 data-[state=active]:shadow"
                 value="tab-1"
               >
                 Tất cả
               </TabsTrigger>
               <TabsTrigger
-                className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow"
+                className="overflow-hidden rounded-b-none border-x border-t data-[state=active]:bg-muted data-[state=active]:text-primary py-2 min-w-fit data-[state=active]:z-10 data-[state=active]:shadow"
                 value="tab-2"
               >
                 Cần xác nhận
               </TabsTrigger>
               <TabsTrigger
-                className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow"
+                className="overflow-hidden rounded-b-none border-x border-t data-[state=active]:bg-muted data-[state=active]:text-primary py-2 min-w-fit data-[state=active]:z-10 data-[state=active]:shadow"
                 value="tab-3"
               >
                 Đã thanh toán
               </TabsTrigger>
               <TabsTrigger
-                className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow"
+                className="overflow-hidden rounded-b-none border-x border-t data-[state=active]:bg-muted data-[state=active]:text-primary py-2 min-w-fit data-[state=active]:z-10 data-[state=active]:shadow"
                 value="tab-4"
               >
                 Hoàn thành
               </TabsTrigger>
               <TabsTrigger
-                className="overflow-hidden rounded-b-none border-x border-t bg-muted py-2 data-[state=active]:z-10 data-[state=active]:shadow"
+                className="overflow-hidden rounded-b-none border-x border-t data-[state=active]:bg-muted data-[state=active]:text-primary py-2 min-w-fit data-[state=active]:z-10 data-[state=active]:shadow"
                 value="tab-5"
               >
                 Đã hủy

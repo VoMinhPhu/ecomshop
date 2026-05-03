@@ -41,12 +41,12 @@ const Page = () => {
   }
 
   return (
-    <Card className="mt-4 lg:ml-4 gap-1">
-      <CardHeader>
+    <Card className="mt-4 lg:ml-4 md:gap-1 gap-0 md:py-6 py-4">
+      <CardHeader className="md:px-4 px-2">
         <h2 className="text-xl font-semibold">QUẢN LÝ GIỎ HÀNG</h2>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="md:px-6 px-2">
         {!carts || carts.data.length === 0 ? (
           <div className="h-60 flex flex-col items-center justify-center gap-2">
             <ShoppingCart className="size-20 text-zinc-400" />
@@ -57,7 +57,7 @@ const Page = () => {
           </div>
         ) : (
           <>
-            <div className="grid gap-2 mt-4">
+            <div className="grid gap-2 md:mt-4 mt-1">
               {carts.data.map((d) => {
                 const ui = uiState[d.id];
                 if (!ui) return null;

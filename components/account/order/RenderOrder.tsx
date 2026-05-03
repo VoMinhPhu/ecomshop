@@ -26,8 +26,9 @@ const RenderOrder = ({ orders }: Props) => {
         <div key={d.id} className="md:mb-10 mb-6 cursor-pointer" onClick={() => setSelectedOrder(d)}>
           <div className="border shadow rounded-md p-3 mt-3 hover:border-primary hover:shadow-md transition-all duration-200">
             <div className="flex items-center justify-between">
-              <p className="font-semibold">
-                Mã đơn hàng: <span className="text-primary">{d.orderCode}</span>
+              <p className="font-semibold flex items-center gap-2">
+                <span className="hidden md:block">Mã đơn hàng:</span>
+                <span className="text-primary">{d.orderCode}</span>
               </p>
               <span className={`font-semibold text-right mr-2 flex items-center ${getStatusColor(d.status)}`}>
                 {d.status === OrderStatus.PENDING ? (

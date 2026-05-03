@@ -54,7 +54,7 @@ const UpdateAddressBtn = ({ id, address }: Props) => {
       </DialogTrigger>
       <DialogPortal>
         <div className={cn('inset-0 fixed hidden bg-black/40 z-50', open && 'block')} />
-        <DialogContent className="lg:min-w-250">
+        <DialogContent className="lg:min-w-250 min-w-[calc(100%-8px)] md:p-6 p-4">
           <DialogHeader>
             <DialogTitle>Chỉnh sửa địa chỉ</DialogTitle>
             <DialogDescription>
