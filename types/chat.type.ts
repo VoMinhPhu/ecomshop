@@ -15,6 +15,7 @@ type Conversation = {
   id: string;
   lastMessage: string;
   lastMessageAt: string;
+  revoked: boolean;
   unreadCount: number;
   user: {
     name: string;

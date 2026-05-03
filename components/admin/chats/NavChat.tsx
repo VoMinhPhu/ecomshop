@@ -75,7 +75,9 @@ export default function NavChat() {
             </div>
             <div className="flex flex-col w-full justify-start gap-0 pt-2">
               <p className="font-semibold">{c.user.username}</p>
-              <p className="text-sm text-gray-700 truncate max-w-46">{c.lastMessage}</p>
+              <p className="text-sm text-gray-700 truncate max-w-46">
+                {c.revoked ? <span className="italic opacity-70">Tin nhắn đã bị thu hồi</span> : c.lastMessage}
+              </p>
             </div>
             {c.unreadCount > 0 && (
               <span className="absolute top-1/2 -translate-y-1/2 right-2 w-2 h-2 bg-blue-500 rounded-full"></span>
