@@ -21,14 +21,14 @@ export default function AdminChat() {
           <MessageCircleMoreIcon size={32} color="green" />
         </div>
       </DialogTrigger>
-      <DialogContent className="lg:min-w-[calc(100%-72px)] md:min-w-[calc(100%-8px)] gap-0 p-0 min-h-3/4">
+      <DialogContent className="lg:min-w-[calc(100%-72px)] md:min-w-[calc(100%-8px)] min-w-[calc(100%-8px)] gap-0 p-0 min-h-3/4">
         <Card className="h-full gap-3 border-none">
           <DialogHeader className="mx-8">
             <DialogTitle>Tin nhắn</DialogTitle>
             <DialogDescription>Nhắn tin trực tiếp với khách hàng</DialogDescription>
           </DialogHeader>
 
-          <CardContent className="flex-1">
+          <CardContent className="flex-1 md:px-6 px-2">
             <div className="border rounded-md flex h-full">
               <NavChat />
               <BoxChat />
