@@ -47,7 +47,7 @@ export default function FilterOnMobile({ data, isOpen, onClose, filter }: Props)
       />
 
       <div
-        className={`fixed ${navVisible ? 'bottom-12' : 'bottom-0'} left-0 right-0 bg-white rounded-t-md z-50 flex flex-col
+        className={`fixed ${navVisible ? 'bottom-12' : 'bottom-0'} left-0 right-0 bg-white rounded-t-md z-50 md:hidden flex flex-col
           transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]
           ${isOpen ? 'translate-y-0' : 'translate-y-full'}
         `}
