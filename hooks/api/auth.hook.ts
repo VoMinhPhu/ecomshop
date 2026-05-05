@@ -33,8 +33,16 @@ const useLogin = () => {
 
       router.refresh();
     },
-    onError: (error: AxiosError) => {
+    onError: (error: AxiosError<{ message: string; code: string }>) => {
       if (error.response?.status === 401) {
+        if (error.response.data.code == 'NOT_VERIFY') {
+          toast.error('Đăng nhập', {
+            description: 'Tài khoản của bạn chưa xác thực.',
+            duration: 2000,
+          });
+
+          return;
+        }
         toast.error('Đăng nhập', {
           description: 'Tài khoản hoặc mật khẩu không chính xác.',
           duration: 2000,
