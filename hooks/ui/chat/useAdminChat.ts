@@ -25,7 +25,7 @@ export const useAdminChat = () => {
 
   useEffect(() => {
     if (loadingConvos) return;
-    
+
     const currentMeta = useChatStore.getState().conversationMeta;
 
     conversations.forEach((c) => {

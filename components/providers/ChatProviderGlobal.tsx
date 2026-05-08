@@ -16,15 +16,18 @@ export default function ChatProviderGlobal() {
   const updateLastMessage = useChatStore((s) => s.updateLastMessage);
 
   useEffect(() => {
-    chatSocket.connect();
+    const handleConnect = () => {
+      chatSocket.join();
+    };
 
-    chatSocket.join();
+    chatSocket.connect();
+    chatSocket.onConnect(handleConnect);
 
     chatSocket.onDisconnect((reason) => {
       if (reason === 'io server disconnect') {
-        toast.error('Chat', {
-          description: 'Phiên kết nối đã hết hạn',
-        });
+        // toast.error('Chat', {
+        //   description: 'Phiên kết nối đã hết hạn',
+        // });
       } else {
         toast.error('Chat', {
           description: 'Mất kết nối. Đang thử kết nối lại...',
@@ -32,22 +35,19 @@ export default function ChatProviderGlobal() {
       }
     });
 
-    chatSocket.onConnectError(() => {
-      toast.error('Chat', {
-        description: 'Không thể kết nối đến server',
-      });
-    });
+    // chatSocket.onConnectError(async () => {
+    // toast.error('Chat', {
+    //   description: 'Không thể kết nối đến server',
+    // });
+    // });
 
     chatSocket.onReconnect(() => {
-      toast.success('Chat', {
-        description: 'Đã kết nối lại',
-      });
-
       chatSocket.join();
 
       const activeConversationId = useChatStore.getState().activeConversationId;
       if (activeConversationId) {
         chatSocket.join(activeConversationId);
+        alert('Đã kết nối lại chat, join lại phòng' + `${activeConversationId}`);
       }
     });
 
@@ -144,5 +144,5 @@ export default function ChatProviderGlobal() {
     };
   }, []);
 
-  return null;
+  return <div></div>;
 }
