@@ -24,7 +24,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ReactQueryProvider>
           {children}
           <ToastProvider />
-          {isLogin && <ChatProviderGlobalLoader />}
+          {/* {isLogin && <ChatProviderGlobalLoader />} */}
+          <ChatProviderGlobalLoader />
         </ReactQueryProvider>
       </body>
     </html>
