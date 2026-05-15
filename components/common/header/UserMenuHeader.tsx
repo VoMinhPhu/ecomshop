@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
@@ -13,7 +14,9 @@ import { Button } from '@/components/ui/button';
 import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { FileBox, KeyRound, LayoutDashboard, Loader, LogInIcon, LogOut, MapPin, Package, User } from 'lucide-react';
 
-import AuthPopup from '@/components/auth/AuthPopup';
+const AuthPopup = dynamic(() => import('@/components/auth/AuthPopup'), {
+  ssr: false,
+});
 import { UserRole } from '@/types/users.type';
 
 const UserMenuHeader = () => {

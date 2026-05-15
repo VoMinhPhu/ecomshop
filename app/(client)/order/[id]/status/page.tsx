@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { useParams, useSearchParams } from 'next/navigation';
 
 import { formatCurrency } from '@/utils/number.utils';
@@ -9,11 +10,14 @@ import { useGetDetailOrder } from '@/hooks/api/order.hook';
 
 import { Loader, ShoppingCartIcon } from 'lucide-react';
 
-import Lottie from 'lottie-react';
 import successAnimation from '@/public/icons/success.json';
 
 import { Button } from '@/components/ui/button';
 import StepperOrder from '@/components/order/StepperOrder';
+
+const Lottie = dynamic(() => import('lottie-react'), {
+  ssr: false,
+});
 
 const page = () => {
   const searchParams = useSearchParams();

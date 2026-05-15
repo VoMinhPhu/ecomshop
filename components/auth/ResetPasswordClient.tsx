@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import Lottie from 'lottie-react';
 import { KeyRound, Loader } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -21,6 +21,10 @@ import { formResetPasswordSchema, FormResetPasswordType } from '@/schemas/auth.s
 import { cn } from '@/lib/utils';
 
 import successAnimation from '@/public/icons/success.json';
+
+const Lottie = dynamic(() => import('lottie-react'), {
+  ssr: false,
+});
 
 export default function ResetPasswordClient() {
   const searchParams = useSearchParams();

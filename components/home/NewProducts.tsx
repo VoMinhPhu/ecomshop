@@ -9,7 +9,11 @@ export default async function NewProducts() {
     <div className="bg-white mt-4 rounded-md md:p-4 p-2 md:pb-12 pb-6 gap-2">
       <div className="flex items-center justify-between">
         <p className="font-bold text-lg">Những sản phẩm mới của cửa hàng</p>
-        <Link href="/products?sort=newest" className="text-primary text-sm font-semibold">
+        <Link
+          aria-label="Xem tất cả sản phẩm"
+          href="/products?sort=newest"
+          className="text-primary text-sm font-semibold"
+        >
           Xem tất cả
         </Link>
       </div>

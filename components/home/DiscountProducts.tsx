@@ -10,7 +10,7 @@ export default async function DiscountProducts() {
     <div className="bg-gradient-to-b from-red-400 to-white mt-4 rounded-md md:p-4 p-2 md:pb-12 pb-6 gap-2">
       <div className="flex items-center justify-between">
         <p className="font-bold text-lg">Giá tốt hôm nay</p>
-        <Link href="/products" className="text-sm font-semibold">
+        <Link aria-label="Xem tất cả sản phẩm" href="/products" className="text-sm font-semibold">
           Xem tất cả
         </Link>
       </div>

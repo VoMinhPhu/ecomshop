@@ -2,16 +2,20 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { HomeIcon, LayersIcon, Package2Icon, ShoppingCartIcon, UserIcon } from 'lucide-react';
 
 import useUserStore from '@/stores/user.store';
 import { Category } from '@/types/categories.type';
 import { useBottomNavVisible } from '@/hooks/ui/useBottomNavVisible';
 
-import AuthPopup from '@/components/auth/AuthPopup';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 import CategoriesOnMobile from './CategoriesOnMobile';
+
+const AuthPopup = dynamic(() => import('@/components/auth/AuthPopup'), {
+  ssr: false,
+});
 
 type Props = {
   categories?: Category[];
@@ -86,7 +90,7 @@ export default function NavBottomOnMobile({ categories = [] }: Props) {
         )}
       </nav>
 
-      <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />
+      {openAuth && <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />}
     </>
   );
 }

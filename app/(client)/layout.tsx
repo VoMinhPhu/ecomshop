@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 
-import { cookies } from 'next/headers';
 import Header from '@/components/common/header/Header';
 import Footer from '@/components/common/footer/Footer';
 import ChatProvider from '@/components/chat/ChatProvider';
-import NavBottomOnMobile from '@/components/common/nav/NavBottomOnMobile';
+import NavBottomOnMobileLoader from '@/components/common/nav/NavBottomOnMobileLoader';
 
 import { getAllCategories } from '@/lib/server/product.server';
 
@@ -19,8 +18,6 @@ export default async function ClientLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const isLogin = cookieStore.get('refresh_token');
   const categories = await getAllCategories();
 
   return (
@@ -28,8 +25,8 @@ export default async function ClientLayout({
       <Header />
       <main className="md:mt-36 lg:mt-20">{children}</main>
       <Footer />
-      <NavBottomOnMobile categories={categories} />
-      <ChatProvider isLogin={!!isLogin} />
+      <NavBottomOnMobileLoader categories={categories} />
+      <ChatProvider />
     </>
   );
 }

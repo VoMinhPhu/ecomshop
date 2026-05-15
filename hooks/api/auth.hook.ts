@@ -214,14 +214,14 @@ const useCheckIsAdmin = () => {
   });
 };
 
-const useVerifyAccount = (code: string) => {
+const useVerifyAccount = (code?: string | null) => {
   return useQuery({
-    queryKey: ['verify'],
-    queryFn: () => verifyAccountFn(code),
+    queryKey: ['verify', code],
+    queryFn: () => verifyAccountFn(code!),
     retry: 1,
+    enabled: !!code,
   });
 };
-
 export {
   useLogin,
   useLogout,

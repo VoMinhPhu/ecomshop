@@ -1,5 +1,9 @@
 import Image from 'next/image';
-import ManageImageDialog from './ManageImageDialog';
+import dynamic from 'next/dynamic';
+
+const ManageImageDialog = dynamic(() => import('./ManageImageDialog'), {
+  ssr: false,
+});
 
 type Props = {
   productId: string;
