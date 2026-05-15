@@ -1,6 +1,5 @@
 'use client';
 
-import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -38,7 +37,7 @@ const UserInfoForm = ({ user }: Props) => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof updateUserInfoSchema>) => {
+  const onSubmit = (values: UpdateUserInfoType) => {
     const payload = {
       ...values,
       dateOfBirth: values.dateOfBirth ?? undefined,

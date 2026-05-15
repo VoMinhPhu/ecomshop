@@ -24,12 +24,14 @@ const ProductCard = ({ product }: Props) => {
           height={160}
           className="mx-auto rounded-t-md md:rounded-t-none"
         />
+
         <Image
-          src={'/chinh-hang.png'}
-          alt={product.name}
+          src="/chinh-hang.png"
+          alt="Icon chính hãng"
           width={160}
           height={160}
-          className="absolute w-full h-full bottom-0"
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 w-full h-full object-left"
         />
       </div>
 

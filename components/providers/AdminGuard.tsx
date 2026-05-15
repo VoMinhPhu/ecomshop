@@ -15,7 +15,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
   }, [data, isLoading, isError]);
 
   if (isLoading) return null;
-  if (isError) return;
+  if (isError) return null;
 
   return <>{children}</>;
 }

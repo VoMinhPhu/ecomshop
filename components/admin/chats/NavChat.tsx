@@ -66,7 +66,7 @@ export default function NavChat() {
             <div className="relative flex min-w-12 h-12 m-2">
               <Image
                 src={c.user.avatar || '/avatar.svg'}
-                alt="User name"
+                alt={`Avatar user ${c.user.username}`}
                 width={48}
                 height={48}
                 className="w-12 h-12 block border rounded-full"
@@ -74,7 +74,7 @@ export default function NavChat() {
               <span className="absolute bottom-0.25 right-0.25 w-2.75 h-2.75 bg-green-400 rounded-full"></span>
             </div>
             <div className="flex flex-col w-full justify-start gap-0 pt-2">
-              <p className="font-semibold">{c.user.username}</p>
+              <p className="font-semibold max-w-46 truncate">{c.user.username}</p>
               <p className="text-sm text-gray-700 truncate max-w-46">
                 {c.revoked ? <span className="italic opacity-70">Tin nhắn đã bị thu hồi</span> : c.lastMessage}
               </p>

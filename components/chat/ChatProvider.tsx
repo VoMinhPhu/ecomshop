@@ -1,7 +1,16 @@
 'use client';
 
-import RenderChatOnPage from './RenderChatOnPage';
+import dynamic from 'next/dynamic';
+import useUserStore from '@/stores/user.store';
 
-export default function ChatProvider({ isLogin }: { isLogin: boolean }) {
-  return isLogin ? <RenderChatOnPage /> : null;
+const RenderChatOnPage = dynamic(() => import('./RenderChatOnPage'), {
+  ssr: false,
+});
+
+export default function ChatProvider() {
+  const email = useUserStore((s) => s.user?.email);
+
+  if (!email) return null;
+
+  return <RenderChatOnPage />;
 }

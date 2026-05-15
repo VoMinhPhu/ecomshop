@@ -1,8 +1,8 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
-import { MenuIcon, SearchIcon, XIcon } from 'lucide-react';
-import { TypeAnimation } from 'react-type-animation';
+import { SearchIcon, XIcon } from 'lucide-react';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -10,8 +10,13 @@ import { Button } from '@/components/ui/button';
 import { useDebounce } from '@/hooks/ui/header/useDebounce';
 import { SEARCH_KEYWORDS } from '@/constants/searchKeywords';
 
-import SearchDropdown from './SearchDropdown';
 import SearchKeywords from './SearchKeywords';
+
+const TypeAnimation = dynamic(() => import('react-type-animation').then((mod) => mod.TypeAnimation), { ssr: false });
+
+const SearchDropdown = dynamic(() => import('./SearchDropdown'), {
+  ssr: false,
+});
 
 const TYPE_ANIMATION_SEQUENCE = [
   'Tìm kiếm sản phẩm...',
@@ -85,7 +90,7 @@ const SectionSearch = () => {
           />
         </span>
 
-        <Button className="absolute top-0 right-0 w-15 rounded-r-sm rounded-l-none">
+        <Button aria-label="Search button" className="absolute top-0 right-0 w-15 rounded-r-sm rounded-l-none">
           <SearchIcon />
         </Button>
 

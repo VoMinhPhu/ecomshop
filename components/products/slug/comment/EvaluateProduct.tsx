@@ -89,7 +89,7 @@ export default function EvaluateProduct({ productId }: Props) {
           </div>
         </div>
       </div>
-      <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />
+      {openAuth && <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />}
     </div>
   );
 }

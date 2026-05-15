@@ -112,7 +112,7 @@ export default function ManageBuyProduct({ productId, quantity, setQuantity, sto
           </Button>
         )}
       </div>
-      <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />
+      {openAuth && <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />}
     </div>
   );
 }

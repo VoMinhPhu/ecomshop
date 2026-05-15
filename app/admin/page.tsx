@@ -1,6 +1,6 @@
 import RecentOrders from '@/components/admin/home/RecentOrders';
-import RevenueChart from '@/components/admin/home/RevenueChart';
 import StatsOverview from '@/components/admin/home/StatsOverview';
+import RevenueChartLoader from '@/components/admin/home/RevenueChartLoader';
 
 export default function page() {
   return (
@@ -10,7 +10,7 @@ export default function page() {
         <h3 className="mt-2 text-zinc-500">Chào mừng admin đến với giao diện quản trị.</h3>
       </div>
       <StatsOverview />
-      <RevenueChart />
+      <RevenueChartLoader />
       <div className="mt-5 grid grid-cols-1">
         <RecentOrders />
       </div>

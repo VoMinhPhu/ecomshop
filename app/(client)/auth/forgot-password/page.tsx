@@ -1,11 +1,12 @@
 'use client';
 
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/lib/utils';
-import Lottie from 'lottie-react';
+
 import { Loader, LogIn } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -16,6 +17,10 @@ import { useForgotPassword } from '@/hooks/api/auth.hook';
 import { formforgotPasswordSchema, FormForgotPasswordType } from '@/schemas/auth.schema';
 
 import successAnimation from '@/public/icons/success.json';
+
+const Lottie = dynamic(() => import('lottie-react'), {
+  ssr: false,
+});
 
 export default function page() {
   const { mutate: forgotPasswordMutate, isPending, isSuccess } = useForgotPassword();

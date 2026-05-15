@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 
-import Lottie from 'lottie-react';
+import { useSearchParams, useRouter } from 'next/navigation';
+
 import { Loader } from 'lucide-react';
 
 import successAnimation from '@/public/icons/success.json';
@@ -17,20 +18,25 @@ import { useVerifyAccount } from '@/hooks/api/auth.hook';
 import { Button } from '../ui/button';
 import AuthPopup from '../auth/AuthPopup';
 
-type Props = {
-  verify: string;
-};
+const Lottie = dynamic(() => import('lottie-react'), {
+  ssr: false,
+});
 
-export default function VerifyPopup({ verify }: Props) {
+export default function VerifyPopup() {
   const router = useRouter();
   const [openAuth, setOpenAuth] = useState<boolean>(false);
-
   const user = useUserStore((s) => s.user);
+
+  const searchParams = useSearchParams();
+  const verify = searchParams.get('verify');
   const { isLoading, isSuccess, isError } = useVerifyAccount(verify);
+
+  if (!verify) return null;
 
   const closeVerifySection = () => {
     router.replace('/', { scroll: false });
   };
+
   return (
     <div
       onClick={closeVerifySection}
@@ -71,7 +77,8 @@ export default function VerifyPopup({ verify }: Props) {
           Đóng
         </Button>
       </div>
-      <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />
+
+      {openAuth && <AuthPopup open={openAuth} onOpenChange={setOpenAuth} />} 
     </div>
   );
 }

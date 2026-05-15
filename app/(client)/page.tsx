@@ -2,14 +2,12 @@ import Banner from '@/components/home/Banner';
 import TopSell from '@/components/home/TopSell';
 import Categories from '@/components/home/Categories';
 import NewProducts from '@/components/home/NewProducts';
-import VerifyPopup from '@/components/home/VerifyPopup';
 import DiscountProducts from '@/components/home/DiscountProducts';
+import VerifyPopupLoader from '@/components/home/VerifyPopupLoader';
 
 import { getAllCategories } from '@/lib/server/product.server';
 
-export default async function Home({ searchParams }: { searchParams: { verify?: string } }) {
-  const verify = (await searchParams).verify;
-
+export default async function Home() {
   //Fix hydration
   const categories = await getAllCategories();
 
@@ -24,7 +22,8 @@ export default async function Home({ searchParams }: { searchParams: { verify?: 
           <NewProducts />
         </div>
       </div>
-      {verify && <VerifyPopup verify={verify} />}
+
+      <VerifyPopupLoader />
     </div>
   );
 }

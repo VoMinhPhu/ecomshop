@@ -9,7 +9,7 @@ export default async function TopSell() {
     <div className="bg-gradient-to-b from-green-100 to-white mt-4 rounded-md md:p-4 p-2 md:pb-12 pb-6 gap-2">
       <div className="flex items-center justify-between">
         <p className="font-bold text-lg">Những sản phẩm bán chạy nhất</p>
-        <Link href="/products" className="text-primary text-sm font-semibold">
+        <Link aria-label="Xem tất cả sản phẩm" href="/products" className="text-primary text-sm font-semibold">
           Xem tất cả
         </Link>
       </div>

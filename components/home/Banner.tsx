@@ -52,7 +52,16 @@ const Banner = () => {
         <CarouselContent>
           {banners.map((item, i) => (
             <CarouselItem key={i} className="pl-4 lg:basis-1/2">
-              <Image src={item} width={468} height={263} alt={item} className="h-auto rounded-md w-full lg:w-117" />
+              <Image
+                src={item}
+                width={468}
+                height={263}
+                alt={item}
+                quality={70}
+                priority={i === 0}
+                fetchPriority={i === 0 ? 'high' : 'auto'}
+                className="h-auto rounded-md w-full lg:w-117"
+              />
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -65,6 +74,7 @@ const Banner = () => {
         {Array.from({ length: count }).map((_, i) => (
           <Button
             key={i}
+            aria-label={`Chuyển đến banner ${i + 1}`}
             className={cn(
               `h-0.75 w-6 p-0 rounded-full transition-colors bg-gray-300 cursor-pointer`,
               i === selectedIndex && 'bg-primary',
